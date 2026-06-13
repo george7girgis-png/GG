@@ -594,12 +594,19 @@ $(function () {
         }, 0);
 
         /* video page: clean up grid/feed UI when leaving Videos.html */
-        if (!document.getElementById('videoGrid')) {
+        var onVideoPage = !!document.getElementById('videoGrid');
+        if (!onVideoPage) {
             var oldBack = document.getElementById('milFeedBackBtn');
             if (oldBack) oldBack.remove();
             var oldFs = document.getElementById('milFsViewer');
             if (oldFs) oldFs.remove();
         }
+
+        /* hide/show theme toggles — only belong on Videos.html */
+        var deskToggle = document.getElementById('vid-theme-toggle-desk');
+        var mobToggle  = document.getElementById('vid-theme-toggle-mob');
+        if (deskToggle) deskToggle.style.display = onVideoPage ? '' : 'none';
+        if (mobToggle)  mobToggle.style.display  = onVideoPage ? '' : 'none';
 
         /* video page: re-init filter + player after Swup navigation */
         if (document.getElementById('videoGrid')) {
@@ -1138,12 +1145,26 @@ $(function () {
                 document.body.style.overflow = '';
             }
 
+            function fitFsVideo() {
+                var vw = fsEl.clientWidth  || window.innerWidth;
+                var vh = fsEl.clientHeight || window.innerHeight;
+                var vn = fsVideo.videoWidth;
+                var hn = fsVideo.videoHeight;
+                if (!vn || !hn) return;
+                var scale = Math.min(vw / vn, vh / hn);
+                fsVideo.style.width  = Math.round(vn * scale) + 'px';
+                fsVideo.style.height = Math.round(hn * scale) + 'px';
+            }
+
             function loadFsSlide(idx) {
                 var src = fsCards[idx].querySelector('video').getAttribute('src');
+                fsVideo.style.width  = '100%';
+                fsVideo.style.height = '100%';
                 fsVideo.src = src;
                 fsVideo.removeAttribute('muted');
                 fsVideo.muted = false;
                 fsVideo.controls = true;
+                fsVideo.addEventListener('loadedmetadata', fitFsVideo, { once: true });
                 fsVideo.play().catch(function () {});
                 fsCounter.textContent = (idx + 1) + ' / ' + fsCards.length;
             }
@@ -1274,14 +1295,34 @@ $(function () {
                         thumb.classList.remove('mil-playing');
                         return;
                     }
-                    /* First tap or tap on a different video → feed mode + play */
+                    /* First tap or tap on a different video → zoom + feed mode + play */
                     if (!inFeed) {
-                        grid.classList.add('mil-feed-mode');
-                        backBtn.classList.add('mil-visible');
                         var card2 = thumb.closest('.mil-video-card');
+                        if (card2) card2.classList.add('mil-card-zooming');
                         setTimeout(function () {
-                            if (card2) card2.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                        }, 60);
+                            if (card2) card2.classList.remove('mil-card-zooming');
+                            grid.classList.add('mil-feed-mode');
+                            grid.querySelectorAll('.mil-video-card').forEach(function(c) {
+                                c.classList.add('mil-card-visible');
+                            });
+                            backBtn.classList.add('mil-visible');
+                            var clWrap = document.getElementById('milCloserLookWrap');
+                            if (clWrap) clWrap.style.display = 'none';
+                            document.querySelectorAll('.mil-video-thumb.mil-playing').forEach(function (ot) {
+                                var ov2 = ot.querySelector('video');
+                                if (ov2) { ov2.pause(); ov2.controls = false; }
+                                ot.classList.remove('mil-playing');
+                            });
+                            video.removeAttribute('muted');
+                            video.muted = false;
+                            video.controls = true;
+                            video.play().catch(function () {});
+                            thumb.classList.add('mil-playing');
+                            setTimeout(function () {
+                                if (card2) card2.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                            }, 200);
+                        }, 320);
+                        return;
                     }
                     document.querySelectorAll('.mil-video-thumb.mil-playing').forEach(function (ot) {
                         var ov2 = ot.querySelector('video');
@@ -1312,16 +1353,14 @@ $(function () {
             if (fsBtn) {
                 fsBtn.addEventListener('click', function (e) {
                     e.stopPropagation();
-                    if (video) {
-                        if (video.webkitEnterFullscreen) {
-                            video.webkitEnterFullscreen();
-                        } else if (video.requestFullscreen) {
-                            video.requestFullscreen();
-                        } else if (video.webkitRequestFullscreen) {
-                            video.webkitRequestFullscreen();
-                        } else if (video.mozRequestFullScreen) {
-                            video.mozRequestFullScreen();
-                        }
+                    var fsViewer = document.getElementById('milFsViewer');
+                    if (fsViewer && fsViewer._open) {
+                        var visibleCards = Array.from(document.querySelectorAll('.mil-video-card')).filter(function (c) {
+                            return c.offsetParent !== null;
+                        });
+                        var card = thumb.closest('.mil-video-card');
+                        var idx = visibleCards.indexOf(card);
+                        fsViewer._open(visibleCards, idx >= 0 ? idx : 0);
                     }
                 });
             }

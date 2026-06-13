@@ -33,7 +33,14 @@
   background: none !important;
   border: none !important;
   padding: 0 !important;
-  margin-bottom: 60px !important;
+  margin-bottom: 16px !important;
+}
+
+/* Desktop: reduce top padding of portfolio section so filter bar is near the videos */
+@media (min-width: 576px) {
+  #portfolio .mil-p-120-60 {
+    padding-top: 50px !important;
+  }
 }
 
 .mil-filter-btn {
@@ -145,6 +152,38 @@
   color: rgba(255,255,255,0.9) !important;
 }
 
+
+
+/* ══════════════════════════════════════════════════════════
+   TAKE A CLOSER LOOK BUTTON — phone only
+   ══════════════════════════════════════════════════════════ */
+#milCloserLookWrap {
+  display: none !important;
+}
+@media (max-width: 575px) {
+  #milCloserLookWrap {
+    display: block !important;
+  }
+}
+#milCloserLookBtn {
+  color: rgb(255,152,0) !important;
+}
+#milCloserLookBtn svg {
+  background-color: rgba(0,0,0,0.1) !important;
+}
+#milCloserLookBtn svg path {
+  fill: rgb(255,152,0) !important;
+}
+
+/* ══════════════════════════════════════════════════════════
+   FULLSCREEN BUTTON — top right on desktop
+   ══════════════════════════════════════════════════════════ */
+@media (min-width: 576px) {
+  .mil-video-fullscreen-btn {
+    top: 10px !important;
+    bottom: auto !important;
+  }
+}
 
 
 /* ══════════════════════════════════════════════════════════
@@ -265,9 +304,34 @@
    ══════════════════════════════════════════════════════════ */
 @media (max-width: 575px) {
 
-  /* Grid view: 3-column instagram grid — near-zero gap */
+  /* Grid view: 3-column instagram grid */
   .mil-video-grid-v2:not(.mil-feed-mode) {
-    gap: 0.5px !important;
+    gap: 4px !important;
+  }
+
+  /* Hover: scale up card thumb slightly */
+  .mil-video-grid-v2:not(.mil-feed-mode) .mil-video-thumb {
+    transition: transform 0.25s cubic-bezier(0.34, 1.4, 0.64, 1) !important;
+  }
+  .mil-video-grid-v2:not(.mil-feed-mode) .mil-video-card:active .mil-video-thumb,
+  .mil-video-grid-v2:not(.mil-feed-mode) .mil-video-card:hover .mil-video-thumb {
+    transform: scale(1.04) !important;
+  }
+
+  /* Feed mode: always show cards fully (safety reset for animation state) */
+  #videoGrid.mil-feed-mode .mil-video-card {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  /* Tap zoom-in animation */
+  @keyframes milCardZoom {
+    0%   { transform: scale(1); }
+    60%  { transform: scale(1.18); }
+    100% { transform: scale(1); }
+  }
+  #videoGrid:not(.mil-feed-mode) .mil-video-card.mil-card-zooming .mil-video-thumb {
+    animation: milCardZoom 0.32s cubic-bezier(0.34, 1.5, 0.64, 1) forwards;
   }
 
   /* Feed/stack view: generous space between each video */
@@ -300,6 +364,46 @@
   }
   .mil-video-tag {
     font-size: 11px !important;
+  }
+
+  /* Grid cards: rounded corners */
+  .mil-video-grid-v2:not(.mil-feed-mode) .mil-video-thumb {
+    border-radius: 4px !important;
+    overflow: hidden !important;
+  }
+
+  /* Title overlay inside each card thumb */
+  .mil-card-title-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 20px 7px 6px;
+    background: linear-gradient(to top, rgba(0,0,0,0.78) 0%, transparent 100%);
+    color: #fff;
+    font-size: 8px;
+    font-weight: 600;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    pointer-events: none;
+    z-index: 2;
+  }
+  .mil-video-grid-v2.mil-feed-mode .mil-card-title-bar {
+    display: none !important;
+  }
+
+  /* Scroll entrance animation */
+  #videoGrid:not(.mil-feed-mode) .mil-video-card {
+    opacity: 0;
+    transform: scale(0.88);
+    transition: opacity 0.38s ease, transform 0.38s cubic-bezier(0.34, 1.3, 0.64, 1);
+  }
+  #videoGrid:not(.mil-feed-mode) .mil-video-card.mil-card-visible {
+    opacity: 1;
+    transform: scale(1);
   }
 }
 </style>
@@ -498,6 +602,11 @@
                             <button class="mil-filter-btn" data-filter="interviews">Interviews</button>
                         </div>
 
+                        <!-- closer look cta -->
+                        <div id="milCloserLookWrap" class="mil-up" style="margin-top: -52px; margin-bottom: 32px; text-align: right;">
+                            <a href="#" id="milCloserLookBtn" class="mil-link mil-dark mil-arrow-place mil-down-arrow"><span>TAKE A CLOSER LOOK</span></a>
+                        </div>
+
                         <!-- video grid -->
                         <div class="mil-video-grid-wrap">
                             <div class="mil-lines-place mil-light"></div>
@@ -548,7 +657,7 @@
                                     <h6>Change The Game</h6>
                                 </div>
                             </div>
-                            <div class="mil-video-card video-1 vg-span" data-category="reels social-media motion-graphics">
+                            <div class="mil-video-card video-1 vg-span" id="milMichelinCard" data-category="reels social-media motion-graphics">
                                 <div class="mil-video-thumb">
                                     <video src="Videos/1 michelin-had-a-problem ( (motion graphics, social media, Reels).mp4" poster="Videos/1 michelin-had-a-problem ( (motion graphics, social media, Reels).png" preload="metadata" muted playsinline></video>
                                     <div class="mil-video-play-btn"><i class="fas fa-play"></i></div>
@@ -1360,6 +1469,74 @@
         var mobIcon = document.querySelector('#vid-theme-toggle-mob i');
         mobIcon.className = isDark ? 'fas fa-moon' : 'fas fa-sun';
     }
+
+    // Phone grid: inject title overlays into each card thumb
+    function initCardTitleOverlays() {
+        document.querySelectorAll('#videoGrid .mil-video-card').forEach(function(card) {
+            if (card.querySelector('.mil-card-title-bar')) return;
+            var h6 = card.querySelector('.mil-video-info h6');
+            if (!h6) return;
+            var bar = document.createElement('div');
+            bar.className = 'mil-card-title-bar';
+            bar.textContent = h6.textContent.trim();
+            var thumb = card.querySelector('.mil-video-thumb');
+            if (thumb) thumb.appendChild(bar);
+        });
+    }
+
+    // Phone grid: scroll entrance animation
+    function initCardScrollAnim() {
+        if (window.innerWidth >= 576) return;
+        var cards = Array.from(document.querySelectorAll('#videoGrid .mil-video-card'));
+        if (!cards.length) return;
+        var observer = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (!entry.isIntersecting) return;
+                var card = entry.target;
+                var col = cards.indexOf(card) % 3;
+                setTimeout(function() { card.classList.add('mil-card-visible'); }, col * 70);
+                observer.unobserve(card);
+            });
+        }, { threshold: 0.06, rootMargin: '0px 0px -12px 0px' });
+        cards.forEach(function(c) { observer.observe(c); });
+    }
+
+    (function() {
+        function setup() {
+            if (!document.getElementById('videoGrid')) return;
+            initCardTitleOverlays();
+            initCardScrollAnim();
+        }
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', setup);
+        } else {
+            setup();
+        }
+    })();
+
+    // "TAKE A CLOSER LOOK" → switch to feed mode and scroll to grid
+    (function() {
+        var btn = document.getElementById('milCloserLookBtn');
+        if (!btn) return;
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            var grid = document.getElementById('videoGrid');
+            if (!grid) return;
+            grid.classList.add('mil-feed-mode');
+            // Mark all cards visible so animation state doesn't hide them
+            grid.querySelectorAll('.mil-video-card').forEach(function(c) {
+                c.classList.add('mil-card-visible');
+            });
+            var backBtn = document.getElementById('milFeedBackBtn');
+            if (backBtn) backBtn.classList.add('mil-visible');
+            var wrap = document.getElementById('milCloserLookWrap');
+            if (wrap) wrap.style.display = 'none';
+            setTimeout(function() {
+                var target = document.getElementById('milMichelinCard') || grid.querySelector('.mil-video-card');
+                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 150);
+        });
+    })();
 
     // Flip animation for mobile toggle
     (function() {
