@@ -32,7 +32,6 @@
   gap: 0 !important;
   background: none !important;
   border: none !important;
-  border-bottom: 1px solid rgba(0,0,0,0.07) !important;
   padding: 0 !important;
   margin-bottom: 60px !important;
 }
@@ -45,7 +44,6 @@
   border-bottom: 2px solid transparent !important;
   border-radius: 0 !important;
   padding: 12px 16px !important;
-  margin-bottom: -1px !important;
   font-family: "Outfit", sans-serif !important;
   font-size: 11px !important;
   font-weight: 700 !important;
@@ -163,13 +161,21 @@
 /* ══════════════════════════════════════════════════════════
    BANNER SOFTWARE PARAGRAPH
    ══════════════════════════════════════════════════════════ */
+/* Banner h1 — larger */
+.mil-inner-banner h1 { font-size: 104px !important; }
+@media screen and (max-width: 1400px) { .mil-inner-banner h1 { font-size: 90px !important; } }
+@media screen and (max-width: 1200px) { .mil-inner-banner h1 { font-size: 82px !important; } }
+@media screen and (max-width: 992px)  { .mil-inner-banner h1 { font-size: 66px !important; } }
+@media screen and (max-width: 768px)  { .mil-inner-banner h1 { font-size: 44px !important; } }
+@media screen and (max-width: 575px)  { .mil-inner-banner h1 { font-size: 38px !important; } }
+
 .mil-banner-tools {
   color: rgba(0,0,0,0.55);
-  font-size: 20px;
+  font-size: 15px;
   font-weight: 400;
-  line-height: 1.9;
+  line-height: 1.8;
   letter-spacing: 0.1px;
-  max-width: 620px;
+  max-width: 560px;
   margin: 0;
 }
 .mil-banner-tools strong {
@@ -180,6 +186,119 @@
   color: rgba(0,0,0,0.55);
   font-weight: 400;
   font-style: normal;
+}
+
+/* ══════════════════════════════════════════════════════════
+   DESKTOP GRID ENHANCEMENTS
+   ══════════════════════════════════════════════════════════ */
+
+/* More space between rows and between cards within groups */
+:root { --vg-gap: 36px; }
+
+/* More breathing room between thumbnail and text */
+.mil-video-info {
+  padding: 22px 0 36px !important;
+}
+
+/* Tags: 20% larger, more horizontal gap */
+.mil-video-tags {
+  gap: 12px !important;
+  margin-bottom: 10px !important;
+}
+.mil-video-tag {
+  font-size: 11px !important;
+}
+
+/* Alternating tag colors: odd = orange, even = gray */
+.mil-video-tag:nth-child(odd) {
+  color: rgb(255,152,0) !important;
+}
+.mil-video-tag:nth-child(even) {
+  color: rgba(0,0,0,0.38) !important;
+}
+
+/* Dark mode alternating: gray becomes lighter */
+#vid-theme-wrap.mil-dark-bg .mil-video-tag:nth-child(even) {
+  color: rgba(255,255,255,0.38) !important;
+}
+
+/* ══════════════════════════════════════════════════════════
+   GALLERY LINES — show on all screen sizes, theme-aware color
+   ══════════════════════════════════════════════════════════ */
+.mil-video-grid-wrap .mil-lines-place .mil-lines {
+  display: block !important;
+  opacity: 0.06 !important;
+}
+/* Light mode: dark strokes (override the mil-light white default) */
+.mil-video-grid-wrap .mil-lines-place .mil-lines path,
+.mil-video-grid-wrap .mil-lines-place .mil-lines rect,
+.mil-video-grid-wrap .mil-lines-place .mil-lines line {
+  stroke: rgb(0,0,0) !important;
+}
+/* Dark mode: white strokes, more visible */
+#vid-theme-wrap.mil-dark-bg .mil-video-grid-wrap .mil-lines-place .mil-lines {
+  opacity: 0.18 !important;
+}
+#vid-theme-wrap.mil-dark-bg .mil-video-grid-wrap .mil-lines-place .mil-lines path,
+#vid-theme-wrap.mil-dark-bg .mil-video-grid-wrap .mil-lines-place .mil-lines rect,
+#vid-theme-wrap.mil-dark-bg .mil-video-grid-wrap .mil-lines-place .mil-lines line {
+  stroke: rgb(255,255,255) !important;
+}
+
+/* ══════════════════════════════════════════════════════════
+   BANNER GRAPHIC — show on phone (hidden below 1400px by default)
+   ══════════════════════════════════════════════════════════ */
+.mil-inner-banner .mil-position-4 {
+  display: inline-block !important;
+}
+@media (max-width: 575px) {
+  .mil-inner-banner .mil-position-4 {
+    width: 160px !important;
+    height: 160px !important;
+    top: -20px !important;
+    right: 5% !important;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════
+   PHONE MODE SPACING
+   ══════════════════════════════════════════════════════════ */
+@media (max-width: 575px) {
+
+  /* Grid view: 70% tighter gaps between cards */
+  :root { --vg-gap: 8px; }
+
+  /* Feed/stack view: generous space between each video */
+  .mil-video-grid-v2.mil-feed-mode {
+    gap: 56px !important;
+  }
+
+  /* Feed: more space between card info and next video */
+  .mil-video-grid-v2.mil-feed-mode .mil-video-info {
+    padding: 16px 0 0 !important;
+  }
+
+  /* Feed: more space between tags row and video title */
+  .mil-video-grid-v2.mil-feed-mode .mil-video-tags {
+    gap: 10px !important;
+    margin-bottom: 14px !important;
+  }
+  .mil-video-grid-v2.mil-feed-mode .mil-video-info h6 {
+    margin-top: 0 !important;
+    border-bottom: none !important;
+  }
+  .mil-video-grid-v2.mil-feed-mode .mil-video-card {
+    border-bottom: none !important;
+  }
+
+  /* Grid: tag spacing */
+  .mil-video-tags {
+    gap: 10px !important;
+    margin-bottom: 8px !important;
+  }
+  .mil-video-tag {
+    font-size: 11px !important;
+  }
 }
 </style>
 
