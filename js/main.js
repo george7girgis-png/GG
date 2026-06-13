@@ -593,6 +593,12 @@ $(function () {
             scrollTop: 0,
         }, 0);
 
+        /* video page: re-init filter + player after Swup navigation */
+        if (document.getElementById('videoGrid')) {
+            window._videoActiveFilter = 'all';
+            window._initVideoPage();
+        }
+
         gsap.to('.mil-progress', {
             height: 0,
             ease: 'sine',
@@ -1024,3 +1030,115 @@ $(function () {
     });
 
 });
+
+/* ── Video portfolio: filter + inline player ─────────────────────────────── */
+(function () {
+    window._videoActiveFilter = 'all';
+
+    function applyFilter(filter) {
+        var grid = document.getElementById('videoGrid');
+        if (!grid) return;
+        if (filter === 'all') {
+            grid.classList.remove('mil-grid-filtered');
+        } else {
+            grid.classList.add('mil-grid-filtered');
+        }
+        grid.querySelectorAll('.mil-video-card').forEach(function (card) {
+            var cats = (card.getAttribute('data-category') || '').split(' ');
+            var match = filter === 'all' || cats.indexOf(filter) !== -1;
+            card.classList.toggle('mil-hidden', !match);
+        });
+        if (filter === 'social-media') {
+            grid.classList.add('mil-social-media');
+            grid.querySelectorAll('.vg-group').forEach(function (g) {
+                g.style.display = g.querySelector('.mil-video-card:not(.mil-hidden)') ? '' : 'none';
+            });
+        } else {
+            grid.classList.remove('mil-social-media');
+            grid.querySelectorAll('.vg-group').forEach(function (g) { g.style.display = ''; });
+        }
+    }
+
+    function initFilter() {
+        var bar = document.querySelector('.mil-filter-bar');
+        if (!bar || bar.dataset.ready) return;
+        bar.dataset.ready = '1';
+        applyFilter(window._videoActiveFilter);
+        bar.addEventListener('click', function (e) {
+            var btn = e.target.closest ? e.target.closest('.mil-filter-btn')
+                : (e.target.classList.contains('mil-filter-btn') ? e.target : null);
+            if (!btn) return;
+            var filter = btn.getAttribute('data-filter');
+            if (filter === window._videoActiveFilter) return;
+            window._videoActiveFilter = filter;
+            bar.querySelectorAll('.mil-filter-btn').forEach(function (b) { b.classList.remove('active'); });
+            btn.classList.add('active');
+            applyFilter(filter);
+        });
+    }
+
+    function initInlinePlayer() {
+        document.querySelectorAll('.mil-video-thumb').forEach(function (thumb) {
+            if (thumb.dataset.playerReady) return;
+            thumb.dataset.playerReady = '1';
+            thumb.style.cursor = 'pointer';
+            var fsBtn = thumb.querySelector('.mil-video-fullscreen-btn');
+            var video = thumb.querySelector('video');
+            var pauseBtn = document.createElement('button');
+            pauseBtn.className = 'mil-video-pause-btn';
+            pauseBtn.setAttribute('aria-label', 'Pause');
+            pauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+            thumb.appendChild(pauseBtn);
+            if (video) {
+                video.addEventListener('ended', function () {
+                    video.controls = false;
+                    thumb.classList.remove('mil-playing');
+                });
+            }
+            pauseBtn.addEventListener('click', function (e) {
+                e.stopPropagation();
+                if (video) { video.pause(); video.controls = false; }
+                thumb.classList.remove('mil-playing');
+            });
+            thumb.addEventListener('click', function (e) {
+                if (fsBtn && (e.target === fsBtn || fsBtn.contains(e.target))) return;
+                if (e.target === pauseBtn || pauseBtn.contains(e.target)) return;
+                if (thumb.classList.contains('mil-playing')) return;
+                if (!video) return;
+                document.querySelectorAll('.mil-video-thumb.mil-playing').forEach(function (ot) {
+                    var ov = ot.querySelector('video');
+                    if (ov) { ov.pause(); ov.controls = false; }
+                    ot.classList.remove('mil-playing');
+                });
+                video.removeAttribute('muted');
+                video.muted = false;
+                video.controls = true;
+                video.play();
+                thumb.classList.add('mil-playing');
+            });
+            if (fsBtn) {
+                fsBtn.addEventListener('click', function (e) {
+                    e.stopPropagation();
+                    var t = video || thumb;
+                    if (t.requestFullscreen) t.requestFullscreen();
+                    else if (t.webkitRequestFullscreen) t.webkitRequestFullscreen();
+                    else if (t.mozRequestFullScreen) t.mozRequestFullScreen();
+                });
+            }
+        });
+    }
+
+    window._initVideoPage = function () {
+        initFilter();
+        initInlinePlayer();
+    };
+
+    /* Run on direct page load */
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function () {
+            if (document.getElementById('videoGrid')) window._initVideoPage();
+        });
+    } else {
+        if (document.getElementById('videoGrid')) window._initVideoPage();
+    }
+}());
