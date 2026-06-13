@@ -4494,21 +4494,21 @@ html.is-animating .mil-menu-frame {
 }
 .mil-video-tag {
   font-family: "Outfit", sans-serif;
-  font-weight: 100;
+  font-weight: 600;
   font-size: 9px;
   letter-spacing: 2.5px;
   text-transform: uppercase;
-  padding: 3px 10px;
-  border-radius: 2px;
-  border: 1px solid rgba(180, 180, 180, 0.35);
-  color: rgba(100, 100, 100, 0.75);
-  background: transparent;
+  padding: 0;
+  border-radius: 0;
+  border: none;
+  color: rgb(255, 152, 0);
+  background: none;
   line-height: 1.4;
 }
 .mil-video-tag.mil-tag-primary {
-  border-color: rgb(255, 152, 0);
+  border: none;
+  background: none;
   color: rgb(255, 152, 0);
-  background: rgba(255, 152, 0, 0.06);
 }
 /* title — large, black, heavy */
 .mil-video-info h6 {
@@ -5210,22 +5210,29 @@ video:-moz-full-screen {
   .video-13 { order: -3;  }
   .video-4  { order: -2;  } /* Real Estate Testimony → 14th */
   .video-15 { order: -1;  }
-  /* Feed mode: compact inline tags + smaller title */
+  /* Feed mode: compact inline tags + smaller title, left-aligned */
   .mil-video-grid-v2.mil-feed-mode .mil-video-info {
-    padding: 8px 12px 18px !important;
+    padding: 8px 0 18px !important;
+    text-align: left !important;
   }
   .mil-video-grid-v2.mil-feed-mode .mil-video-tags {
     gap: 4px;
     margin-bottom: 5px;
+    justify-content: flex-start !important;
   }
   .mil-video-grid-v2.mil-feed-mode .mil-video-tag {
     font-size: 11px !important;
     letter-spacing: 1.5px !important;
-    padding: 4px 11px !important;
+    padding: 0 !important;
   }
   .mil-video-grid-v2.mil-feed-mode .mil-video-info h6 {
-    font-size: 15px !important;
+    font-size: 22px !important;
     margin: 4px 0 0 !important;
+    text-align: left !important;
+  }
+  /* Sharp edges on all video thumbs in phone mode */
+  .mil-video-thumb {
+    border-radius: 0 !important;
   }
 }
 
@@ -5366,8 +5373,9 @@ video:-moz-full-screen {
 }
 
 /* ── Portfolio dark-mode overrides ──────────────────────────────────────── */
-/* Filter buttons: light text on dark bg */
+/* Filter buttons: light text on dark bg, light-gray tint bar */
 .mil-dark-bg .mil-filter-bar {
+  background: rgba(255, 255, 255, 0.055);
   border-top-color: rgba(255, 255, 255, 0.08);
   border-bottom-color: rgba(255, 255, 255, 0.08);
 }
@@ -5385,15 +5393,16 @@ video:-moz-full-screen {
 .mil-dark-bg .mil-video-info h6 {
   color: rgba(255, 255, 255, 0.9);
 }
-/* Dark bg — tag chips */
+/* Dark bg — tag text only, no box */
 .mil-dark-bg .mil-video-tag {
-  color: rgba(220, 220, 220, 0.45);
-  border-color: rgba(255, 255, 255, 0.12);
+  color: rgb(255, 152, 0);
+  border: none;
+  background: none;
 }
 .mil-dark-bg .mil-video-tag.mil-tag-primary {
-  border-color: rgb(255, 152, 0);
+  border: none;
+  background: none;
   color: rgb(255, 152, 0);
-  background: rgba(255, 152, 0, 0.07);
 }
 /* Video card hover: keep visible on dark bg */
 .mil-dark-bg .mil-video-card:hover .mil-video-thumb::after {
