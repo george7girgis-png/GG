@@ -593,6 +593,14 @@ $(function () {
             scrollTop: 0,
         }, 0);
 
+        /* video page: clean up grid/feed UI when leaving Videos.html */
+        if (!document.getElementById('videoGrid')) {
+            var oldBack = document.getElementById('milFeedBackBtn');
+            if (oldBack) oldBack.remove();
+            var oldFs = document.getElementById('milFsViewer');
+            if (oldFs) oldFs.remove();
+        }
+
         /* video page: re-init filter + player after Swup navigation */
         if (document.getElementById('videoGrid')) {
             window._videoActiveFilter = 'all';
