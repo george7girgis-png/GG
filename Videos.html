@@ -1075,7 +1075,14 @@
                     if (e.target === pauseBtn || pauseBtn.contains(e.target)) return;
                     if (thumb.classList.contains('mil-playing')) return;
                     if (!video) return;
+                    // Pause all other playing videos
+                    document.querySelectorAll('.mil-video-thumb.mil-playing').forEach(function (otherThumb) {
+                        var otherVideo = otherThumb.querySelector('video');
+                        if (otherVideo) { otherVideo.pause(); otherVideo.controls = false; }
+                        otherThumb.classList.remove('mil-playing');
+                    });
                     video.removeAttribute('muted');
+                    video.muted = false;
                     video.controls = true;
                     video.play();
                     thumb.classList.add('mil-playing');

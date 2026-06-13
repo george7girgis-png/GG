@@ -4,7 +4,10 @@
       "Bash(python3 -)",
       "PowerShell($content = Get-Content \"c:\\\\Users\\\\georg\\\\OneDrive\\\\Desktop\\\\GG website_\\\\GG\\\\portfolio-1 copy.html\" -Raw; $cards = \\([regex]::Matches\\($content, 'class=\"mil-video-card'\\)\\).Count; $thumbs = \\([regex]::Matches\\($content, 'mil-video-thumb\"'\\)\\).Count; Write-Host \"Cards: $cards | Thumbs \\(should be 45\\): $thumbs\")",
       "PowerShell(& \"c:\\\\Users\\\\georg\\\\OneDrive\\\\Desktop\\\\GG website_\\\\GG\\\\fix_tags.ps1\")",
-      "Bash(Remove-Item \"c:\\\\Users\\\\georg\\\\OneDrive\\\\Desktop\\\\GG\\\\GG\\\\contact.html\")"
+      "Bash(Remove-Item \"c:\\\\Users\\\\georg\\\\OneDrive\\\\Desktop\\\\GG\\\\GG\\\\contact.html\")",
+      "Bash(git add *)",
+      "Bash(grep -E \"\\\\.html$|style\\\\.css\")",
+      "Bash(git lfs *)"
     ]
   }
 }

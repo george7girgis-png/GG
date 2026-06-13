@@ -1,9 +1,4 @@
-# Video files — too large for GitHub (use local or host on YouTube/Vimeo)
-videos/*.mp4
-videos/*.m4v
-videos/*.mov
-videos/*.avi
-videos/*.webm
+# OS files
 
 # OS files
 Thumbs.db
