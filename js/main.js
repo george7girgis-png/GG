@@ -1,4 +1,4 @@
-/* -------------------------------------------
+﻿/* -------------------------------------------
 
 Name: 		Ruizarch
 Version:    1.0
@@ -1078,6 +1078,141 @@ $(function () {
     }
 
     function initInlinePlayer() {
+
+        /* ── Back-to-grid button ── */
+        var backBtn = document.getElementById('milFeedBackBtn');
+        if (!backBtn) {
+            backBtn = document.createElement('button');
+            backBtn.id = 'milFeedBackBtn';
+            backBtn.className = 'mil-feed-back-btn';
+            backBtn.innerHTML = '<i class="fas fa-th" style="font-size:16px;"></i>';
+            document.body.appendChild(backBtn);
+            backBtn.addEventListener('click', function () {
+                var grid = document.getElementById('videoGrid');
+                if (grid) {
+                    grid.classList.remove('mil-feed-mode');
+                    document.querySelectorAll('.mil-video-thumb.mil-playing').forEach(function (ot) {
+                        var ov = ot.querySelector('video');
+                        if (ov) { ov.pause(); ov.controls = false; }
+                        ot.classList.remove('mil-playing');
+                    });
+                    setTimeout(function () {
+                        grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }, 60);
+                }
+                backBtn.classList.remove('mil-visible');
+            });
+        }
+
+        /* ── Fullscreen swipe viewer (created once) ── */
+        if (!document.getElementById('milFsViewer')) {
+            var fsEl = document.createElement('div');
+            fsEl.id = 'milFsViewer';
+            fsEl.className = 'mil-fs-viewer';
+            fsEl.innerHTML =
+                '<button class="mil-fs-close" aria-label="Close"><i class="fas fa-times"></i></button>' +
+                '<div class="mil-fs-wrap"><video playsinline></video></div>' +
+                '<div class="mil-fs-counter"></div>' +
+                '<div class="mil-fs-hint"><i class="fas fa-chevron-up"></i>&nbsp;swipe&nbsp;<i class="fas fa-chevron-down"></i></div>';
+            document.body.appendChild(fsEl);
+
+            var fsWrap    = fsEl.querySelector('.mil-fs-wrap');
+            var fsVideo   = fsEl.querySelector('video');
+            var fsCounter = fsEl.querySelector('.mil-fs-counter');
+            var fsCards   = [];
+            var fsIdx     = 0;
+
+            function closeFsViewer() {
+                fsVideo.pause();
+                fsVideo.removeAttribute('src');
+                fsVideo.load();
+                fsEl.classList.remove('mil-active');
+                document.body.style.overflow = '';
+            }
+
+            function loadFsSlide(idx) {
+                var src = fsCards[idx].querySelector('video').getAttribute('src');
+                fsVideo.src = src;
+                fsVideo.removeAttribute('muted');
+                fsVideo.muted = false;
+                fsVideo.controls = true;
+                fsVideo.play().catch(function () {});
+                fsCounter.textContent = (idx + 1) + ' / ' + fsCards.length;
+            }
+
+            function navigateFs(dir) {
+                var next = fsIdx + dir;
+                if (next < 0 || next >= fsCards.length) {
+                    /* bounce back */
+                    fsWrap.style.transition = 'transform 0.18s ease, opacity 0.18s ease';
+                    fsWrap.style.transform  = '';
+                    fsWrap.style.opacity    = '1';
+                    return;
+                }
+                fsWrap.style.transition = 'transform 0.14s ease, opacity 0.14s ease';
+                fsWrap.style.transform  = dir > 0 ? 'translateY(-50px)' : 'translateY(50px)';
+                fsWrap.style.opacity    = '0';
+                setTimeout(function () {
+                    fsIdx = next;
+                    fsVideo.pause();
+                    fsWrap.style.transition = 'none';
+                    fsWrap.style.transform  = dir > 0 ? 'translateY(50px)' : 'translateY(-50px)';
+                    loadFsSlide(fsIdx);
+                    requestAnimationFrame(function () {
+                        requestAnimationFrame(function () {
+                            fsWrap.style.transition = 'transform 0.18s ease, opacity 0.18s ease';
+                            fsWrap.style.transform  = '';
+                            fsWrap.style.opacity    = '1';
+                        });
+                    });
+                }, 150);
+            }
+
+            fsEl.querySelector('.mil-fs-close').addEventListener('click', closeFsViewer);
+
+            /* swipe gesture */
+            var tStartY = 0, tStartT = 0, tSwiping = false;
+            fsWrap.addEventListener('touchstart', function (e) {
+                tStartY  = e.touches[0].clientY;
+                tStartT  = Date.now();
+                tSwiping = false;
+                fsWrap.style.transition = 'none';
+            }, { passive: true });
+            fsWrap.addEventListener('touchmove', function (e) {
+                var dy = e.touches[0].clientY - tStartY;
+                if (!tSwiping && Math.abs(dy) > 8) tSwiping = true;
+                if (tSwiping) {
+                    e.preventDefault();
+                    fsWrap.style.transform = 'translateY(' + (dy * 0.38) + 'px)';
+                    fsWrap.style.opacity   = String(Math.max(0.4, 1 - Math.abs(dy) / 280));
+                }
+            }, { passive: false });
+            fsWrap.addEventListener('touchend', function (e) {
+                var dy = e.changedTouches[0].clientY - tStartY;
+                var dt = Date.now() - tStartT;
+                if (tSwiping && (Math.abs(dy) > 60 || (Math.abs(dy) > 22 && dt < 280))) {
+                    navigateFs(dy < 0 ? 1 : -1);
+                } else {
+                    fsWrap.style.transition = 'transform 0.18s ease, opacity 0.18s ease';
+                    fsWrap.style.transform  = '';
+                    fsWrap.style.opacity    = '1';
+                }
+            }, { passive: true });
+
+            /* expose opener */
+            fsEl._open = function (cards, idx) {
+                fsCards = cards;
+                fsIdx   = idx;
+                fsWrap.style.transition = 'none';
+                fsWrap.style.transform  = '';
+                fsWrap.style.opacity    = '1';
+                loadFsSlide(fsIdx);
+                fsEl.classList.add('mil-active');
+                document.body.style.overflow = 'hidden';
+            };
+        }
+
+        /* ── Per-thumb setup ── */
         document.querySelectorAll('.mil-video-thumb').forEach(function (thumb) {
             if (thumb.dataset.playerReady) return;
             thumb.dataset.playerReady = '1';
@@ -1087,7 +1222,7 @@ $(function () {
             var pauseBtn = document.createElement('button');
             pauseBtn.className = 'mil-video-pause-btn';
             pauseBtn.setAttribute('aria-label', 'Pause');
-            pauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+            pauseBtn.innerHTML = '<i class="fas fa-play mil-icon-play" style="padding-left:3px"></i><i class="fas fa-pause mil-icon-pause"></i>';
             thumb.appendChild(pauseBtn);
             if (video) {
                 video.addEventListener('ended', function () {
@@ -1097,17 +1232,67 @@ $(function () {
             }
             pauseBtn.addEventListener('click', function (e) {
                 e.stopPropagation();
-                if (video) { video.pause(); video.controls = false; }
-                thumb.classList.remove('mil-playing');
+                if (thumb.classList.contains('mil-playing')) {
+                    if (video) { video.pause(); video.controls = false; }
+                    thumb.classList.remove('mil-playing');
+                } else {
+                    document.querySelectorAll('.mil-video-thumb.mil-playing').forEach(function (ot) {
+                        var ov = ot.querySelector('video');
+                        if (ov) { ov.pause(); ov.controls = false; }
+                        ot.classList.remove('mil-playing');
+                    });
+                    if (video) {
+                        video.removeAttribute('muted');
+                        video.muted = false;
+                        video.controls = true;
+                        video.play().catch(function () {});
+                    }
+                    thumb.classList.add('mil-playing');
+                }
             });
             thumb.addEventListener('click', function (e) {
                 if (fsBtn && (e.target === fsBtn || fsBtn.contains(e.target))) return;
                 if (e.target === pauseBtn || pauseBtn.contains(e.target)) return;
-                if (thumb.classList.contains('mil-playing')) return;
                 if (!video) return;
+
+                /* ── Mobile ── */
+                if (window.innerWidth < 576) {
+                    var grid   = document.getElementById('videoGrid');
+                    var inFeed = grid && grid.classList.contains('mil-feed-mode');
+
+                    /* Tap playing video on mobile → pause it */
+                    if (inFeed && thumb.classList.contains('mil-playing')) {
+                        if (video) { video.pause(); video.controls = false; }
+                        thumb.classList.remove('mil-playing');
+                        return;
+                    }
+                    /* First tap or tap on a different video → feed mode + play */
+                    if (!inFeed) {
+                        grid.classList.add('mil-feed-mode');
+                        backBtn.classList.add('mil-visible');
+                        var card2 = thumb.closest('.mil-video-card');
+                        setTimeout(function () {
+                            if (card2) card2.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }, 60);
+                    }
+                    document.querySelectorAll('.mil-video-thumb.mil-playing').forEach(function (ot) {
+                        var ov2 = ot.querySelector('video');
+                        if (ov2) { ov2.pause(); ov2.controls = false; }
+                        ot.classList.remove('mil-playing');
+                    });
+                    video.removeAttribute('muted');
+                    video.muted = false;
+                    video.controls = true;
+                    video.play().catch(function () {});
+                    thumb.classList.add('mil-playing');
+                    return;
+                }
+
+                /* ── Desktop: inline play ── */
+                if (thumb.classList.contains('mil-playing')) return;
                 document.querySelectorAll('.mil-video-thumb.mil-playing').forEach(function (ot) {
-                    var ov = ot.querySelector('video');
-                    if (ov) { ov.pause(); ov.controls = false; }
+                    var ov2 = ot.querySelector('video');
+                    if (ov2) { ov2.pause(); ov2.controls = false; }
                     ot.classList.remove('mil-playing');
                 });
                 video.removeAttribute('muted');
@@ -1120,7 +1305,6 @@ $(function () {
                 fsBtn.addEventListener('click', function (e) {
                     e.stopPropagation();
                     if (video) {
-                        /* iOS Safari only supports webkitEnterFullscreen on <video> */
                         if (video.webkitEnterFullscreen) {
                             video.webkitEnterFullscreen();
                         } else if (video.requestFullscreen) {
