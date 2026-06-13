@@ -21,6 +21,7 @@
     <title>George Girgis</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jsvectormap@1.5.3/dist/css/jsvectormap.min.css">
 </head>
 
 <body>
@@ -78,16 +79,16 @@
                                 <ul>
                                     <li><a href="index.html">Home</a></li>
                                     <li class="mil-has-children">
-                                        <a href="#.">Portfolio</a>
+                                        <a href="#">Portfolio</a>
                                         <ul>
-                                            <li><a href="portfolio-1.html">Video Editing</a></li>
-                                            <li><a href="portfolio-2.html">Web Design</a></li>
+                                            <li><a href="Videos.html">Video Editing</a></li>
+                                            <li><a href="websites.html">Web Design</a></li>
                                             <li><a href="portfolio-3.html">Photography</a></li>
                                         </ul>
                                     </li>
                                     <li><a href="services.html">Services</a></li>
                                     <li><a href="index.html#reviews">Testimonies</a></li>
-                                    <li><a href="contact.html" class="mil-accent">Contact</a></li>
+                                    <li class="mil-active"><a href="contact.html" class="mil-accent">Contact</a></li>
                                 </ul>
                             </nav>
 
@@ -141,9 +142,7 @@
                                         </div>
                                         <div class="col-lg-4 mil-mb-60">
 
-                                            <h6 class="mil-muted mil-mb-30">Germany</h6>
-
-                                            <p class="mil-light-soft">Leehove 40, 2678 MC De Lier, Netherlands <span class="mil-no-wrap">+31 174 705 811</span></p>
+                                            <h6 class="mil-muted mil-mb-30">Nordrhein-Westfalen . <span class="mil-country">GERMANY</span></h6>
 
                                         </div>
                                     </div>
@@ -201,13 +200,13 @@
                 </div>
                 <!-- banner end -->
 
-                <!-- map -->
+                <!-- world map -->
                 <div class="mil-map-frame mil-up">
-                    <div class="mil-map">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1396.5769090312324!2d-73.6519672!3d45.5673453!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4cc91f8abc30e0ff%3A0xfc6d9cbb49022e9c!2sManoir%20Saint-Joseph!5e0!3m2!1sen!2sua!4v1685485811069!5m2!1sen!2sua" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                    </div>
+                    <h4 class="mil-map-heading mil-up">World <span class="mil-thin">Domination</span> <span class="mil-country">29%</span></h4>
+                    <div id="world-map" style="width:100%;flex:1;"></div>
+                    <div style="position:absolute;left:50%;top:43%;transform:translate(-50%,-100%);color:rgb(255,152,0);font-size:28px;pointer-events:none;z-index:10;filter:drop-shadow(0 2px 5px rgba(0,0,0,0.5));"><i class="fas fa-map-marker-alt"></i></div>
                 </div>
-                <!-- map end -->
+                <!-- world map end -->
 
                 <!-- contact form -->
                 <section id="contact">
@@ -238,104 +237,6 @@
                 </section>
                 <!-- contact form end -->
 
-                <!-- footer -->
-                <footer class="mil-dark-bg">
-                    <div class="mi-invert-fix">
-                        <div class="container mil-p-120-60">
-                            <div class="row justify-content-between">
-                                <div class="col-md-4 col-lg-4 mil-mb-60">
-
-                                    <div class="mil-muted mil-logo mil-up mil-mb-30">George Girgis.</div>
-
-                                    <p class="mil-light-soft mil-up mil-mb-30">Subscribe our newsletter:</p>
-
-                                    <form class="mil-subscribe-form mil-up">
-                                        <input type="text" placeholder="Enter our email">
-                                        <button type="submit" class="mil-button mil-icon-button-sm mil-arrow-place"></button>
-                                    </form>
-
-                                </div>
-                                <div class="col-md-7 col-lg-6">
-                                    <div class="row justify-content-end">
-                                        <div class="col-md-6 col-lg-7">
-
-                                            <nav class="mil-footer-menu mil-mb-60">
-                                                <ul>
-                                                    <li class="mil-up mil-active">
-                                                        <a href="index.html">Home</a>
-                                                    </li>
-                                                    <li class="mil-up">
-                                                        <a href="portfolio-1.html">Portfolio</a>
-                                                    </li>
-                                                    <li class="mil-up">
-                                                        <a href="services.html">Services</a>
-                                                    </li>
-                                                    <li class="mil-up">
-                                                        <a href="contact.html">Contact</a>
-                                                    </li>
-                                                    <li class="mil-up">
-                                                        <a href="blog.html">Blog</a>
-                                                    </li>
-                                                </ul>
-                                            </nav>
-
-                                        </div>
-                                        <div class="col-md-6 col-lg-5">
-
-                                            <ul class="mil-menu-list mil-up mil-mb-60">
-                                                <li><a href="#." class="mil-light-soft">Privacy Policy</a></li>
-                                                <li><a href="#." class="mil-light-soft">Terms and conditions</a></li>
-                                                <li><a href="#." class="mil-light-soft">Cookie Policy</a></li>
-                                                <li><a href="#." class="mil-light-soft">Careers</a></li>
-                                            </ul>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row justify-content-between flex-sm-row-reverse">
-                                <div class="col-md-7 col-lg-6">
-
-                                    <div class="row justify-content-between">
-
-                                        <div class="col-md-6 col-lg-5 mil-mb-60">
-
-                                            <h6 class="mil-muted mil-up mil-mb-30">Canada</h6>
-
-                                            <p class="mil-light-soft mil-up">71 South Los Carneros Road, California <span class="mil-no-wrap">+51 174 705 812</span></p>
-
-                                        </div>
-                                        <div class="col-md-6 col-lg-5 mil-mb-60">
-
-                                            <h6 class="mil-muted mil-up mil-mb-30">Germany</h6>
-
-                                            <p class="mil-light-soft mil-up">Leehove 40, 2678 MC De Lier, Netherlands <span class="mil-no-wrap">+31 174 705 811</span></p>
-
-                                        </div>
-                                    </div>
-
-                                </div>
-                                <div class="col-md-4 col-lg-6 mil-mb-60">
-
-                                    <div class="mil-vert-between">
-                                        <div class="mil-mb-30">
-                                            <ul class="mil-social-icons mil-up">
-                                                <li><a href="#." target="_blank" class="social-icon"> <i class="far fa-circle"></i></a></li>
-                                                <li><a href="#." target="_blank" class="social-icon"> <i class="far fa-circle"></i></a></li>
-                                                <li><a href="#." target="_blank" class="social-icon"> <i class="far fa-circle"></i></a></li>
-                                                <li><a href="#." target="_blank" class="social-icon"> <i class="far fa-circle"></i></a></li>
-                                            </ul>
-                                        </div>
-                                        <p class="mil-light-soft mil-up">Â© Copyright 2023 - Mil. All Rights Reserved.</p>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </footer>
-                <!-- footer end -->
 
                 <!-- hidden elements -->
                 <div class="mil-hidden-elements">
@@ -467,6 +368,84 @@
     <script src="js/plugins/ScrollTo.min.js"></script>
     <!-- ashley js -->
     <script src="js/main.js"></script>
+
+    <!-- world map -->
+    <script src="https://cdn.jsdelivr.net/npm/jsvectormap@1.5.3/dist/js/jsvectormap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jsvectormap@1.5.3/dist/maps/world.js"></script>
+    <script>
+      var salesData = {
+        /* North America */
+        "US":358, "CA":98, "MX":6,
+        /* Europe */
+        "DE":149, "GB":112, "FR":9, "RU":9, "NL":8, "SE":7, "IT":7,
+        "ES":6, "CH":5, "PL":5, "NO":4, "BE":4, "PT":3, "AT":3,
+        "DK":3, "FI":3, "IE":2, "CZ":2, "UA":2, "GR":2,
+        "SK":1, "HR":1, "RS":1, "BG":1, "SI":1, "LT":1, "MD":1,
+        /* Asia-Pacific */
+        "MY":9, "HK":9, "CN":8, "AE":8, "JP":7, "IN":7,
+        "SG":5, "KR":6, "ID":4, "TH":4, "TW":3, "NZ":3, "BD":2,
+        /* Middle East */
+        "SA":7, "TR":5, "IL":4, "KW":3, "QA":3, "BH":2, "OM":2, "JO":2,
+        /* Africa — only: ZA, KE, NG, MA, EG */
+        "ZA":20, "EG":6, "NG":5, "KE":4, "MA":2,
+        /* South America — only: BR, EC, CO, CR */
+        "BR":7, "CO":4, "CR":2, "EC":1,
+        /* Oceania */
+        "AU":54
+      };
+
+      var countryNames = {
+        "US":"United States","CA":"Canada","MX":"Mexico",
+        "DE":"Germany","GB":"United Kingdom","FR":"France","RU":"Russia",
+        "NL":"Netherlands","SE":"Sweden","IT":"Italy","ES":"Spain",
+        "CH":"Switzerland","PL":"Poland","NO":"Norway","BE":"Belgium",
+        "PT":"Portugal","AT":"Austria","DK":"Denmark","FI":"Finland",
+        "IE":"Ireland","CZ":"Czech Republic","UA":"Ukraine","GR":"Greece",
+        "SK":"Slovakia","HR":"Croatia","RS":"Serbia","BG":"Bulgaria",
+        "SI":"Slovenia","LT":"Lithuania","MD":"Moldova",
+        "MY":"Malaysia","HK":"Hong Kong","CN":"China","AE":"UAE",
+        "JP":"Japan","IN":"India","SG":"Singapore","KR":"South Korea",
+        "ID":"Indonesia","TH":"Thailand","TW":"Taiwan","NZ":"New Zealand","BD":"Bangladesh",
+        "SA":"Saudi Arabia","TR":"Turkey","IL":"Israel","KW":"Kuwait",
+        "QA":"Qatar","BH":"Bahrain","OM":"Oman","JO":"Jordan",
+        "ZA":"South Africa","EG":"Egypt","NG":"Nigeria","KE":"Kenya","MA":"Morocco",
+        "BR":"Brazil","CO":"Colombia","CR":"Costa Rica","EC":"Ecuador",
+        "AU":"Australia"
+      };
+
+      new jsVectorMap({
+        selector: "#world-map",
+        map: "world",
+        backgroundColor: "transparent",
+        zoomButtons: false,
+        zoomOnScroll: false,
+        selectedRegions: Object.keys(salesData),
+        regionStyle: {
+          initial: { fill: "#d4d6d9" },
+          hover:   { fill: "#d4d6d9", cursor: "default" },
+          selected: { fill: "#191919" },
+          selectedHover: { fill: "#2a2a2a", cursor: "pointer" }
+        },
+        onRegionTooltipShow: function(event, tooltip, code) {
+          var el = document.querySelector('.jvm-tooltip');
+          if (salesData[code] !== undefined) {
+            if (el) el.style.display = '';
+            tooltip.text(countryNames[code] + " - " + salesData[code] + " sales", true);
+          } else {
+            event.preventDefault();
+            if (el) el.style.display = 'none';
+          }
+        }
+      });
+
+      // Force sub-pixel borders directly on SVG paths after jsvectormap renders
+      setTimeout(function() {
+        document.querySelectorAll('#world-map path').forEach(function(p) {
+          p.style.setProperty('stroke', 'rgba(255,255,255,0.15)', 'important');
+          p.style.setProperty('stroke-width', '0.4px', 'important');
+        });
+      }, 100);
+    </script>
 
 </body>
 

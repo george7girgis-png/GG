@@ -65,7 +65,7 @@
                                 <ul>
                                     <li><a href="index.html">Home</a></li>
                                     <li class="mil-has-children mil-active">
-                                        <a href="Videos.html">Portfolio</a>
+                                        <a href="#">Portfolio</a>
                                         <ul>
                                             <li class="mil-active"><a href="Videos.html">Video Editing</a></li>
                                             <li><a href="websites.html">Web Design</a></li>
@@ -124,9 +124,7 @@
                                         </div>
                                         <div class="col-lg-4 mil-mb-60">
 
-                                            <h6 class="mil-muted mil-mb-30">Germany</h6>
-
-                                            <p class="mil-light-soft">Leehove 40, 2678 MC De Lier, Netherlands <span class="mil-no-wrap">+31 174 705 811</span></p>
+                                            <h6 class="mil-muted mil-mb-30">Nordrhein-Westfalen . <span class="mil-country">GERMANY</span></h6>
 
                                         </div>
                                     </div>
@@ -210,6 +208,7 @@
                         <!-- video grid -->
                         <div class="mil-video-grid-wrap">
                             <div class="mil-lines-place mil-light"></div>
+                            <div class="mil-lines-place mil-light mil-lines-place--right"></div>
                         <div class="mil-video-grid-v2" id="videoGrid">
 
                             <!-- GROUP 1: 4-left (span) | [2,3 stacked] center | 1-right (span) -->
@@ -813,7 +812,7 @@
                                         <div class="mil-contact-icon"><i class="fas fa-map-marker-alt"></i></div>
                                         <div>
                                             <h6 class="mil-muted mil-mb-10">Address</h6>
-                                            <p class="mil-light-soft">North Rhine-Westphalia - Germany</p>
+                                            <p class="mil-light-soft">Nordrhein-Westfalen . <span class="mil-country">GERMANY</span></p>
                                         </div>
                                     </div>
                                 </div>
@@ -1003,6 +1002,20 @@
                     card.classList.add('mil-hidden');
                 }
             });
+
+            /* social-media only: normalise aspect ratios + collapse fully-hidden groups */
+            if (filter === 'social-media') {
+                grid.classList.add('mil-social-media');
+                grid.querySelectorAll('.vg-group').forEach(function (group) {
+                    var hasVisible = group.querySelector('.mil-video-card:not(.mil-hidden)');
+                    group.style.display = hasVisible ? '' : 'none';
+                });
+            } else {
+                grid.classList.remove('mil-social-media');
+                grid.querySelectorAll('.vg-group').forEach(function (group) {
+                    group.style.display = '';
+                });
+            }
         }
 
         function initFilter() {

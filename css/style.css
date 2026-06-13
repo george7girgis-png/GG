@@ -401,6 +401,10 @@ a {
 .mil-light-soft {
   color: rgba(255, 255, 255, 0.4);
 }
+.mil-country {
+  color: rgb(255, 152, 0);
+  font-weight: 600;
+}
 
 .mil-dark-soft {
   color: rgba(0, 0, 0, 0.5);
@@ -679,7 +683,7 @@ textarea {
   padding: 0 30px;
   width: 100%;
   font-size: 12px;
-  text-transform: uppercase;
+  text-transform: capitalize;
   letter-spacing: 2px;
   font-weight: 500;
   font-family: "Outfit", sans-serif;
@@ -3462,22 +3466,40 @@ map
 .mil-map-frame {
   background-color: rgb(229, 229, 229);
   pointer-events: all;
-  height: 600px;
+  height: 680px;
   position: relative;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 20px;
 }
-.mil-map-frame .mil-map {
-  position: absolute;
-  top: -25%;
-  left: -25%;
-  width: 150%;
-  height: 150%;
-  -webkit-transition: 0.4s cubic-bezier(0, 0, 0.3642, 1);
-  transition: 0.4s cubic-bezier(0, 0, 0.3642, 1);
+.mil-map-frame .mil-map-heading {
+  text-align: center;
+  flex-shrink: 0;
+  margin-bottom: 20px;
+  font-size: 1.82rem;
 }
-.mil-map-frame .mil-map iframe {
+#world-map {
   width: 100%;
   height: 100%;
+}
+#world-map path {
+  stroke: rgba(255, 255, 255, 0.15) !important;
+  stroke-width: 0.4px !important;
+}
+.jvm-tooltip {
+  background-color: #000000 !important;
+  color: #fff !important;
+  font-family: "Outfit", sans-serif !important;
+  font-size: 11px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.5px !important;
+  border-radius: 3px !important;
+  padding: 4px 9px !important;
+  border: none !important;
+  box-shadow: none !important;
 }
 /* -------------------------------------------
 
@@ -4536,6 +4558,10 @@ html.is-animating .mil-menu-frame {
   pointer-events: none;
   z-index: 0;
 }
+.mil-video-grid-wrap > .mil-lines-place--right {
+  display: flex;
+  justify-content: flex-end;
+}
 .mil-video-grid-wrap > .mil-video-grid {
   position: relative;
   z-index: 1;
@@ -4837,6 +4863,18 @@ html.is-animating .mil-menu-frame {
   -o-object-fit: cover !important;
      object-fit: cover !important;
 }
+/* social-media: portrait reels grouped first (2 rows × 3 cols), landscape below */
+.mil-grid-filtered.mil-social-media {
+  grid-template-columns: repeat(3, 1fr) !important;
+  grid-auto-flow: row;
+}
+.mil-grid-filtered.mil-social-media .mil-video-card:not(.vg-span) {
+  order: 1;
+}
+.mil-grid-filtered.mil-social-media .mil-video-card:not(.vg-span) .mil-video-thumb {
+  aspect-ratio: 16 / 9 !important;
+}
+
 /* Hidden cards vanish — no other rule can override this */
 .mil-video-card.mil-hidden {
   display: none !important;
