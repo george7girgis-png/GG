@@ -1119,10 +1119,18 @@ $(function () {
             if (fsBtn) {
                 fsBtn.addEventListener('click', function (e) {
                     e.stopPropagation();
-                    var t = video || thumb;
-                    if (t.requestFullscreen) t.requestFullscreen();
-                    else if (t.webkitRequestFullscreen) t.webkitRequestFullscreen();
-                    else if (t.mozRequestFullScreen) t.mozRequestFullScreen();
+                    if (video) {
+                        /* iOS Safari only supports webkitEnterFullscreen on <video> */
+                        if (video.webkitEnterFullscreen) {
+                            video.webkitEnterFullscreen();
+                        } else if (video.requestFullscreen) {
+                            video.requestFullscreen();
+                        } else if (video.webkitRequestFullscreen) {
+                            video.webkitRequestFullscreen();
+                        } else if (video.mozRequestFullScreen) {
+                            video.mozRequestFullScreen();
+                        }
+                    }
                 });
             }
         });
