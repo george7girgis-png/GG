@@ -265,8 +265,10 @@
    ══════════════════════════════════════════════════════════ */
 @media (max-width: 575px) {
 
-  /* Grid view: 70% tighter gaps between cards */
-  :root { --vg-gap: 8px; }
+  /* Grid view: 3-column instagram grid — near-zero gap */
+  .mil-video-grid-v2:not(.mil-feed-mode) {
+    gap: 0.5px !important;
+  }
 
   /* Feed/stack view: generous space between each video */
   .mil-video-grid-v2.mil-feed-mode {
