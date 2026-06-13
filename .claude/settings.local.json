@@ -7,7 +7,8 @@
       "Bash(Remove-Item \"c:\\\\Users\\\\georg\\\\OneDrive\\\\Desktop\\\\GG\\\\GG\\\\contact.html\")",
       "Bash(git add *)",
       "Bash(grep -E \"\\\\.html$|style\\\\.css\")",
-      "Bash(git lfs *)"
+      "Bash(git lfs *)",
+      "Bash(git commit -m ' *)"
     ]
   }
 }
