@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html lang="zxx">
+<html lang="en">
 
 <head>
 
@@ -37,7 +37,7 @@
                 </svg>
             </span>
             <div class="mil-more-text">More</div>
-            <div class="mil-choose-text">Ð¡hoose</div>
+            <div class="mil-choose-text">Choose</div>
         </div>
         <!-- cursor end -->
 
@@ -83,7 +83,7 @@
                                         <ul>
                                             <li><a href="Videos.html">Video Editing</a></li>
                                             <li class="mil-active"><a href="websites.html">Web Design</a></li>
-                                            <li><a href="portfolio-3.html">Photography</a></li>
+                                            <li><a href="#." data-no-swup>Photography</a></li>
                                         </ul>
                                     </li>
                                     <li><a href="services.html">Services</a></li>
@@ -107,11 +107,11 @@
                                             <h6 class="mil-muted mil-mb-30">Projects</h6>
 
                                             <ul class="mil-menu-list">
-                                                <li><a href="Websites/ELARA Website.pdf" target="_blank" class="mil-light-soft">ELARA Website</a></li>
-                                                <li><a href="Websites/Price Dashboard.pdf" target="_blank" class="mil-light-soft">Price Dashboard</a></li>
-                                                <li><a href="Websites/Tabib Clinic Website.pdf" target="_blank" class="mil-light-soft">Tabib Clinic Website</a></li>
-                                                <li><a href="Websites/IncubateX Website.pdf" target="_blank" class="mil-light-soft">IncubateX Website</a></li>
-                                                <li><a href="Websites/Heroes Websit.pdf" target="_blank" class="mil-light-soft">Heroes Website</a></li>
+                                                <li><a href="Websites/ELARA Website.pdf" target="_blank" rel="noopener noreferrer" class="mil-light-soft">ELARA Website</a></li>
+                                                <li><a href="Websites/Price Dashboard.pdf" target="_blank" rel="noopener noreferrer" class="mil-light-soft">Price Dashboard</a></li>
+                                                <li><a href="Websites/Tabib Clinic Website.pdf" target="_blank" rel="noopener noreferrer" class="mil-light-soft">Tabib Clinic Website</a></li>
+                                                <li><a href="Websites/IncubateX Website.pdf" target="_blank" rel="noopener noreferrer" class="mil-light-soft">IncubateX Website</a></li>
+                                                <li><a href="Websites/Heroes Websit.pdf" target="_blank" rel="noopener noreferrer" class="mil-light-soft">Heroes Website</a></li>
                                             </ul>
 
                                         </div>
@@ -335,7 +335,7 @@
                                 <div class="col-lg-7 mil-mb-60">
                                     <h3 class="mil-muted mil-up mil-mb-30">Get <span class="mil-thin">In Touch</span></h3>
                                     <p class="mil-light-soft mil-up mil-mb-60">Feel free to reach out. I'd love to hear about your project and how I can help.</p>
-                                    <form class="row" action="https://formspree.io/f/xvznbqyk" method="POST">
+                                    <form id="contactForm" class="row" action="https://formspree.io/f/xvznbqyk" method="POST">
                                         <div class="col-sm-6 mil-up mil-mb-30">
                                             <input type="text" name="name" placeholder="Your Name">
                                         </div>
@@ -351,6 +351,32 @@
                                             </button>
                                         </div>
                                     </form>
+                                    <div id="contactSuccess" style="display:none;" class="mil-up">
+                                        <p class="mil-light-soft">Thank you! Your message has been sent.</p>
+                                    </div>
+                                    <script>
+                                    (function() {
+                                        var form = document.getElementById('contactForm');
+                                        var box  = document.getElementById('contactSuccess');
+                                        if (!form || !box) return;
+                                        form.addEventListener('submit', function(e) {
+                                            e.preventDefault();
+                                            fetch(form.action, {
+                                                method: 'POST',
+                                                body: new FormData(form),
+                                                headers: { 'Accept': 'application/json' }
+                                            }).then(function(r) {
+                                                if (r.ok) {
+                                                    form.style.display = 'none';
+                                                    box.style.display  = 'block';
+                                                    if (window.gsap) {
+                                                        gsap.fromTo(box, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' });
+                                                    }
+                                                }
+                                            }).catch(function() {});
+                                        });
+                                    })();
+                                    </script>
                                 </div>
                                 <div class="col-lg-4 offset-lg-1 mil-mb-60">
                                     <h3 class="mil-muted mil-up mil-mb-30">Contact <span class="mil-thin">Info</span></h3>

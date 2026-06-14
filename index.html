@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html lang="zxx">
+<html lang="en">
 
 <head>
 
@@ -38,7 +38,7 @@
                 </svg>
             </span>
             <div class="mil-more-text">More</div>
-            <div class="mil-choose-text">Ð¡hoose</div>
+            <div class="mil-choose-text">Choose</div>
         </div>
         <!-- cursor end -->
 
@@ -84,7 +84,7 @@
                                         <ul>
                                             <li><a href="Videos.html">Video Editing</a></li>
                                             <li><a href="websites.html">Web Design</a></li>
-                                            <li><a href="portfolio-3.html">Photography</a></li>
+                                            <li><a href="#." data-no-swup>Photography</a></li>
                                         </ul>
                                     </li>
                                     <li><a href="services.html">Services</a></li>
@@ -108,12 +108,12 @@
                                             <h6 class="mil-muted mil-mb-30">Projects</h6>
 
                                             <ul class="mil-menu-list">
-                                                <li><a href="project-1.html" class="mil-light-soft">Interior design studio</a></li>
-                                                <li><a href="project-2.html" class="mil-light-soft">Home Security Camera</a></li>
-                                                <li><a href="project-3.html" class="mil-light-soft">Kemia Honest Skincare</a></li>
-                                                <li><a href="project-4.html" class="mil-light-soft">Cascade of Lava</a></li>
-                                                <li><a href="project-5.html" class="mil-light-soft">Air Pro by Molekule</a></li>
-                                                <li><a href="project-6.html" class="mil-light-soft">Tony's Chocolonely</a></li>
+                                                <li><a href="#." data-no-swup class="mil-light-soft">Interior design studio</a></li>
+                                                <li><a href="#." data-no-swup class="mil-light-soft">Home Security Camera</a></li>
+                                                <li><a href="#." data-no-swup class="mil-light-soft">Kemia Honest Skincare</a></li>
+                                                <li><a href="#." data-no-swup class="mil-light-soft">Cascade of Lava</a></li>
+                                                <li><a href="#." data-no-swup class="mil-light-soft">Air Pro by Molekule</a></li>
+                                                <li><a href="#." data-no-swup class="mil-light-soft">Tony's Chocolonely</a></li>
                                             </ul>
 
                                         </div>
@@ -274,7 +274,7 @@
                                     </div>
 
                                     <div class="mil-up">
-                                        <a href="img/CV%20Full%20Fixed.pdf" target="_blank" class="mil-button mil-arrow-place">
+                                        <a href="img/CV%20Full%20Fixed.pdf" target="_blank" rel="noopener noreferrer" class="mil-button mil-arrow-place">
                                             <span>Show my CV</span>
                                         </a>
                                     </div>
@@ -562,7 +562,7 @@
                                                         gsap.fromTo(box, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' });
                                                     }
                                                 }
-                                            });
+                                            }).catch(function() {});
                                         });
                                     })();
                                     </script>

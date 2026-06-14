@@ -803,7 +803,7 @@ $(function () {
             });
         });
 
-        $('a:not(".mil-choose , .mil-more , .mil-drag , .mil-accent-cursor"), input , textarea, .mil-accordion-menu').mouseover(function () {
+        $('a:not(".mil-choose , .mil-more , .mil-drag , .mil-accent-cursor"), input , textarea, .mil-accordion-menu').off('mouseover.cursor').on('mouseover.cursor', function () {
             gsap.to($(cursor), .2, {
                 scale: 0,
                 ease: 'sine',
@@ -813,7 +813,7 @@ $(function () {
             });
         });
 
-        $('a:not(".mil-choose , .mil-more , .mil-drag , .mil-accent-cursor"), input, textarea, .mil-accordion-menu').mouseleave(function () {
+        $('a:not(".mil-choose , .mil-more , .mil-drag , .mil-accent-cursor"), input, textarea, .mil-accordion-menu').off('mouseleave.cursor').on('mouseleave.cursor', function () {
             gsap.to($(cursor), .2, {
                 scale: 1,
                 ease: 'sine',
@@ -841,7 +841,7 @@ $(function () {
         main menu
 
         ***************************/
-        $('.mil-has-children a').on('click', function () {
+        $('.mil-has-children a').off('click.milmenu').on('click.milmenu', function () {
             $('.mil-has-children ul').removeClass('mil-active');
             $('.mil-has-children a').removeClass('mil-active');
             $(this).toggleClass('mil-active');
@@ -1425,7 +1425,7 @@ $(function () {
                 video.removeAttribute('muted');
                 video.muted = false;
                 video.controls = true;
-                video.play();
+                video.play().catch(function() {});
                 thumb.classList.add('mil-playing');
             });
             if (fsBtn) {
