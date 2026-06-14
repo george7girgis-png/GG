@@ -8,7 +8,10 @@
       "Bash(git add *)",
       "Bash(grep -E \"\\\\.html$|style\\\\.css\")",
       "Bash(git lfs *)",
-      "Bash(git commit -m ' *)"
+      "Bash(git commit -m ' *)",
+      "Bash(git -C \"c:/Users/georg/OneDrive/Desktop/GG/GG\" status)",
+      "Bash(git -C \"c:/Users/georg/OneDrive/Desktop/GG/GG\" diff --stat)",
+      "Bash(git -C \"c:/Users/georg/OneDrive/Desktop/GG/GG\" log --oneline -5)"
     ]
   }
 }
