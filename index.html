@@ -783,14 +783,6 @@
         var salesData    = window._mapSalesData;
         var countryNames = window._mapCountryNames;
         var ring = null;
-        function syncRing() {
-          if (!ring) return;
-          var m = el.querySelector('.jvm-marker');
-          if (m) {
-            ring.setAttribute('cx', m.getAttribute('cx'));
-            ring.setAttribute('cy', m.getAttribute('cy'));
-          }
-        }
         var map = new jsVectorMap({
           selector: "#world-map",
           map: "world",
@@ -820,7 +812,6 @@
             }
           },
           markerLabelStyle: { initial: { display: "none" } },
-          onViewportChange: function() { setTimeout(syncRing, 0); },
           onRegionTooltipShow: function(event, tooltip, code) {
             var jvmTip = document.querySelector('.jvm-tooltip');
             if (salesData[code] !== undefined) {
@@ -872,6 +863,13 @@
             ring.appendChild(animO);
 
             markerEl.parentNode.insertBefore(ring, markerEl);
+
+            /* MutationObserver: fires the instant jsvectormap writes new
+               cx/cy to the marker (e.g. after zoom), no timing race */
+            new MutationObserver(function() {
+              ring.setAttribute('cx', markerEl.getAttribute('cx'));
+              ring.setAttribute('cy', markerEl.getAttribute('cy'));
+            }).observe(markerEl, { attributes: true, attributeFilter: ['cx', 'cy'] });
           }
         }, 100);
       };
