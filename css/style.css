@@ -75,7 +75,7 @@ body {
   color: rgba(0, 0, 0, 0.5);
   line-height: 150%;
   -ms-scroll-chaining: none;
-      overscroll-behavior: none;
+      overscroll-behavior-x: none;
 }
 body {
   overflow-x: hidden;
@@ -1258,6 +1258,12 @@ frame
     padding: 0 30px;
     -webkit-backdrop-filter: blur(8px);
             backdrop-filter: blur(8px);
+  }
+}
+@media screen and (max-width: 768px) {
+  .mil-frame .mil-frame-top {
+    -webkit-backdrop-filter: none;
+            backdrop-filter: none;
   }
   .mil-frame .mil-frame-top .mil-logo {
     color: rgb(255, 255, 255);

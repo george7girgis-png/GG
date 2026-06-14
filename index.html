@@ -782,6 +782,15 @@
         el.innerHTML = '';
         var salesData    = window._mapSalesData;
         var countryNames = window._mapCountryNames;
+        var ring = null;
+        function syncRing() {
+          if (!ring) return;
+          var m = el.querySelector('.jvm-marker');
+          if (m) {
+            ring.setAttribute('cx', m.getAttribute('cx'));
+            ring.setAttribute('cy', m.getAttribute('cy'));
+          }
+        }
         var map = new jsVectorMap({
           selector: "#world-map",
           map: "world",
@@ -811,6 +820,7 @@
             }
           },
           markerLabelStyle: { initial: { display: "none" } },
+          onViewportChange: function() { syncRing(); },
           onRegionTooltipShow: function(event, tooltip, code) {
             var jvmTip = document.querySelector('.jvm-tooltip');
             if (salesData[code] !== undefined) {
@@ -831,13 +841,10 @@
 
           var markerEl = el.querySelector('.jvm-marker');
           if (markerEl && window.gsap) {
-            var cx = markerEl.getAttribute('cx');
-            var cy = parseFloat(markerEl.getAttribute('cy'));
-
             /* ping ring: expands and fades behind the marker */
-            var ring = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-            ring.setAttribute('cx', cx);
-            ring.setAttribute('cy', cy);
+            ring = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+            ring.setAttribute('cx', markerEl.getAttribute('cx'));
+            ring.setAttribute('cy', markerEl.getAttribute('cy'));
             ring.setAttribute('r', '5.6');
             ring.setAttribute('fill', 'rgb(255,152,0)');
             ring.setAttribute('pointer-events', 'none');
