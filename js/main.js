@@ -97,6 +97,7 @@ $(function () {
         event.preventDefault();
 
         var target = $($.attr(this, 'href'));
+        if (!target.length) return;
         var offset = 0;
 
         if ($(window).width() < 1200) {
@@ -498,8 +499,8 @@ $(function () {
 
     ***************************/
     var swiper = new Swiper('.mil-infinite-show', {
-        slidesPerView: 2,
-        spaceBetween: 30,
+        slidesPerView: 3,
+        spaceBetween: 10,
         speed: 5000,
         autoplay: true,
         autoplay: {
@@ -508,8 +509,13 @@ $(function () {
         loop: true,
         freeMode: true,
         breakpoints: {
+            576: {
+                slidesPerView: 2,
+                spaceBetween: 30,
+            },
             992: {
                 slidesPerView: 4,
+                spaceBetween: 30,
             },
         },
     });
@@ -589,6 +595,15 @@ $(function () {
     ----------------------------------------------------------*/
     document.addEventListener("swup:contentReplaced", function () {
 
+        /* Bug 3 fix: kill ScrollTrigger instances whose trigger elements were removed
+           from the DOM by Swup. Triggers whose elements are still live (progress bar,
+           back-to-top, body) are left intact. */
+        ScrollTrigger.getAll().forEach(function(t) {
+            if (t.trigger && !document.contains(t.trigger)) {
+                t.kill();
+            }
+        });
+
         $('html, body').animate({
             scrollTop: 0,
         }, 0);
@@ -611,7 +626,22 @@ $(function () {
         /* video page: re-init filter + player after Swup navigation */
         if (document.getElementById('videoGrid')) {
             window._videoActiveFilter = 'all';
+            /* reset dataset.ready so initFilter re-applies state on the fresh DOM */
+            var filterBar = document.querySelector('.mil-filter-bar');
+            if (filterBar) delete filterBar.dataset.ready;
+            var grid = document.getElementById('videoGrid');
+            if (grid) grid.classList.remove('mil-feed-mode');
             window._initVideoPage();
+        }
+
+        /* home page: re-init world map after Swup navigation */
+        if (document.getElementById('world-map') && typeof window._initWorldMap === 'function') {
+            setTimeout(window._initWorldMap, 0);
+        }
+
+        /* Bug 11: websites.html PDF overlay — re-init after Swup replaces DOM */
+        if (document.getElementById('pdf-overlay') && typeof window._initPdfOverlay === 'function') {
+            window._initPdfOverlay();
         }
 
         gsap.to('.mil-progress', {
@@ -635,7 +665,7 @@ $(function () {
 
         ***************************/
         $(document).ready(function () {
-            $(".mil-arrow-place .mil-arrow, .mil-animation .mil-dodecahedron").remove();
+            $(".mil-arrow-place .mil-arrow, .mil-animation .mil-dodecahedron, .mil-lines-place .mil-lines").remove();
             $(".mil-arrow").clone().appendTo(".mil-arrow-place");
             $(".mil-dodecahedron").clone().appendTo(".mil-animation");
             $(".mil-lines").clone().appendTo(".mil-lines-place");
@@ -805,13 +835,13 @@ $(function () {
             });
         });
 
-        $('body').mousedown(function () {
+        $('body').off('mousedown.cursor').on('mousedown.cursor', function () {
             gsap.to($(cursor), .2, {
                 scale: .1,
                 ease: 'sine',
             });
         });
-        $('body').mouseup(function () {
+        $('body').off('mouseup.cursor').on('mouseup.cursor', function () {
             gsap.to($(cursor), .2, {
                 scale: 1,
                 ease: 'sine',
@@ -960,8 +990,8 @@ $(function () {
 
         ***************************/
         var swiper = new Swiper('.mil-infinite-show', {
-            slidesPerView: 2,
-            spaceBetween: 30,
+            slidesPerView: 3,
+            spaceBetween: 10,
             speed: 5000,
             autoplay: true,
             autoplay: {
@@ -970,8 +1000,13 @@ $(function () {
             loop: true,
             freeMode: true,
             breakpoints: {
+                576: {
+                    slidesPerView: 2,
+                    spaceBetween: 30,
+                },
                 992: {
                     slidesPerView: 4,
+                    spaceBetween: 30,
                 },
             },
         });
@@ -1076,9 +1111,10 @@ $(function () {
 
     function initFilter() {
         var bar = document.querySelector('.mil-filter-bar');
-        if (!bar || bar.dataset.ready) return;
-        bar.dataset.ready = '1';
+        if (!bar) return;
         applyFilter(window._videoActiveFilter);
+        if (bar.dataset.ready) return;
+        bar.dataset.ready = '1';
         bar.addEventListener('click', function (e) {
             var btn = e.target.closest ? e.target.closest('.mil-filter-btn')
                 : (e.target.classList.contains('mil-filter-btn') ? e.target : null);
@@ -1128,7 +1164,17 @@ $(function () {
                 '<button class="mil-fs-close" aria-label="Close"><i class="fas fa-times"></i></button>' +
                 '<div class="mil-fs-wrap"><video playsinline></video></div>' +
                 '<div class="mil-fs-counter"></div>' +
-                '<div class="mil-fs-hint"><i class="fas fa-chevron-up"></i>&nbsp;swipe&nbsp;<i class="fas fa-chevron-down"></i></div>';
+                '<div class="mil-fs-info"></div>' +
+                '<div class="mil-fs-hint" aria-hidden="true">' +
+                '  <svg class="mil-fs-swipe-icon" viewBox="0 0 50 86" fill="none" xmlns="http://www.w3.org/2000/svg">' +
+                '    <path class="mil-su2" d="M10 14 L25 4 L40 14"  stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>' +
+                '    <path class="mil-su1" d="M10 24 L25 14 L40 24" stroke="white" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>' +
+                '    <circle class="mil-sdot-ring" cx="25" cy="43" r="12" stroke="white" stroke-width="1.2" fill="none"/>' +
+                '    <circle class="mil-sdot"      cx="25" cy="43" r="7"  fill="white"/>' +
+                '    <path class="mil-sd1" d="M10 62 L25 72 L40 62" stroke="white" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>' +
+                '    <path class="mil-sd2" d="M10 72 L25 82 L40 72" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>' +
+                '  </svg>' +
+                '</div>';
             document.body.appendChild(fsEl);
 
             var fsWrap    = fsEl.querySelector('.mil-fs-wrap');
@@ -1157,7 +1203,8 @@ $(function () {
             }
 
             function loadFsSlide(idx) {
-                var src = fsCards[idx].querySelector('video').getAttribute('src');
+                var card = fsCards[idx];
+                var src = card.querySelector('video').getAttribute('src');
                 fsVideo.style.width  = '100%';
                 fsVideo.style.height = '100%';
                 fsVideo.src = src;
@@ -1167,6 +1214,20 @@ $(function () {
                 fsVideo.addEventListener('loadedmetadata', fitFsVideo, { once: true });
                 fsVideo.play().catch(function () {});
                 fsCounter.textContent = (idx + 1) + ' / ' + fsCards.length;
+                /* update name + tags overlay */
+                var fsInfo = fsEl.querySelector('.mil-fs-info');
+                if (fsInfo) {
+                    var h6 = card.querySelector('.mil-video-info h6');
+                    var tagEls = card.querySelectorAll('.mil-video-tags .mil-video-tag');
+                    var name = h6 ? h6.textContent.trim() : '';
+                    var tagsHtml = '';
+                    tagEls.forEach(function(t) {
+                        tagsHtml += '<span class="mil-fs-tag">' + t.textContent.trim() + '</span>';
+                    });
+                    fsInfo.innerHTML =
+                        (tagsHtml ? '<div class="mil-fs-tags">' + tagsHtml + '</div>' : '') +
+                        (name ? '<div class="mil-fs-name">' + name + '</div>' : '');
+                }
             }
 
             function navigateFs(dir) {
@@ -1229,6 +1290,8 @@ $(function () {
             }, { passive: true });
 
             /* expose opener */
+            var fsHint = fsEl.querySelector('.mil-fs-hint');
+            var fsHintTimer = null;
             fsEl._open = function (cards, idx) {
                 fsCards = cards;
                 fsIdx   = idx;
@@ -1238,6 +1301,16 @@ $(function () {
                 loadFsSlide(fsIdx);
                 fsEl.classList.add('mil-active');
                 document.body.style.overflow = 'hidden';
+                /* show swipe hint once, then auto-hide */
+                if (fsHint) {
+                    clearTimeout(fsHintTimer);
+                    fsHint.classList.remove('mil-hint-hidden');
+                    fsHint.classList.add('mil-hint-visible');
+                    fsHintTimer = setTimeout(function () {
+                        fsHint.classList.remove('mil-hint-visible');
+                        fsHint.classList.add('mil-hint-hidden');
+                    }, 2200);
+                }
             };
         }
 
@@ -1289,10 +1362,17 @@ $(function () {
                     var grid   = document.getElementById('videoGrid');
                     var inFeed = grid && grid.classList.contains('mil-feed-mode');
 
-                    /* Tap playing video on mobile → pause it */
+                    /* Tap playing video in feed mode → open fullscreen */
                     if (inFeed && thumb.classList.contains('mil-playing')) {
-                        if (video) { video.pause(); video.controls = false; }
-                        thumb.classList.remove('mil-playing');
+                        var fsViewer2 = document.getElementById('milFsViewer');
+                        if (fsViewer2 && fsViewer2._open) {
+                            var visibleCards2 = Array.from(document.querySelectorAll('.mil-video-card')).filter(function (c) {
+                                return c.offsetParent !== null;
+                            });
+                            var card3 = thumb.closest('.mil-video-card');
+                            var idx2 = visibleCards2.indexOf(card3);
+                            fsViewer2._open(visibleCards2, idx2 >= 0 ? idx2 : 0);
+                        }
                         return;
                     }
                     /* First tap or tap on a different video → zoom + feed mode + play */
@@ -1338,7 +1418,16 @@ $(function () {
                 }
 
                 /* ── Desktop: inline play ── */
-                if (thumb.classList.contains('mil-playing')) return;
+                if (thumb.classList.contains('mil-playing')) {
+                    var fsV = document.getElementById('milFsViewer');
+                    if (fsV && fsV._open) {
+                        var visCrds = Array.from(document.querySelectorAll('.mil-video-card')).filter(function(c){ return c.offsetParent !== null; });
+                        var crd = thumb.closest('.mil-video-card');
+                        var crdIdx = visCrds.indexOf(crd);
+                        fsV._open(visCrds, crdIdx >= 0 ? crdIdx : 0);
+                    }
+                    return;
+                }
                 document.querySelectorAll('.mil-video-thumb.mil-playing').forEach(function (ot) {
                     var ov2 = ot.querySelector('video');
                     if (ov2) { ov2.pause(); ov2.controls = false; }
@@ -1367,9 +1456,94 @@ $(function () {
         });
     }
 
+    /* Bug 5 — toggleVidTheme must be global so onclick= in HTML can reach it after Swup */
+    window.toggleVidTheme = function () {
+        var wrap = document.getElementById('vid-theme-wrap');
+        if (!wrap) return;
+        var isDark = wrap.classList.toggle('mil-dark-bg');
+        var deskIcon = document.querySelector('#vid-theme-toggle-desk i');
+        if (deskIcon) deskIcon.className = isDark ? 'fas fa-moon' : 'fas fa-sun';
+        var desk = document.getElementById('vid-theme-toggle-desk');
+        if (desk) { desk.style.background = isDark ? '#f0f0f0' : '#111'; desk.style.color = isDark ? '#111' : '#fff'; }
+        var mobIcon = document.querySelector('#vid-theme-toggle-mob i');
+        if (mobIcon) mobIcon.className = isDark ? 'fas fa-moon' : 'fas fa-sun';
+    };
+
+    /* Bug 8 — card title overlays for phone grid */
+    function initCardTitleOverlays() {
+        document.querySelectorAll('#videoGrid .mil-video-card').forEach(function (card) {
+            if (card.querySelector('.mil-card-title-bar')) return;
+            var h6 = card.querySelector('.mil-video-info h6');
+            if (!h6) return;
+            var bar = document.createElement('div');
+            bar.className = 'mil-card-title-bar';
+            bar.textContent = h6.textContent.trim();
+            var thumb = card.querySelector('.mil-video-thumb');
+            if (thumb) thumb.appendChild(bar);
+        });
+    }
+
+    /* Bug 8 — card scroll entrance animation for phone grid */
+    function initCardScrollAnim() {
+        if (window.innerWidth >= 576) return;
+        var cards = Array.from(document.querySelectorAll('#videoGrid .mil-video-card'));
+        if (!cards.length) return;
+        var observer = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+                if (!entry.isIntersecting) return;
+                var card = entry.target;
+                var col = cards.indexOf(card) % 3;
+                setTimeout(function () { card.classList.add('mil-card-visible'); }, col * 70);
+                observer.unobserve(card);
+            });
+        }, { threshold: 0.06, rootMargin: '0px 0px -12px 0px' });
+        cards.forEach(function (c) { observer.observe(c); });
+    }
+
+    /* Bug 6 — "TAKE A CLOSER LOOK" button handler */
+    function initCloserLookBtn() {
+        var btn = document.getElementById('milCloserLookBtn');
+        if (!btn || btn.dataset.clReady) return;
+        btn.dataset.clReady = '1';
+        btn.addEventListener('click', function (e) {
+            e.preventDefault();
+            var grid = document.getElementById('videoGrid');
+            if (!grid) return;
+            grid.classList.add('mil-feed-mode');
+            grid.querySelectorAll('.mil-video-card').forEach(function (c) { c.classList.add('mil-card-visible'); });
+            var backBtn = document.getElementById('milFeedBackBtn');
+            if (backBtn) backBtn.classList.add('mil-visible');
+            var wrap = document.getElementById('milCloserLookWrap');
+            if (wrap) wrap.style.display = 'none';
+            setTimeout(function () {
+                var target = document.getElementById('milMichelinCard') || grid.querySelector('.mil-video-card');
+                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 150);
+        });
+    }
+
+    /* Mob toggle flip animation */
+    function initMobToggleFlip() {
+        var btn = document.getElementById('vid-theme-toggle-mob');
+        if (!btn || btn.dataset.flipReady) return;
+        btn.dataset.flipReady = '1';
+        function onPress() { btn.classList.add('vid-flipped'); }
+        function onRelease() { btn.classList.remove('vid-flipped'); }
+        btn.addEventListener('touchstart', onPress, { passive: true });
+        btn.addEventListener('touchend', onRelease);
+        btn.addEventListener('touchcancel', onRelease);
+        btn.addEventListener('mousedown', onPress);
+        btn.addEventListener('mouseup', onRelease);
+        btn.addEventListener('mouseleave', onRelease);
+    }
+
     window._initVideoPage = function () {
         initFilter();
         initInlinePlayer();
+        initCardTitleOverlays();
+        initCardScrollAnim();
+        initCloserLookBtn();
+        initMobToggleFlip();
     };
 
     /* Run on direct page load */

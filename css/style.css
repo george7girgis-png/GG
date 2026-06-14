@@ -2381,6 +2381,26 @@ partners
   width: 100%;
 }
 
+@media (max-width: 575px) {
+  .mil-partner-frame {
+    width: 77px !important;
+  }
+  .mil-partner-frame img {
+    max-height: 40px;
+    width: auto;
+    max-width: 77px;
+  }
+  /* collapse reviews bottom padding on phone — the button's own mil-mb-60
+     (60px) exactly cancels the partners section's inline margin-top:-60px */
+  #reviews .mil-p-120-120 {
+    padding-bottom: 0 !important;
+  }
+  .mil-soft-bg.mil-p-0-120 {
+    padding-top: 9% !important;
+    padding-bottom: 20px !important;
+  }
+}
+
 /* -------------------------------------------
 
 services
@@ -5165,23 +5185,160 @@ video:-moz-full-screen {
   letter-spacing: 1px;
   pointer-events: none;
 }
+/* ── Fullscreen viewer: animated swipe hint icon ─────────────────────────── */
 .mil-fs-hint {
   position: fixed;
-  bottom: 42px;
+  top: 50%;
   left: 50%;
-  -webkit-transform: translateX(-50%);
-          transform: translateX(-50%);
-  color: rgba(255, 255, 255, 0.25);
-  font-size: 11px;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 10;
+  opacity: 0;
+  -webkit-transition: opacity 0.4s ease;
+          transition: opacity 0.4s ease;
+}
+.mil-fs-hint.mil-hint-visible {
+  opacity: 1;
+}
+.mil-fs-hint.mil-hint-hidden {
+  opacity: 0;
+}
+.mil-fs-swipe-icon {
+  width: 50px;
+  height: 86px;
+  display: block;
+  filter: drop-shadow(0 0 8px rgba(255,255,255,0.25)) drop-shadow(0 2px 14px rgba(0,0,0,0.9));
+}
+
+/* ── up inner chevron: leading wave ── */
+.mil-fs-swipe-icon .mil-su1 {
+  -webkit-animation: milFsSu1 2.4s ease-in-out infinite;
+          animation: milFsSu1 2.4s ease-in-out infinite;
+}
+/* ── up outer chevron: trailing wave (delayed) ── */
+.mil-fs-swipe-icon .mil-su2 {
+  -webkit-animation: milFsSu2 2.4s ease-in-out 0.18s infinite;
+          animation: milFsSu2 2.4s ease-in-out 0.18s infinite;
+}
+/* ── centre dot ── */
+.mil-fs-swipe-icon .mil-sdot {
+  -webkit-animation: milFsDot 2.4s ease-in-out infinite;
+          animation: milFsDot 2.4s ease-in-out infinite;
+}
+/* ── expanding ripple ring ── */
+.mil-fs-swipe-icon .mil-sdot-ring {
+  -webkit-transform-box: fill-box;
+          transform-box: fill-box;
+  -webkit-transform-origin: center;
+          transform-origin: center;
+  -webkit-animation: milFsRing 2.4s ease-out infinite;
+          animation: milFsRing 2.4s ease-out infinite;
+}
+/* ── down inner chevron ── */
+.mil-fs-swipe-icon .mil-sd1 {
+  -webkit-animation: milFsSd1 2.4s ease-in-out infinite;
+          animation: milFsSd1 2.4s ease-in-out infinite;
+}
+/* ── down outer chevron (delayed) ── */
+.mil-fs-swipe-icon .mil-sd2 {
+  -webkit-animation: milFsSd2 2.4s ease-in-out 0.18s infinite;
+          animation: milFsSd2 2.4s ease-in-out 0.18s infinite;
+}
+
+@-webkit-keyframes milFsSu1 {
+  0%, 60%, 100% { opacity: 0.2; -webkit-transform: translateY(5px); transform: translateY(5px); }
+  25%            { opacity: 1;   -webkit-transform: translateY(0);   transform: translateY(0); }
+}
+@keyframes milFsSu1 {
+  0%, 60%, 100% { opacity: 0.2; transform: translateY(5px); }
+  25%            { opacity: 1;   transform: translateY(0); }
+}
+
+@-webkit-keyframes milFsSu2 {
+  0%, 60%, 100% { opacity: 0.1; -webkit-transform: translateY(8px); transform: translateY(8px); }
+  25%            { opacity: 0.6; -webkit-transform: translateY(0);   transform: translateY(0); }
+}
+@keyframes milFsSu2 {
+  0%, 60%, 100% { opacity: 0.1; transform: translateY(8px); }
+  25%            { opacity: 0.6; transform: translateY(0); }
+}
+
+@-webkit-keyframes milFsDot {
+  0%, 100% { opacity: 0.85; }
+  25%       { opacity: 1; }
+  50%       { opacity: 0.85; }
+  75%       { opacity: 1; }
+}
+@keyframes milFsDot {
+  0%, 100% { opacity: 0.85; }
+  25%       { opacity: 1; }
+  50%       { opacity: 0.85; }
+  75%       { opacity: 1; }
+}
+
+@-webkit-keyframes milFsRing {
+  0%        { opacity: 0.65; -webkit-transform: scale(1);   transform: scale(1); }
+  38%       { opacity: 0;    -webkit-transform: scale(2.1); transform: scale(2.1); }
+  39%, 100% { opacity: 0;    -webkit-transform: scale(1);   transform: scale(1); }
+}
+@keyframes milFsRing {
+  0%        { opacity: 0.65; transform: scale(1); }
+  38%       { opacity: 0;    transform: scale(2.1); }
+  39%, 100% { opacity: 0;    transform: scale(1); }
+}
+
+@-webkit-keyframes milFsSd1 {
+  0%, 60%, 100% { opacity: 0.2; -webkit-transform: translateY(-5px); transform: translateY(-5px); }
+  25%            { opacity: 1;   -webkit-transform: translateY(0);    transform: translateY(0); }
+}
+@keyframes milFsSd1 {
+  0%, 60%, 100% { opacity: 0.2; transform: translateY(-5px); }
+  25%            { opacity: 1;   transform: translateY(0); }
+}
+
+@-webkit-keyframes milFsSd2 {
+  0%, 60%, 100% { opacity: 0.1; -webkit-transform: translateY(-8px); transform: translateY(-8px); }
+  25%            { opacity: 0.6; -webkit-transform: translateY(0);    transform: translateY(0); }
+}
+@keyframes milFsSd2 {
+  0%, 60%, 100% { opacity: 0.1; transform: translateY(-8px); }
+  25%            { opacity: 0.6; transform: translateY(0); }
+}
+}
+
+/* ── Fullscreen viewer: name + tags overlay (bottom) ─────────────────────── */
+.mil-fs-info {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 40px 20px 56px 20px;
+  background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 100%);
+  pointer-events: none;
+  z-index: 2;
+}
+.mil-fs-tags {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  gap: 5px;
-  pointer-events: none;
-  white-space: nowrap;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+.mil-fs-tag {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgb(255,152,0);
+}
+.mil-fs-name {
+  font-size: 18px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.3px;
 }
 
 @media (max-width: 575px) {
@@ -5412,4 +5569,26 @@ video:-moz-full-screen {
 /* Service list items — orange */
 .mil-service-list li {
   color: rgb(255, 152, 0) !important;
+}
+
+/* ── World map: reduce height on phone ───────────────────────────────────── */
+@media (max-width: 575px) {
+  .mil-map-frame {
+    height: 340px;
+    padding-top: 14px;
+  }
+}
+
+/* ── Show dodecahedron graphic on phone for 404 and websites banner ───────── */
+@media (max-width: 575px) {
+  .mil-inner-banner .mil-animation-frame .mil-position-4,
+  .mil-404-banner .mil-animation-frame .mil-position-4 {
+    display: inline-block;
+    top: 10px;
+    right: auto;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+            transform: translateX(-50%);
+    opacity: 0.15;
+  }
 }
