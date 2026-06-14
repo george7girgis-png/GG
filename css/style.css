@@ -1710,6 +1710,7 @@ banner
 @media screen and (max-width: 992px) {
   .mil-banner .mil-banner-content {
     padding-bottom: 90px;
+    margin-bottom: 22vh;
   }
 }
 .mil-banner .mil-lines-place {
