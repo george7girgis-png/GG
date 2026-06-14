@@ -73,21 +73,10 @@ $(function () {
     timeline.to(".mil-preloader", 0.8, {
         opacity: 0,
         ease: 'sine',
-    }, "+=.2");
-    timeline.fromTo(".mil-up", 0.8, {
-        opacity: 0,
-        y: 40,
-        scale: .98,
-        ease: 'sine',
-
-    }, {
-        y: 0,
-        opacity: 1,
-        scale: 1,
         onComplete: function () {
             $('.mil-preloader').addClass("mil-hidden");
         },
-    }, "-=1");
+    }, "+=.2");
     /***************************
 
     anchor scroll
