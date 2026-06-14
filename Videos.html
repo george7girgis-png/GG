@@ -267,7 +267,7 @@
 .mil-gallery-bg-layer {
   position: absolute;
   top: 0; left: 0; right: 0;
-  height: 12000px; /* explicit — bypasses dark-mode height:100% collapse; section overflow:hidden clips the excess */
+  height: 12000px;
   pointer-events: none;
   z-index: 0;
 }
@@ -275,14 +275,37 @@
   position: absolute;
   opacity: 0.055;
 }
+/* pentagon border color — required; without mil-position-* the default has no border */
+.mil-gallery-bg-layer .mil-animation .mil-pentagon div {
+  border-top: 0.1px solid rgb(0, 0, 0);
+}
 /* ensure content sits above the background layer */
 #portfolio .container {
   position: relative;
   z-index: 1;
 }
-/* dark mode: slightly more visible */
+/* dark mode */
 #vid-theme-wrap.mil-dark-bg .mil-gallery-bg-layer .mil-animation {
   opacity: 0.10;
+}
+#vid-theme-wrap.mil-dark-bg .mil-gallery-bg-layer .mil-animation .mil-pentagon div {
+  border-top: 0.1px solid rgb(255, 255, 255);
+}
+
+/* ══════════════════════════════════════════════════════════
+   GALLERY LINES — repeat SVG pairs at 1300px intervals
+   ══════════════════════════════════════════════════════════ */
+/* repeated pairs need their own top instead of inset:0 */
+.mil-video-grid-wrap .mil-lines-place-repeat {
+  inset: auto !important;
+  top: var(--rep-top, 0) !important;
+  bottom: auto !important;
+  left: 0 !important;
+  right: 0 !important;
+  height: 1500px;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
 }
 
 /* ══════════════════════════════════════════════════════════
@@ -658,8 +681,18 @@
 
                         <!-- video grid -->
                         <div class="mil-video-grid-wrap">
+                            <!-- first pair: covers 0–1300px -->
                             <div class="mil-lines-place mil-light"></div>
                             <div class="mil-lines-place mil-light mil-lines-place--right"></div>
+                            <!-- repeat pairs: each covers ~1300px, up to ~6500px total -->
+                            <div class="mil-lines-place mil-light mil-lines-place-repeat" style="--rep-top:1300px"></div>
+                            <div class="mil-lines-place mil-light mil-lines-place--right mil-lines-place-repeat" style="--rep-top:1300px"></div>
+                            <div class="mil-lines-place mil-light mil-lines-place-repeat" style="--rep-top:2600px"></div>
+                            <div class="mil-lines-place mil-light mil-lines-place--right mil-lines-place-repeat" style="--rep-top:2600px"></div>
+                            <div class="mil-lines-place mil-light mil-lines-place-repeat" style="--rep-top:3900px"></div>
+                            <div class="mil-lines-place mil-light mil-lines-place--right mil-lines-place-repeat" style="--rep-top:3900px"></div>
+                            <div class="mil-lines-place mil-light mil-lines-place-repeat" style="--rep-top:5200px"></div>
+                            <div class="mil-lines-place mil-light mil-lines-place--right mil-lines-place-repeat" style="--rep-top:5200px"></div>
                         <div class="mil-video-grid-v2" id="videoGrid">
 
                             <!-- GROUP 1: 4-left (span) | [2,3 stacked] center | 1-right (span) -->
