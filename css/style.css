@@ -2065,6 +2065,10 @@ dodecahedron
     display: none;
   }
 }
+.mil-inner-banner .mil-position-4,
+.mil-404-banner .mil-position-4 {
+  display: inline-block !important;
+}
 .mil-position-4.mil-dark .mil-pentagon div {
   border-top: 0.1px solid rgb(0, 0, 0);
 }
