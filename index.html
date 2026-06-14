@@ -474,7 +474,7 @@
                 <!-- reviews end -->
 
                 <!-- partners -->
-                <div class="mil-soft-bg mil-p-0-120" style="margin-top: -60px; overflow: hidden;">
+                <div class="mil-soft-bg mil-p-0-120" style="margin-top: -72px; overflow: hidden;">
 
                     <div class="swiper-container mil-infinite-show mil-up">
                         <div class="swiper-wrapper">
@@ -772,7 +772,7 @@
               fill: "rgb(255,152,0)",
               stroke: "rgba(0,0,0,0.35)",
               strokeWidth: 1.5,
-              r: 7
+              r: 5.6
             },
             hover: {
               fill: "rgb(255,152,0)",
@@ -797,6 +797,25 @@
             p.style.setProperty('stroke', 'rgba(255,255,255,0.15)', 'important');
             p.style.setProperty('stroke-width', '0.4px', 'important');
           });
+
+          var markerEl = el.querySelector('.jvm-marker');
+          if (markerEl && window.gsap) {
+            var cx = markerEl.getAttribute('cx');
+            var cy = parseFloat(markerEl.getAttribute('cy'));
+
+            /* ping ring: expands and fades behind the marker */
+            var ring = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+            ring.setAttribute('cx', cx);
+            ring.setAttribute('cy', cy);
+            ring.setAttribute('r', '5.6');
+            ring.setAttribute('fill', 'rgb(255,152,0)');
+            ring.setAttribute('pointer-events', 'none');
+            markerEl.parentNode.insertBefore(ring, markerEl);
+            gsap.fromTo(ring,
+              { attr: { r: 5.6 }, opacity: 0.65 },
+              { attr: { r: 26 }, opacity: 0, duration: 1.8, ease: 'power2.out', repeat: -1 }
+            );
+          }
         }, 100);
       };
       window._initWorldMap();
