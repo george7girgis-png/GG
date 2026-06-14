@@ -378,7 +378,7 @@ $(function () {
             duration: .4,
             scrollTrigger: {
                 trigger: section,
-                toggleActions: 'play none none reverse',
+                toggleActions: 'play none none none',
             }
         });
     });
@@ -869,7 +869,7 @@ $(function () {
                 duration: .4,
                 scrollTrigger: {
                     trigger: section,
-                    toggleActions: 'play none none reverse',
+                    toggleActions: 'play none none none',
                 }
             });
         });
