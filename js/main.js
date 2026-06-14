@@ -1547,31 +1547,28 @@ $(function () {
     }
 
     function initGalleryBgGraphics() {
-        var section = document.getElementById('portfolio');
         var layer = document.querySelector('.mil-gallery-bg-layer');
-        if (!section || !layer) return;
+        if (!layer) return;
 
         var dod = document.querySelector('.mil-hidden-elements .mil-dodecahedron');
         if (!dod) return;
 
         layer.innerHTML = '';
 
-        var h = section.offsetHeight;
-        var spacing = 480;
-        var total = Math.max(Math.ceil(h / spacing), 2);
-
+        /* 20 tiles × 500px ≈ 10 000px — covers any gallery length;
+           section overflow:hidden clips any tiles beyond the content. */
+        var MAX = 20;
+        var spacing = 500;
         var sides = ['right', 'left'];
         var offsets = ['5%', '3%', '7%', '4%', '6%'];
 
-        for (var i = 0; i < total; i++) {
+        for (var i = 0; i < MAX; i++) {
             var el = document.createElement('div');
             el.className = 'mil-animation mil-gallery-bg-dyn';
-            var topPx = i * spacing + 120;
-            var side = sides[i % 2];
-            var pct = offsets[i % offsets.length];
-            el.style.cssText = 'position:absolute;width:300px;height:300px;pointer-events:none;' +
-                'display:inline-block;' +
-                'top:' + topPx + 'px;' + side + ':' + pct + ';' +
+            el.style.cssText =
+                'position:absolute;width:300px;height:300px;pointer-events:none;display:inline-block;' +
+                'top:' + (i * spacing + 100) + 'px;' +
+                sides[i % 2] + ':' + offsets[i % offsets.length] + ';' +
                 'animation-delay:' + (i * 0.5 % 2.4) + 's;';
             el.appendChild(dod.cloneNode(true));
             layer.appendChild(el);
@@ -1585,7 +1582,7 @@ $(function () {
         initCardScrollAnim();
         initCloserLookBtn();
         initMobToggleFlip();
-        setTimeout(initGalleryBgGraphics, 120);
+        initGalleryBgGraphics();
     };
 
     /* Run on direct page load */
