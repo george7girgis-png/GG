@@ -275,13 +275,7 @@
   position: relative;
   z-index: 1;
 }
-.mil-gallery-bg-layer .mil-animation {
-  opacity: 0.055;
-}
-.mil-gb-r1 { top:  8%; right: 5%; animation-delay: 0s;   }
-.mil-gb-l2 { top: 32%; left:  3%; animation-delay: 0.6s; }
-.mil-gb-r3 { top: 60%; right: 8%; animation-delay: 1.2s; }
-.mil-gb-l4 { top: 84%; left:  5%; animation-delay: 1.8s; }
+.mil-gallery-bg-dyn { opacity: 0.055; }
 /* dark mode: slightly more visible */
 #vid-theme-wrap.mil-dark-bg .mil-gallery-bg-layer .mil-animation {
   opacity: 0.10;
@@ -616,13 +610,8 @@
                 <section id="portfolio">
                     <div class="mi-invert-fix">
 
-                    <!-- tiled background dodecahedrons — cloned by main.js into every .mil-animation -->
-                    <div class="mil-gallery-bg-layer">
-                        <div class="mil-animation mil-gb-r1 mil-scale" data-value-1="2.0" data-value-2="0.6"></div>
-                        <div class="mil-animation mil-gb-l2 mil-scale" data-value-1="2.2" data-value-2="0.7"></div>
-                        <div class="mil-animation mil-gb-r3 mil-scale" data-value-1="1.8" data-value-2="0.5"></div>
-                        <div class="mil-animation mil-gb-l4 mil-scale" data-value-1="2.1" data-value-2="0.6"></div>
-                    </div>
+                    <!-- tiled background dodecahedrons — filled dynamically by initGalleryBgGraphics() in main.js -->
+                    <div class="mil-gallery-bg-layer"></div>
 
                     <div class="container mil-p-120-60">
 
