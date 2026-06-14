@@ -1216,14 +1216,18 @@ $(function () {
 
             function navigateFs(dir) {
                 var next = fsIdx + dir;
+                var phone = window.innerWidth < 576;
+                var exitDur  = phone ? '0.32s' : '0.14s';
+                var enterDur = phone ? '0.36s' : '0.18s';
+                var delay    = phone ? 260     : 150;
                 if (next < 0 || next >= fsCards.length) {
                     /* bounce back */
-                    fsWrap.style.transition = 'transform 0.18s ease, opacity 0.18s ease';
+                    fsWrap.style.transition = 'transform ' + enterDur + ' ease, opacity ' + enterDur + ' ease';
                     fsWrap.style.transform  = '';
                     fsWrap.style.opacity    = '1';
                     return;
                 }
-                fsWrap.style.transition = 'transform 0.14s ease, opacity 0.14s ease';
+                fsWrap.style.transition = 'transform ' + exitDur + ' ease, opacity ' + exitDur + ' ease';
                 fsWrap.style.transform  = dir > 0 ? 'translateY(-50px)' : 'translateY(50px)';
                 fsWrap.style.opacity    = '0';
                 setTimeout(function () {
@@ -1234,12 +1238,12 @@ $(function () {
                     loadFsSlide(fsIdx);
                     requestAnimationFrame(function () {
                         requestAnimationFrame(function () {
-                            fsWrap.style.transition = 'transform 0.18s ease, opacity 0.18s ease';
+                            fsWrap.style.transition = 'transform ' + enterDur + ' ease, opacity ' + enterDur + ' ease';
                             fsWrap.style.transform  = '';
                             fsWrap.style.opacity    = '1';
                         });
                     });
-                }, 150);
+                }, delay);
             }
 
             fsEl.querySelector('.mil-fs-close').addEventListener('click', closeFsViewer);
