@@ -368,13 +368,11 @@ $(function () {
         gsap.fromTo(section, {
             opacity: 0,
             y: 40,
-            scale: .98,
             ease: 'sine',
 
         }, {
             y: 0,
             opacity: 1,
-            scale: 1,
             duration: .4,
             scrollTrigger: {
                 trigger: section,
@@ -385,25 +383,26 @@ $(function () {
 
     const scaleImage = document.querySelectorAll(".mil-scale");
 
-    scaleImage.forEach((section) => {
-        var value1 = $(section).data("value-1");
-        var value2 = $(section).data("value-2");
-        gsap.fromTo(section, {
-            ease: 'sine',
-            scale: value1,
+    if ($(window).width() > 960) {
+        scaleImage.forEach((section) => {
+            var value1 = $(section).data("value-1");
+            var value2 = $(section).data("value-2");
+            gsap.fromTo(section, {
+                ease: 'sine',
+                scale: value1,
 
-        }, {
-            scale: value2,
-            scrollTrigger: {
-                trigger: section,
-                scrub: true,
-                toggleActions: 'play none none reverse',
-            }
+            }, {
+                scale: value2,
+                scrollTrigger: {
+                    trigger: section,
+                    scrub: true,
+                    toggleActions: 'play none none reverse',
+                }
+            });
         });
-    });
+    }
 
     const parallaxImage = document.querySelectorAll(".mil-parallax");
-
 
     if ($(window).width() > 960) {
         parallaxImage.forEach((section) => {
@@ -426,21 +425,23 @@ $(function () {
 
     const rotate = document.querySelectorAll(".mil-rotate");
 
-    rotate.forEach((section) => {
-        var value = $(section).data("value");
-        gsap.fromTo(section, {
-            ease: 'sine',
-            rotate: 0,
+    if ($(window).width() > 960) {
+        rotate.forEach((section) => {
+            var value = $(section).data("value");
+            gsap.fromTo(section, {
+                ease: 'sine',
+                rotate: 0,
 
-        }, {
-            rotate: value,
-            scrollTrigger: {
-                trigger: section,
-                scrub: true,
-                toggleActions: 'play none none reverse',
-            }
+            }, {
+                rotate: value,
+                scrollTrigger: {
+                    trigger: section,
+                    scrub: true,
+                    toggleActions: 'play none none reverse',
+                }
+            });
         });
-    });
+    }
     /***************************
 
     fancybox
@@ -859,13 +860,11 @@ $(function () {
             gsap.fromTo(section, {
                 opacity: 0,
                 y: 40,
-                scale: .98,
                 ease: 'sine',
 
             }, {
                 y: 0,
                 opacity: 1,
-                scale: 1,
                 duration: .4,
                 scrollTrigger: {
                     trigger: section,
@@ -876,25 +875,26 @@ $(function () {
 
         const scaleImage = document.querySelectorAll(".mil-scale");
 
-        scaleImage.forEach((section) => {
-            var value1 = $(section).data("value-1");
-            var value2 = $(section).data("value-2");
-            gsap.fromTo(section, {
-                ease: 'sine',
-                scale: value1,
+        if ($(window).width() > 960) {
+            scaleImage.forEach((section) => {
+                var value1 = $(section).data("value-1");
+                var value2 = $(section).data("value-2");
+                gsap.fromTo(section, {
+                    ease: 'sine',
+                    scale: value1,
 
-            }, {
-                scale: value2,
-                scrollTrigger: {
-                    trigger: section,
-                    scrub: true,
-                    toggleActions: 'play none none reverse',
-                }
+                }, {
+                    scale: value2,
+                    scrollTrigger: {
+                        trigger: section,
+                        scrub: true,
+                        toggleActions: 'play none none reverse',
+                    }
+                });
             });
-        });
+        }
 
         const parallaxImage = document.querySelectorAll(".mil-parallax");
-
 
         if ($(window).width() > 960) {
             parallaxImage.forEach((section) => {
@@ -917,21 +917,23 @@ $(function () {
 
         const rotate = document.querySelectorAll(".mil-rotate");
 
-        rotate.forEach((section) => {
-            var value = $(section).data("value");
-            gsap.fromTo(section, {
-                ease: 'sine',
-                rotate: 0,
+        if ($(window).width() > 960) {
+            rotate.forEach((section) => {
+                var value = $(section).data("value");
+                gsap.fromTo(section, {
+                    ease: 'sine',
+                    rotate: 0,
 
-            }, {
-                rotate: value,
-                scrollTrigger: {
-                    trigger: section,
-                    scrub: true,
-                    toggleActions: 'play none none reverse',
-                }
+                }, {
+                    rotate: value,
+                    scrollTrigger: {
+                        trigger: section,
+                        scrub: true,
+                        toggleActions: 'play none none reverse',
+                    }
+                });
             });
-        });
+        }
         /***************************
 
         fancybox
@@ -1151,9 +1153,8 @@ $(function () {
             fsEl.className = 'mil-fs-viewer';
             fsEl.innerHTML =
                 '<button class="mil-fs-close" aria-label="Close"><i class="fas fa-times"></i></button>' +
-                '<div class="mil-fs-wrap"><video playsinline></video></div>' +
+                '<div class="mil-fs-wrap"><video playsinline></video><div class="mil-fs-info"></div></div>' +
                 '<div class="mil-fs-counter"></div>' +
-                '<div class="mil-fs-info"></div>' +
                 '<div class="mil-fs-hint" aria-hidden="true">' +
                 '  <svg class="mil-fs-swipe-icon" viewBox="0 0 50 86" fill="none" xmlns="http://www.w3.org/2000/svg">' +
                 '    <path class="mil-su2" d="M10 14 L25 4 L40 14"  stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>' +

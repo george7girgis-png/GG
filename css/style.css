@@ -5140,6 +5140,7 @@ video:-moz-full-screen {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  isolation: isolate;
   -webkit-transition: opacity 0.16s ease, -webkit-transform 0.16s ease;
           transition: opacity 0.16s ease, transform 0.16s ease;
 }
@@ -5149,6 +5150,8 @@ video:-moz-full-screen {
   width: auto;
   height: auto;
   display: block;
+  position: relative;
+  z-index: 1;
 }
 .mil-fs-close {
   position: absolute;
@@ -5315,10 +5318,10 @@ video:-moz-full-screen {
   left: 0;
   right: 0;
   pointer-events: none;
-  z-index: 5;
-  -webkit-transform: translateZ(0);
-          transform: translateZ(0);
-  will-change: transform;
+  z-index: 2;
+}
+@media (min-width: 576px) {
+  .mil-fs-info { display: none; }
 }
 /* gradient fade above the panel */
 .mil-fs-info::before {
