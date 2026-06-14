@@ -261,36 +261,6 @@
   color: rgba(255,255,255,0.38) !important;
 }
 
-/* ══════════════════════════════════════════════════════════
-   GALLERY BACKGROUND DODECAHEDRONS — tiled through section
-   ══════════════════════════════════════════════════════════ */
-.mil-gallery-bg-layer {
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 12000px;
-  pointer-events: none;
-  z-index: 0;
-}
-.mil-gallery-bg-layer .mil-animation {
-  position: absolute;
-  opacity: 0.055;
-}
-/* pentagon border color — required; without mil-position-* the default has no border */
-.mil-gallery-bg-layer .mil-animation .mil-pentagon div {
-  border-top: 0.1px solid rgb(0, 0, 0);
-}
-/* ensure content sits above the background layer */
-#portfolio .container {
-  position: relative;
-  z-index: 1;
-}
-/* dark mode */
-#vid-theme-wrap.mil-dark-bg .mil-gallery-bg-layer .mil-animation {
-  opacity: 0.10;
-}
-#vid-theme-wrap.mil-dark-bg .mil-gallery-bg-layer .mil-animation .mil-pentagon div {
-  border-top: 0.1px solid rgb(255, 255, 255);
-}
 
 /* ══════════════════════════════════════════════════════════
    GALLERY LINES — phone: one side, seamless tiling
@@ -641,30 +611,6 @@
                 <!-- portfolio -->
                 <section id="portfolio">
                     <div class="mi-invert-fix">
-
-                    <!-- tiled background dodecahedrons — jQuery global clone fills each .mil-animation at ready/swup -->
-                    <div class="mil-gallery-bg-layer">
-                        <div class="mil-animation" style="top:100px;right:5%"></div>
-                        <div class="mil-animation" style="top:600px;left:3%"></div>
-                        <div class="mil-animation" style="top:1100px;right:7%"></div>
-                        <div class="mil-animation" style="top:1600px;left:4%"></div>
-                        <div class="mil-animation" style="top:2100px;right:6%"></div>
-                        <div class="mil-animation" style="top:2600px;left:5%"></div>
-                        <div class="mil-animation" style="top:3100px;right:3%"></div>
-                        <div class="mil-animation" style="top:3600px;left:7%"></div>
-                        <div class="mil-animation" style="top:4100px;right:5%"></div>
-                        <div class="mil-animation" style="top:4600px;left:4%"></div>
-                        <div class="mil-animation" style="top:5100px;right:6%"></div>
-                        <div class="mil-animation" style="top:5600px;left:3%"></div>
-                        <div class="mil-animation" style="top:6100px;right:7%"></div>
-                        <div class="mil-animation" style="top:6600px;left:5%"></div>
-                        <div class="mil-animation" style="top:7100px;right:4%"></div>
-                        <div class="mil-animation" style="top:7600px;left:6%"></div>
-                        <div class="mil-animation" style="top:8100px;right:3%"></div>
-                        <div class="mil-animation" style="top:8600px;left:7%"></div>
-                        <div class="mil-animation" style="top:9100px;right:5%"></div>
-                        <div class="mil-animation" style="top:9600px;left:4%"></div>
-                    </div>
 
                     <div class="container mil-p-120-60">
 
