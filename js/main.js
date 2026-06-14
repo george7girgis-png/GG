@@ -1222,11 +1222,14 @@ $(function () {
                     var name = h6 ? h6.textContent.trim() : '';
                     var tagsHtml = '';
                     tagEls.forEach(function(t) {
-                        tagsHtml += '<span class="mil-fs-tag">' + t.textContent.trim() + '</span>';
+                        tagsHtml += '<span class="mil-fs-tag">#' + t.textContent.trim() + '</span>';
                     });
                     fsInfo.innerHTML =
+                        '<div class="mil-fs-info-panel">' +
+                        (name ? '<div class="mil-fs-name">' + name + '</div>' : '') +
                         (tagsHtml ? '<div class="mil-fs-tags">' + tagsHtml + '</div>' : '') +
-                        (name ? '<div class="mil-fs-name">' + name + '</div>' : '');
+                        '<div class="mil-fs-counter-inline">' + (idx + 1) + ' / ' + fsCards.length + '</div>' +
+                        '</div>';
                 }
             }
 

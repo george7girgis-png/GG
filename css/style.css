@@ -5307,16 +5307,37 @@ video:-moz-full-screen {
 }
 }
 
-/* ── Fullscreen viewer: name + tags overlay (bottom) ─────────────────────── */
+/* ── Fullscreen viewer: solid overlay panel ──────────────────────────────── */
 .mil-fs-info {
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
-  padding: 40px 20px 56px 20px;
-  background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 100%);
   pointer-events: none;
-  z-index: 2;
+  z-index: 5;
+}
+/* gradient fade above the panel */
+.mil-fs-info::before {
+  content: '';
+  display: block;
+  height: 70px;
+  background: linear-gradient(to bottom, transparent, rgba(0,0,0,0.72));
+}
+/* solid frosted-glass panel */
+.mil-fs-info-panel {
+  background: rgba(12, 12, 12, 0.86);
+  -webkit-backdrop-filter: blur(14px);
+          backdrop-filter: blur(14px);
+  border-top: 1px solid rgba(255,255,255,0.07);
+  padding: 14px 20px calc(22px + env(safe-area-inset-bottom, 0px)) 20px;
+}
+.mil-fs-name {
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.2px;
+  margin-bottom: 8px;
+  line-height: 1.35;
 }
 .mil-fs-tags {
   display: -webkit-box;
@@ -5324,21 +5345,23 @@ video:-moz-full-screen {
   display: flex;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-  gap: 10px;
-  margin-bottom: 6px;
+  gap: 8px;
+  margin-bottom: 8px;
 }
 .mil-fs-tag {
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 2px;
-  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
   color: rgb(255,152,0);
 }
-.mil-fs-name {
-  font-size: 18px;
-  font-weight: 700;
-  color: #fff;
-  letter-spacing: 0.3px;
+.mil-fs-counter-inline {
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  color: rgba(255,255,255,0.38);
+}
+/* hide the old floating counter — info panel handles it */
+.mil-fs-counter {
+  display: none;
 }
 
 @media (max-width: 575px) {
