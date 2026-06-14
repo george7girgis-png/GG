@@ -820,7 +820,7 @@
             }
           },
           markerLabelStyle: { initial: { display: "none" } },
-          onViewportChange: function() { syncRing(); },
+          onViewportChange: function() { setTimeout(syncRing, 0); },
           onRegionTooltipShow: function(event, tooltip, code) {
             var jvmTip = document.querySelector('.jvm-tooltip');
             if (salesData[code] !== undefined) {
