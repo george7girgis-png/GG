@@ -449,14 +449,33 @@
   pointer-events: none;
   z-index: 0;
 }
-/* Desktop: hide phone tiles and right side already visible */
+/* Desktop: hide phone tiles; enlarge SVG 50% (250→375px wide, height scales to 1755px) */
 @media (min-width: 993px) {
   .mil-lines-phone-tile { display: none !important; }
+  .mil-video-grid-wrap .mil-lines-place .mil-lines { width: 375px !important; }
 }
-/* Phone: hide right side, hide old repeat pairs */
+/* Phone: hide right side, hide old repeat pairs, hide desktop tiles */
 @media (max-width: 992px) {
   .mil-video-grid-wrap .mil-lines-place--right { display: none !important; }
   .mil-video-grid-wrap .mil-lines-place-repeat  { display: none !important; }
+  .mil-lines-desktop-tile { display: none !important; }
+}
+/* Desktop tiles: left+right pairs repeating at 1755px intervals */
+.mil-lines-desktop-tile {
+  position: absolute !important;
+  inset: auto !important;
+  top: var(--dt, 0) !important;
+  bottom: auto !important;
+  left: 0 !important;
+  right: 0 !important;
+  height: 1800px;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+.mil-lines-desktop-tile.mil-lines-place--right {
+  display: flex;
+  justify-content: flex-end;
 }
 
 /* ══════════════════════════════════════════════════════════
@@ -633,9 +652,16 @@
 
                         <!-- video grid -->
                         <div class="mil-video-grid-wrap">
-                            <!-- desktop: left + right, once -->
+                            <!-- desktop: first pair (left + right) -->
                             <div class="mil-lines-place mil-light"></div>
                             <div class="mil-lines-place mil-light mil-lines-place--right"></div>
+                            <!-- desktop only: repeat pairs every 1755px (375px wide SVG = 375/300×1404 ≈ 1755px tall) -->
+                            <div class="mil-lines-place mil-light mil-lines-desktop-tile" style="--dt:1755px"></div>
+                            <div class="mil-lines-place mil-light mil-lines-place--right mil-lines-desktop-tile" style="--dt:1755px"></div>
+                            <div class="mil-lines-place mil-light mil-lines-desktop-tile" style="--dt:3510px"></div>
+                            <div class="mil-lines-place mil-light mil-lines-place--right mil-lines-desktop-tile" style="--dt:3510px"></div>
+                            <div class="mil-lines-place mil-light mil-lines-desktop-tile" style="--dt:5265px"></div>
+                            <div class="mil-lines-place mil-light mil-lines-place--right mil-lines-desktop-tile" style="--dt:5265px"></div>
                             <!-- phone only: left side repeating every 1170px (SVG natural height = 250/300×1404) -->
                             <div class="mil-lines-place mil-light mil-lines-phone-tile" style="--t:1170px"></div>
                             <div class="mil-lines-place mil-light mil-lines-phone-tile" style="--t:2340px"></div>
