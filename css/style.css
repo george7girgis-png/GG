@@ -5150,7 +5150,7 @@ video:-moz-full-screen {
   display: block;
 }
 .mil-fs-close {
-  position: fixed;
+  position: absolute;
   top: 14px;
   right: 14px;
   width: 40px;
@@ -5175,7 +5175,7 @@ video:-moz-full-screen {
   z-index: 1;
 }
 .mil-fs-counter {
-  position: fixed;
+  position: absolute;
   bottom: 20px;
   left: 50%;
   -webkit-transform: translateX(-50%);
@@ -5187,7 +5187,7 @@ video:-moz-full-screen {
 }
 /* ── Fullscreen viewer: animated swipe hint icon ─────────────────────────── */
 .mil-fs-hint {
-  position: fixed;
+  position: absolute;
   top: 50%;
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
@@ -5309,7 +5309,7 @@ video:-moz-full-screen {
 
 /* ── Fullscreen viewer: solid overlay panel ──────────────────────────────── */
 .mil-fs-info {
-  position: fixed;
+  position: absolute;
   bottom: 0;
   left: 0;
   right: 0;

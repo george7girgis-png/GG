@@ -1202,6 +1202,12 @@ $(function () {
                 fsVideo.style.height = Math.round(hn * scale) + 'px';
             }
 
+            /* tap on video toggles play/pause in fullscreen viewer */
+            fsWrap.addEventListener('click', function () {
+                if (fsVideo.paused) { fsVideo.play().catch(function(){}); }
+                else { fsVideo.pause(); }
+            });
+
             function loadFsSlide(idx) {
                 var card = fsCards[idx];
                 var src = card.querySelector('video').getAttribute('src');
@@ -1210,7 +1216,7 @@ $(function () {
                 fsVideo.src = src;
                 fsVideo.removeAttribute('muted');
                 fsVideo.muted = false;
-                fsVideo.controls = true;
+                fsVideo.controls = false;
                 fsVideo.addEventListener('loadedmetadata', fitFsVideo, { once: true });
                 fsVideo.play().catch(function () {});
                 fsCounter.textContent = (idx + 1) + ' / ' + fsCards.length;
