@@ -1191,17 +1191,6 @@ $(function () {
                 document.body.style.overflow = '';
             }
 
-            function fitFsVideo() {
-                var vw = fsEl.clientWidth  || window.innerWidth;
-                var vh = fsEl.clientHeight || window.innerHeight;
-                var vn = fsVideo.videoWidth;
-                var hn = fsVideo.videoHeight;
-                if (!vn || !hn) return;
-                var scale = Math.min(vw / vn, vh / hn);
-                fsVideo.style.width  = Math.round(vn * scale) + 'px';
-                fsVideo.style.height = Math.round(hn * scale) + 'px';
-            }
-
             /* tap on video toggles play/pause in fullscreen viewer */
             fsWrap.addEventListener('click', function () {
                 if (fsVideo.paused) { fsVideo.play().catch(function(){}); }
@@ -1211,13 +1200,10 @@ $(function () {
             function loadFsSlide(idx) {
                 var card = fsCards[idx];
                 var src = card.querySelector('video').getAttribute('src');
-                fsVideo.style.width  = '100%';
-                fsVideo.style.height = '100%';
                 fsVideo.src = src;
                 fsVideo.removeAttribute('muted');
                 fsVideo.muted = false;
                 fsVideo.controls = false;
-                fsVideo.addEventListener('loadedmetadata', fitFsVideo, { once: true });
                 fsVideo.play().catch(function () {});
                 fsCounter.textContent = (idx + 1) + ' / ' + fsCards.length;
                 /* update name + tags overlay */
