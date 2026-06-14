@@ -5211,6 +5211,16 @@ video:-moz-full-screen {
   display: block;
   filter: drop-shadow(0 0 8px rgba(255,255,255,0.25)) drop-shadow(0 2px 14px rgba(0,0,0,0.9));
 }
+.mil-fs-swipe-label {
+  display: block;
+  text-align: center;
+  margin-top: 10px;
+  color: rgba(255, 255, 255, 0.75);
+  font-family: 'Outfit', sans-serif;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-shadow: 0 1px 8px rgba(0,0,0,0.8);
+}
 
 /* ── up inner chevron: leading wave ── */
 .mil-fs-swipe-icon .mil-su1 {
