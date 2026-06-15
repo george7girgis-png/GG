@@ -1346,58 +1346,8 @@ $(function () {
                 if (e.target === pauseBtn || pauseBtn.contains(e.target)) return;
                 if (!video) return;
 
-                /* ── Mobile ── */
-                if (window.innerWidth < 576) {
-                    var grid   = document.getElementById('videoGrid');
-                    var inFeed = grid && grid.classList.contains('mil-feed-mode');
-
-                    /* Tap playing video in feed mode → toggle play/pause */
-                    if (inFeed && thumb.classList.contains('mil-playing')) {
-                        if (video.paused) { video.play().catch(function(){}); }
-                        else { video.pause(); }
-                        return;
-                    }
-                    /* First tap or tap on a different video → zoom + feed mode + play */
-                    if (!inFeed) {
-                        var card2 = thumb.closest('.mil-video-card');
-                        if (card2) card2.classList.add('mil-card-zooming');
-                        setTimeout(function () {
-                            if (card2) card2.classList.remove('mil-card-zooming');
-                            grid.classList.add('mil-feed-mode');
-                            grid.querySelectorAll('.mil-video-card').forEach(function(c) {
-                                c.classList.add('mil-card-visible');
-                            });
-                            backBtn.classList.add('mil-visible');
-                            var clWrap = document.getElementById('milCloserLookWrap');
-                            if (clWrap) clWrap.style.display = 'none';
-                            document.querySelectorAll('.mil-video-thumb.mil-playing').forEach(function (ot) {
-                                var ov2 = ot.querySelector('video');
-                                if (ov2) { ov2.pause(); ov2.controls = false; }
-                                ot.classList.remove('mil-playing');
-                            });
-                            video.removeAttribute('muted');
-                            video.muted = false;
-                            video.controls = false;
-                            video.play().catch(function () {});
-                            thumb.classList.add('mil-playing');
-                            setTimeout(function () {
-                                if (card2) card2.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                            }, 200);
-                        }, 320);
-                        return;
-                    }
-                    document.querySelectorAll('.mil-video-thumb.mil-playing').forEach(function (ot) {
-                        var ov2 = ot.querySelector('video');
-                        if (ov2) { ov2.pause(); ov2.controls = false; }
-                        ot.classList.remove('mil-playing');
-                    });
-                    video.removeAttribute('muted');
-                    video.muted = false;
-                    video.controls = false;
-                    video.play().catch(function () {});
-                    thumb.classList.add('mil-playing');
-                    return;
-                }
+                /* ── Mobile: thumb tap does nothing — use overlay buttons only ── */
+                if (window.innerWidth < 576) { return; }
 
                 /* ── Desktop: inline play ── */
                 if (thumb.classList.contains('mil-playing')) {
