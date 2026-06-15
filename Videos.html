@@ -323,23 +323,58 @@
   #milCloserLookWrap {
     display: block !important;
   }
-  /* Filter bar: wrapping rows, words stack inside each button */
+
+  /* ── Creative filter bar: 4-per-row outlined pill tags ── */
   .mil-filter-bar {
     display: flex !important;
     flex-wrap: wrap !important;
-    overflow-x: unset !important;
     justify-content: flex-start !important;
-    margin-bottom: 16px !important;
+    gap: 4px !important;
+    overflow: visible !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    margin: 0 0 14px 0 !important;
+    padding: 0 !important;
+    border: none !important;
   }
   .mil-filter-btn {
-    flex: none !important;
-    font-size: 8px !important;
-    letter-spacing: 1px !important;
-    padding: 5px 8px !important;
-    white-space: normal !important;
+    flex: 0 0 calc(25% - 3px) !important;
+    min-width: 0 !important;
+    border: 1.5px solid rgba(0,0,0,0.10) !important;
+    border-radius: 8px !important;
+    background: transparent !important;
+    color: rgba(0,0,0,0.40) !important;
+    font-size: 7px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.7px !important;
+    padding: 7px 3px !important;
     text-align: center !important;
-    line-height: 1.3 !important;
-    max-width: 72px !important;
+    line-height: 1.35 !important;
+    white-space: normal !important;
+    text-transform: uppercase !important;
+    transition: background 0.18s, border-color 0.18s, color 0.18s !important;
+  }
+  .mil-filter-btn:hover {
+    color: rgba(0,0,0,0.65) !important;
+    background: transparent !important;
+  }
+  .mil-filter-btn.active {
+    background: rgb(255,152,0) !important;
+    border-color: rgb(255,152,0) !important;
+    color: #fff !important;
+  }
+  /* Dark mode */
+  #vid-theme-wrap.mil-dark-bg .mil-filter-btn {
+    border-color: rgba(255,255,255,0.14) !important;
+    color: rgba(255,255,255,0.40) !important;
+  }
+  #vid-theme-wrap.mil-dark-bg .mil-filter-btn:hover {
+    color: rgba(255,255,255,0.70) !important;
+  }
+  #vid-theme-wrap.mil-dark-bg .mil-filter-btn.active {
+    background: rgb(255,152,0) !important;
+    border-color: rgb(255,152,0) !important;
+    color: #fff !important;
   }
 }
 #milCloserLookBtn {
