@@ -1335,7 +1335,7 @@ $(function () {
                     if (video) {
                         video.removeAttribute('muted');
                         video.muted = false;
-                        video.controls = true;
+                        video.controls = window.innerWidth >= 576;
                         video.play().catch(function () {});
                     }
                     thumb.classList.add('mil-playing');
@@ -1351,17 +1351,10 @@ $(function () {
                     var grid   = document.getElementById('videoGrid');
                     var inFeed = grid && grid.classList.contains('mil-feed-mode');
 
-                    /* Tap playing video in feed mode → open fullscreen */
+                    /* Tap playing video in feed mode → toggle play/pause */
                     if (inFeed && thumb.classList.contains('mil-playing')) {
-                        var fsViewer2 = document.getElementById('milFsViewer');
-                        if (fsViewer2 && fsViewer2._open) {
-                            var visibleCards2 = Array.from(document.querySelectorAll('.mil-video-card')).filter(function (c) {
-                                return c.offsetParent !== null;
-                            });
-                            var card3 = thumb.closest('.mil-video-card');
-                            var idx2 = visibleCards2.indexOf(card3);
-                            fsViewer2._open(visibleCards2, idx2 >= 0 ? idx2 : 0);
-                        }
+                        if (video.paused) { video.play().catch(function(){}); }
+                        else { video.pause(); }
                         return;
                     }
                     /* First tap or tap on a different video → zoom + feed mode + play */
@@ -1384,7 +1377,7 @@ $(function () {
                             });
                             video.removeAttribute('muted');
                             video.muted = false;
-                            video.controls = true;
+                            video.controls = false;
                             video.play().catch(function () {});
                             thumb.classList.add('mil-playing');
                             setTimeout(function () {
@@ -1400,7 +1393,7 @@ $(function () {
                     });
                     video.removeAttribute('muted');
                     video.muted = false;
-                    video.controls = true;
+                    video.controls = false;
                     video.play().catch(function () {});
                     thumb.classList.add('mil-playing');
                     return;
