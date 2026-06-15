@@ -561,13 +561,16 @@
     grid-row: unset !important;
     height: auto !important;
   }
-  .mil-video-grid-v2:not(.mil-feed-mode) .vg-span {
+  .mil-video-grid-v2:not(.mil-feed-mode) .vg-span:not(.mil-hidden) {
     display: block !important;
     height: auto !important;
   }
   .mil-video-grid-v2:not(.mil-feed-mode) .mil-video-thumb {
     aspect-ratio: 3 / 4 !important;
     position: relative !important;
+  }
+  .mil-video-grid-v2:not(.mil-feed-mode) .mil-video-card:not(.vg-span) .mil-video-thumb {
+    aspect-ratio: 3 / 4 !important;
   }
   .mil-video-grid-v2:not(.mil-feed-mode) .mil-video-thumb video {
     position: absolute !important;
@@ -747,7 +750,7 @@
 
                             <!-- GROUP 1: 4-left (span) | [2,3 stacked] center | 1-right (span) -->
                             <div class="vg-group vg-group-1">
-                            <div class="mil-video-card video-4 vg-span" data-category="reels social-media">
+                            <div class="mil-video-card video-4 vg-span" data-category="interviews">
                                 <div class="mil-video-thumb">
                                     <video src="Videos/4 Real estate Testomony ( Reels, Social media).mp4" poster="Videos/4 Real estate Testomony ( Reels, Social media).png" preload="metadata" muted playsinline></video>
                                     <div class="mil-video-play-btn"><i class="fas fa-play"></i></div>
@@ -761,7 +764,7 @@
                                     <h6>Real Estate Testimony</h6>
                                 </div>
                             </div>
-                            <div class="mil-video-card video-2" data-category="social-media promo-video">
+                            <div class="mil-video-card video-2" data-category="social-media">
                                 <div class="mil-video-thumb">
                                     <video src="Videos/Wine Festival After Movie.mp4" poster="Videos/Wine Festival After Movie.png" preload="metadata" muted playsinline></video>
                                     <div class="mil-video-play-btn"><i class="fas fa-play"></i></div>
@@ -775,7 +778,7 @@
                                     <h6>Amsterdam Wine Festival</h6>
                                 </div>
                             </div>
-                            <div class="mil-video-card video-3" data-category="promo-video social-media">
+                            <div class="mil-video-card video-3" data-category="promo-video">
                                 <div class="mil-video-thumb">
                                     <video src="Videos/3 Change The Game (Promo Video).mp4" poster="Videos/3 Change The Game (Promo Video).png" preload="metadata" muted playsinline></video>
                                     <div class="mil-video-play-btn"><i class="fas fa-play"></i></div>
@@ -789,7 +792,7 @@
                                     <h6>Change The Game</h6>
                                 </div>
                             </div>
-                            <div class="mil-video-card video-1 vg-span" id="milMichelinCard" data-category="reels social-media motion-graphics">
+                            <div class="mil-video-card video-1 vg-span" id="milMichelinCard" data-category="social-media motion-graphics">
                                 <div class="mil-video-thumb">
                                     <video src="Videos/1 michelin-had-a-problem ( (motion graphics, social media, Reels).mp4" poster="Videos/1 michelin-had-a-problem ( (motion graphics, social media, Reels).png" preload="metadata" muted playsinline></video>
                                     <div class="mil-video-play-btn"><i class="fas fa-play"></i></div>
@@ -807,7 +810,7 @@
 
                             <!-- GROUP 2: 5 full-width banner (19:6) -->
                             <div class="vg-group vg-group-2">
-                            <div class="mil-video-card video-5" data-category="motion-graphics">
+                            <div class="mil-video-card video-5" data-category="promo-video motion-graphics">
                                 <div class="mil-video-thumb">
                                     <video src="Videos/5 Flowtime BrainTag (motion graphics, 3d design).mp4" poster="Videos/5 Flowtime BrainTag (motion graphics, 3d design).png" preload="metadata" muted playsinline></video>
                                     <div class="mil-video-play-btn"><i class="fas fa-play"></i></div>
@@ -825,7 +828,7 @@
 
                             <!-- GROUP 3: 6 ultra-wide thin strip (1920:250) -->
                             <div class="vg-group vg-group-3">
-                            <div class="mil-video-card video-6" data-category="promo-video">
+                            <div class="mil-video-card video-6" data-category="promo-video motion-graphics">
                                 <div class="mil-video-thumb">
                                     <video src="Videos/6 wide screen promo ( slideshow, promo video).mp4" poster="Videos/6 wide screen promo ( slideshow, promo video).png" preload="metadata" muted playsinline></video>
                                     <div class="mil-video-play-btn"><i class="fas fa-play"></i></div>
@@ -842,7 +845,7 @@
 
                             <!-- GROUP 4: 7-left | 8-right -->
                             <div class="vg-group vg-group-4">
-                            <div class="mil-video-card video-7" data-category="interviews">
+                            <div class="mil-video-card video-7" data-category="social-media interviews">
                                 <div class="mil-video-thumb">
                                     <video src="Videos/Hofstra University Testimony.mp4" poster="Videos/Hofstra University Testimony.png" preload="metadata" muted playsinline></video>
                                     <div class="mil-video-play-btn"><i class="fas fa-play"></i></div>
@@ -855,7 +858,7 @@
                                     <h6>Hofstra University Testimony</h6>
                                 </div>
                             </div>
-                            <div class="mil-video-card video-8" data-category="promo-video">
+                            <div class="mil-video-card video-8" data-category="promo-video motion-graphics">
                                 <div class="mil-video-thumb">
                                     <video src="Videos/8 NFTs trailer (Promo Video).mp4" poster="Videos/8 NFTs trailer (Promo Video).png" preload="metadata" muted playsinline></video>
                                     <div class="mil-video-play-btn"><i class="fas fa-play"></i></div>
@@ -872,7 +875,7 @@
 
                             <!-- GROUP 5: 9-left (tall 16:9) | 10-center-bottom | 11-right-bottom -->
                             <div class="vg-group vg-group-5">
-                            <div class="mil-video-card video-9" data-category="reels social-media">
+                            <div class="mil-video-card video-9" data-category="social-media">
                                 <div class="mil-video-thumb">
                                     <video src="Videos/9 Basel Media (Reels, social media).mp4" poster="Videos/9 Basel Media (Reels, social media).png" preload="metadata" muted playsinline></video>
                                     <div class="mil-video-play-btn"><i class="fas fa-play"></i></div>
@@ -929,7 +932,7 @@
                                     <h6>Coronavirus</h6>
                                 </div>
                             </div>
-                            <div class="mil-video-card video-13" data-category="social-media motion-graphics">
+                            <div class="mil-video-card video-13" data-category="social-media">
                                 <div class="mil-video-thumb">
                                     <video src="Videos/2 macro friendly popcorn ( Social media, motion graphics).mp4" poster="Videos/2 macro friendly popcorn ( Social media, motion graphics).png" preload="metadata" muted playsinline></video>
                                     <div class="mil-video-play-btn"><i class="fas fa-play"></i></div>
@@ -943,7 +946,7 @@
                                     <h6>Macro Friendly Popcorn</h6>
                                 </div>
                             </div>
-                            <div class="mil-video-card video-14 vg-span" data-category="reels social-media">
+                            <div class="mil-video-card video-14 vg-span" data-category="social-media">
                                 <div class="mil-video-thumb">
                                     <video src="Videos/14 Real estate reel ( Reels, Social media).mp4" poster="Videos/14 Real estate reel ( Reels, Social media).png" preload="metadata" muted playsinline></video>
                                     <div class="mil-video-play-btn"><i class="fas fa-play"></i></div>
@@ -957,7 +960,7 @@
                                     <h6>Real Estate Reel</h6>
                                 </div>
                             </div>
-                            <div class="mil-video-card video-15 vg-span" data-category="reels social-media">
+                            <div class="mil-video-card video-15 vg-span" data-category="social-media">
                                 <div class="mil-video-thumb">
                                     <video src="Videos/15 Real estate reel 2 ( Reels, Social media).mp4" poster="Videos/15 Real estate reel 2 ( Reels, Social media).png" preload="metadata" muted playsinline></video>
                                     <div class="mil-video-play-btn"><i class="fas fa-play"></i></div>
@@ -975,7 +978,7 @@
 
                             <!-- GROUP 7: 16 full-width banner (19:6) -->
                             <div class="vg-group vg-group-7">
-                            <div class="mil-video-card video-16" data-category="motion-graphics explainer-video">
+                            <div class="mil-video-card video-16" data-category="motion-graphics">
                                 <div class="mil-video-thumb">
                                     <video src="Videos/16 solar incentivs (motion graphics, explainer video).mp4" poster="Videos/16 solar incentivs (motion graphics, explainer video).png" preload="metadata" muted playsinline></video>
                                     <div class="mil-video-play-btn"><i class="fas fa-play"></i></div>
@@ -993,7 +996,7 @@
 
                             <!-- GROUP 8: 17 | 18 | 19 -->
                             <div class="vg-group vg-group-8">
-                            <div class="mil-video-card video-17" data-category="reels">
+                            <div class="mil-video-card video-17" data-category="social-media">
                                 <div class="mil-video-thumb">
                                     <video src="Videos/17 Party Reel ( reels).mp4" poster="Videos/17 Party Reel ( reels).png" preload="metadata" muted playsinline></video>
                                     <div class="mil-video-play-btn"><i class="fas fa-play"></i></div>
@@ -1006,7 +1009,7 @@
                                     <h6>Party Reel</h6>
                                 </div>
                             </div>
-                            <div class="mil-video-card video-18" data-category="promo-video reels social-media">
+                            <div class="mil-video-card video-18" data-category="social-media promo-video">
                                 <div class="mil-video-thumb">
                                     <video src="Videos/18 Snowdance Teaser  ( Promo video, Reels, Social media).mp4" poster="Videos/18 Snowdance Teaser  ( Promo video, Reels, Social media).png" preload="metadata" muted playsinline></video>
                                     <div class="mil-video-play-btn"><i class="fas fa-play"></i></div>
@@ -1021,7 +1024,7 @@
                                     <h6>Snowdance Teaser</h6>
                                 </div>
                             </div>
-                            <div class="mil-video-card video-19" data-category="reels promo-video">
+                            <div class="mil-video-card video-19" data-category="social-media promo-video">
                                 <div class="mil-video-thumb">
                                     <video src="Videos/19 Statik of Hudson's Promo (Reels, Promo video).mp4" poster="Videos/19 Statik of Hudson's Promo (Reels, Promo video).png" preload="metadata" muted playsinline></video>
                                     <div class="mil-video-play-btn"><i class="fas fa-play"></i></div>
@@ -1095,7 +1098,7 @@
                                     <h6>Cinematic Trailer</h6>
                                 </div>
                             </div>
-                            <div class="mil-video-card video-26" data-category="motion-graphics explainer-video">
+                            <div class="mil-video-card video-26" data-category="motion-graphics">
                                 <div class="mil-video-thumb">
                                     <video src="Videos/26 How Solar Works (motion graphics, explainer video).mp4" poster="Videos/26 How Solar Works (motion graphics, explainer video).png" preload="metadata" muted playsinline></video>
                                     <div class="mil-video-play-btn"><i class="fas fa-play"></i></div>
@@ -1109,7 +1112,7 @@
                                     <h6>How Solar Works</h6>
                                 </div>
                             </div>
-                            <div class="mil-video-card video-25" data-category="promo-video social-media">
+                            <div class="mil-video-card video-25" data-category="promo-video">
                                 <div class="mil-video-thumb">
                                     <video src="Videos/25 Fashion video ( promo video, Social media.mp4" poster="Videos/25 Fashion video ( promo video, Social media.png" preload="metadata" muted playsinline></video>
                                     <div class="mil-video-play-btn"><i class="fas fa-play"></i></div>
@@ -1127,7 +1130,7 @@
 
                             <!-- GROUP 11: 27 | 28 | 29 -->
                             <div class="vg-group vg-group-11">
-                            <div class="mil-video-card video-27" data-category="promo-video social-media">
+                            <div class="mil-video-card video-27" data-category="social-media promo-video motion-graphics">
                                 <div class="mil-video-thumb">
                                     <video src="Videos/27 resturant info (Promo video, social media).mp4" poster="Videos/27 resturant info (Promo video, social media).png" preload="metadata" muted playsinline></video>
                                     <div class="mil-video-play-btn"><i class="fas fa-play"></i></div>
@@ -1190,7 +1193,7 @@
 
                             <!-- GROUP 13: 41-left (span) | [32,34 stacked] center | 33-right (span) -->
                             <div class="vg-group vg-group-13">
-                            <div class="mil-video-card video-41 vg-span" data-category="reels social-media motion-graphics">
+                            <div class="mil-video-card video-41 vg-span" data-category="social-media motion-graphics">
                                 <div class="mil-video-thumb">
                                     <video src="Videos/41 phono scrolling animation ( motion graphics, social media, reel.mp4" poster="Videos/41 phono scrolling animation ( motion graphics, social media, reel.png" preload="metadata" muted playsinline></video>
                                     <div class="mil-video-play-btn"><i class="fas fa-play"></i></div>
@@ -1205,7 +1208,7 @@
                                     <h6>Phono Scrolling Animation</h6>
                                 </div>
                             </div>
-                            <div class="mil-video-card video-32" data-category="motion-graphics promo-video">
+                            <div class="mil-video-card video-32" data-category="promo-video">
                                 <div class="mil-video-thumb">
                                     <video src="Videos/32 SNOWDANCE bg.mp4" poster="Videos/32 SNOWDANCE bg.png" preload="metadata" muted playsinline></video>
                                     <div class="mil-video-play-btn"><i class="fas fa-play"></i></div>
@@ -1232,7 +1235,7 @@
                                     <h6>Trailer NFT</h6>
                                 </div>
                             </div>
-                            <div class="mil-video-card video-33 vg-span" data-category="reels">
+                            <div class="mil-video-card video-33 vg-span" data-category="social-media">
                                 <div class="mil-video-thumb">
                                     <video src="Videos/33 Jericho (Reel).mp4" poster="Videos/33 Jericho (Reel).png" preload="metadata" muted playsinline></video>
                                     <div class="mil-video-play-btn"><i class="fas fa-play"></i></div>
@@ -1249,7 +1252,7 @@
 
                             <!-- GROUP 14: [31,35 stacked]-left | 37-reel-right -->
                             <div class="vg-group vg-group-14">
-                            <div class="mil-video-card video-31" data-category="motion-graphics">
+                            <div class="mil-video-card video-31" data-category="promo-video motion-graphics">
                                 <div class="mil-video-thumb">
                                     <video src="Videos/31 rabhyortega logo animation (motion graphics, Logo animation).mp4" poster="Videos/31 rabhyortega logo animation (motion graphics, Logo animation).png" preload="metadata" muted playsinline></video>
                                     <div class="mil-video-play-btn"><i class="fas fa-play"></i></div>
@@ -1262,7 +1265,7 @@
                                     <h6>Rabhyortega Logo Animation</h6>
                                 </div>
                             </div>
-                            <div class="mil-video-card video-35" data-category="motion-graphics">
+                            <div class="mil-video-card video-35" data-category="social-media motion-graphics">
                                 <div class="mil-video-thumb">
                                     <video src="Videos/35 facebook cover (motion graphics).mp4" poster="Videos/35 facebook cover (motion graphics).png" preload="metadata" muted playsinline></video>
                                     <div class="mil-video-play-btn"><i class="fas fa-play"></i></div>
@@ -1275,7 +1278,7 @@
                                     <h6>Facebook Cover</h6>
                                 </div>
                             </div>
-                            <div class="mil-video-card video-37 vg-span" data-category="reels social-media">
+                            <div class="mil-video-card video-37 vg-span" data-category="social-media">
                                 <div class="mil-video-thumb">
                                     <video src="Videos/37 Resturant ( Reels, Social media).mp4" poster="Videos/37 Resturant ( Reels, Social media).png" preload="metadata" muted playsinline></video>
                                     <div class="mil-video-play-btn"><i class="fas fa-play"></i></div>
@@ -1293,7 +1296,7 @@
 
                             <!-- GROUP 14b: Solar Panels | Strike 20 | The Black Solstice -->
                             <div class="vg-group vg-group-14b">
-                            <div class="mil-video-card video-36" data-category="motion-graphics explainer-video">
+                            <div class="mil-video-card video-36" data-category="motion-graphics">
                                 <div class="mil-video-thumb">
                                     <video src="Videos/36 Solar panels investment (motion graphics, explainer video).mp4" poster="Videos/36 Solar panels investment (motion graphics, explainer video).png" preload="metadata" muted playsinline></video>
                                     <div class="mil-video-play-btn"><i class="fas fa-play"></i></div>
@@ -1337,7 +1340,7 @@
 
                             <!-- GROUP 15: Tennis Event -->
                             <div class="vg-group vg-group-15">
-                            <div class="mil-video-card video-39" data-category="social-media">
+                            <div class="mil-video-card video-39" data-category="social-media promo-video">
                                 <div class="mil-video-thumb">
                                     <video src="Videos/39 Tennis event (slideshow, social media).mp4" poster="Videos/39 Tennis event (slideshow, social media).png" preload="metadata" muted playsinline></video>
                                     <div class="mil-video-play-btn"><i class="fas fa-play"></i></div>
