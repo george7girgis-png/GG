@@ -235,6 +235,10 @@
   background: transparent !important;
 }
 
+/* Mobile */
+@media (max-width: 575px) {
+  .mil-filter-bar { display: none !important; }
+}
 
 /* ══════════════════════════════════════════════════════════
    THEME TOGGLE BUTTONS
@@ -318,6 +322,24 @@
 @media (max-width: 575px) {
   #milCloserLookWrap {
     display: block !important;
+  }
+  /* Filter bar: single scrollable row */
+  .mil-filter-bar {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    justify-content: flex-start !important;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    margin-bottom: 20px !important;
+  }
+  .mil-filter-bar::-webkit-scrollbar { display: none; }
+  .mil-filter-btn {
+    flex: none !important;
+    font-size: 8.5px !important;
+    letter-spacing: 1.5px !important;
+    padding: 8px 10px !important;
+    white-space: nowrap !important;
   }
 }
 #milCloserLookBtn {
@@ -636,6 +658,11 @@
 
                     <div class="container mil-p-120-60">
 
+                        <!-- closer look cta -->
+                        <div id="milCloserLookWrap" class="mil-up" style="margin-top: -52px; margin-bottom: 16px; text-align: right;">
+                            <a href="#" id="milCloserLookBtn" class="mil-link mil-dark mil-arrow-place mil-down-arrow"><span>TAKE A CLOSER LOOK</span></a>
+                        </div>
+
                         <!-- filter bar -->
                         <div class="mil-filter-bar mil-mb-60 mil-up">
                             <button class="mil-filter-btn active" data-filter="all">All</button>
@@ -645,11 +672,6 @@
                             <button class="mil-filter-btn" data-filter="motion-graphics">Motion Graphics</button>
                             <button class="mil-filter-btn" data-filter="explainer-video">Explainer Video</button>
                             <button class="mil-filter-btn" data-filter="interviews">Interviews</button>
-                        </div>
-
-                        <!-- closer look cta -->
-                        <div id="milCloserLookWrap" class="mil-up" style="margin-top: -52px; margin-bottom: 32px; text-align: right;">
-                            <a href="#" id="milCloserLookBtn" class="mil-link mil-dark mil-arrow-place mil-down-arrow"><span>TAKE A CLOSER LOOK</span></a>
                         </div>
 
                         <!-- video grid -->

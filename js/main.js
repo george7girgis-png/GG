@@ -1335,7 +1335,7 @@ $(function () {
                     if (video) {
                         video.removeAttribute('muted');
                         video.muted = false;
-                        video.controls = window.innerWidth >= 576;
+                        video.controls = true;
                         video.play().catch(function () {});
                     }
                     thumb.classList.add('mil-playing');
@@ -1351,8 +1351,12 @@ $(function () {
                     var grid   = document.getElementById('videoGrid');
                     var inFeed = grid && grid.classList.contains('mil-feed-mode');
 
-                    /* Tap playing video in feed mode → do nothing */
-                    if (inFeed && thumb.classList.contains('mil-playing')) { return; }
+                    /* Tap playing video in feed mode → toggle play/pause */
+                    if (inFeed && thumb.classList.contains('mil-playing')) {
+                        if (video.paused) { video.play().catch(function(){}); }
+                        else { video.pause(); }
+                        return;
+                    }
                     /* First tap or tap on a different video → zoom + feed mode + play */
                     if (!inFeed) {
                         var card2 = thumb.closest('.mil-video-card');
@@ -1373,7 +1377,7 @@ $(function () {
                             });
                             video.removeAttribute('muted');
                             video.muted = false;
-                            video.controls = false;
+                            video.controls = true;
                             video.play().catch(function () {});
                             thumb.classList.add('mil-playing');
                             setTimeout(function () {
@@ -1389,7 +1393,7 @@ $(function () {
                     });
                     video.removeAttribute('muted');
                     video.muted = false;
-                    video.controls = false;
+                    video.controls = true;
                     video.play().catch(function () {});
                     thumb.classList.add('mil-playing');
                     return;
