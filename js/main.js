@@ -1141,6 +1141,9 @@ $(function () {
                     }, 60);
                 }
                 backBtn.classList.remove('mil-visible');
+                /* Restore the closer-look button */
+                var clWrap = document.getElementById('milCloserLookWrap');
+                if (clWrap) clWrap.style.display = '';
             });
         }
 

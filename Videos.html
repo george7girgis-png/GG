@@ -336,9 +336,9 @@
   .mil-filter-bar::-webkit-scrollbar { display: none; }
   .mil-filter-btn {
     flex: none !important;
-    font-size: 8.5px !important;
-    letter-spacing: 1.5px !important;
-    padding: 8px 10px !important;
+    font-size: 7.5px !important;
+    letter-spacing: 1px !important;
+    padding: 6px 8px !important;
     white-space: nowrap !important;
   }
 }
@@ -522,9 +522,44 @@
    ══════════════════════════════════════════════════════════ */
 @media (max-width: 575px) {
 
-  /* Grid view: 3-column instagram grid */
+  /* Grid view: uniform 3-column grid, all cards 3:4 */
   .mil-video-grid-v2:not(.mil-feed-mode) {
-    gap: 4px !important;
+    display: grid !important;
+    flex-direction: unset !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 3px !important;
+  }
+  /* Flatten groups so every card flows into the parent 3-col grid */
+  .mil-video-grid-v2:not(.mil-feed-mode) .vg-group {
+    display: contents !important;
+  }
+  /* Reset all column/row overrides — no card spans */
+  .mil-video-grid-v2:not(.mil-feed-mode) .mil-video-card {
+    grid-column: unset !important;
+    grid-row: unset !important;
+    height: auto !important;
+  }
+  /* Reset vg-span flex behaviour */
+  .mil-video-grid-v2:not(.mil-feed-mode) .vg-span {
+    display: block !important;
+    height: auto !important;
+  }
+  /* 3:4 portrait thumbnails — every card the same height */
+  .mil-video-grid-v2:not(.mil-feed-mode) .mil-video-thumb {
+    aspect-ratio: 3 / 4 !important;
+    position: relative !important;
+  }
+  /* Videos fill their portrait container */
+  .mil-video-grid-v2:not(.mil-feed-mode) .mil-video-thumb video {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+  }
+  /* Hide text info in grid view */
+  .mil-video-grid-v2:not(.mil-feed-mode) .mil-video-info {
+    display: none !important;
   }
 
   /* Hover: scale up card thumb slightly */
