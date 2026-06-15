@@ -1136,14 +1136,15 @@ $(function () {
                         if (ov) { ov.pause(); ov.controls = false; }
                         ot.classList.remove('mil-playing');
                     });
-                    setTimeout(function () {
-                        grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    }, 60);
                 }
                 backBtn.classList.remove('mil-visible');
-                /* Restore the closer-look button */
+                /* Restore the closer-look button and scroll up to show filter+button */
                 var clWrap = document.getElementById('milCloserLookWrap');
                 if (clWrap) clWrap.style.display = '';
+                setTimeout(function () {
+                    var scrollTarget = clWrap || document.getElementById('portfolio');
+                    if (scrollTarget) scrollTarget.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 60);
             });
         }
 
