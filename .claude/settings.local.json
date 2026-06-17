@@ -11,7 +11,15 @@
       "Bash(git commit -m ' *)",
       "Bash(git -C \"c:/Users/georg/OneDrive/Desktop/GG/GG\" status)",
       "Bash(git -C \"c:/Users/georg/OneDrive/Desktop/GG/GG\" diff --stat)",
-      "Bash(git -C \"c:/Users/georg/OneDrive/Desktop/GG/GG\" log --oneline -5)"
+      "Bash(git -C \"c:/Users/georg/OneDrive/Desktop/GG/GG\" log --oneline -5)",
+      "Bash(git push *)",
+      "Bash(npm --version)",
+      "Bash(npm install *)",
+      "Bash(npm run *)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:5174/)",
+      "Bash(python fix_phone.py)",
+      "Bash(python -c ' *)",
+      "Bash(python fix_phone2.py)"
     ]
   }
 }

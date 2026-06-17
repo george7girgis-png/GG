@@ -543,145 +543,294 @@
   }
 }
 
-/* ══════════════════════════════════════════════════════════
-   PHONE MODE SPACING
-   ══════════════════════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════════════
+   PHONE GALLERY — masonry grid · single-col · fullscreen
+   ═══════════════════════════════════════════════════════════ */
+
+/* Hide desktop grid on phone; show phone gallery */
 @media (max-width: 575px) {
-
-  /* Grid view: uniform 3-col, all cards identical 3:4 portrait ratio */
-  .mil-video-grid-v2:not(.mil-feed-mode) {
-    display: grid !important;
-    flex-direction: unset !important;
-    grid-template-columns: repeat(3, 1fr) !important;
-    gap: 3px !important;
-  }
-  .mil-video-grid-v2:not(.mil-feed-mode) .vg-group {
-    display: contents !important;
-  }
-  .mil-video-grid-v2:not(.mil-feed-mode) .mil-video-card {
-    grid-column: unset !important;
-    grid-row: unset !important;
-    height: auto !important;
-  }
-  .mil-video-grid-v2:not(.mil-feed-mode) .vg-span:not(.mil-hidden) {
-    display: block !important;
-    height: auto !important;
-  }
-  .mil-video-grid-v2:not(.mil-feed-mode) .mil-video-thumb {
-    aspect-ratio: 3 / 4 !important;
-    position: relative !important;
-  }
-  .mil-video-grid-v2:not(.mil-feed-mode) .mil-video-card:not(.vg-span) .mil-video-thumb {
-    aspect-ratio: 3 / 4 !important;
-  }
-  .mil-video-grid-v2:not(.mil-feed-mode) .mil-video-thumb video {
-    position: absolute !important;
-    inset: 0 !important;
-    width: 100% !important;
-    height: 100% !important;
-    object-fit: cover !important;
-  }
-  .mil-video-grid-v2:not(.mil-feed-mode) .mil-video-info {
-    display: none !important;
-  }
-
-  /* Hover: scale up card thumb slightly */
-  .mil-video-grid-v2:not(.mil-feed-mode) .mil-video-thumb {
-    transition: transform 0.25s cubic-bezier(0.34, 1.4, 0.64, 1) !important;
-  }
-  .mil-video-grid-v2:not(.mil-feed-mode) .mil-video-card:active .mil-video-thumb,
-  .mil-video-grid-v2:not(.mil-feed-mode) .mil-video-card:hover .mil-video-thumb {
-    transform: scale(1.04) !important;
-  }
-
-  /* Feed mode: always show cards fully (safety reset for animation state) */
-  #videoGrid.mil-feed-mode .mil-video-card {
-    opacity: 1 !important;
-    transform: none !important;
-  }
-
-  /* Tap zoom-in animation */
-  @keyframes milCardZoom {
-    0%   { transform: scale(1); }
-    60%  { transform: scale(1.18); }
-    100% { transform: scale(1); }
-  }
-  #videoGrid:not(.mil-feed-mode) .mil-video-card.mil-card-zooming .mil-video-thumb {
-    animation: milCardZoom 0.32s cubic-bezier(0.34, 1.5, 0.64, 1) forwards;
-  }
-
-  /* Feed/stack view: generous space between each video */
-  .mil-video-grid-v2.mil-feed-mode {
-    gap: 56px !important;
-  }
-
-  /* Feed: more space between card info and next video */
-  .mil-video-grid-v2.mil-feed-mode .mil-video-info {
-    padding: 16px 0 0 !important;
-  }
-
-  /* Feed: more space between tags row and video title */
-  .mil-video-grid-v2.mil-feed-mode .mil-video-tags {
-    gap: 10px !important;
-    margin-bottom: 14px !important;
-  }
-  .mil-video-grid-v2.mil-feed-mode .mil-video-info h6 {
-    margin-top: 0 !important;
-    border-bottom: none !important;
-  }
-  .mil-video-grid-v2.mil-feed-mode .mil-video-card {
-    border-bottom: none !important;
-  }
-
-  /* Grid: tag spacing */
-  .mil-video-tags {
-    gap: 10px !important;
-    margin-bottom: 8px !important;
-  }
-  .mil-video-tag {
-    font-size: 11px !important;
-  }
-
-  /* Grid cards: rounded corners */
-  .mil-video-grid-v2:not(.mil-feed-mode) .mil-video-thumb {
-    border-radius: 4px !important;
-    overflow: hidden !important;
-  }
-
-  /* Title overlay inside each card thumb */
-  .mil-card-title-bar {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 20px 7px 6px;
-    background: linear-gradient(to top, rgba(0,0,0,0.78) 0%, transparent 100%);
-    color: #fff;
-    font-size: 8px;
-    font-weight: 600;
-    letter-spacing: 0.6px;
-    text-transform: uppercase;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    pointer-events: none;
-    z-index: 2;
-  }
-  .mil-video-grid-v2.mil-feed-mode .mil-card-title-bar {
-    display: none !important;
-  }
-
-  /* Scroll entrance animation */
-  #videoGrid:not(.mil-feed-mode) .mil-video-card {
-    opacity: 0;
-    transform: scale(0.88);
-    transition: opacity 0.38s ease, transform 0.38s cubic-bezier(0.34, 1.3, 0.64, 1);
-  }
-  #videoGrid:not(.mil-feed-mode) .mil-video-card.mil-card-visible {
-    opacity: 1;
-    transform: scale(1);
-  }
+  .mil-video-grid-wrap { display: none !important; }
+  #milPhoneGallery     { display: block; }
 }
+@media (min-width: 576px) {
+  #milPhoneGallery { display: none !important; }
+}
+
+/* Gallery wrapper */
+#milPhoneGallery { position: relative; }
+
+/* Back-to-grid button */
+#milPhoneBackBtn {
+  display: none;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 18px;
+  background: none;
+  border: none;
+  font-family: "Outfit", sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  color: rgb(255,152,0);
+  cursor: pointer;
+  padding: 0;
+}
+#milPhoneBackBtn.mph-visible-btn { display: flex; }
+#milPhoneBackBtn i { font-size: 11px; }
+
+/* 3-col masonry grid */
+.mph-grid {
+  column-count: 3;
+  column-gap: 3px;
+}
+.mph-grid.mph-single-col { column-count: 1; }
+
+/* Card */
+.mph-card {
+  break-inside: avoid;
+  page-break-inside: avoid;
+  margin-bottom: 3px;
+  cursor: pointer;
+  opacity: 0;
+  transform: scale(0.88);
+  transition: opacity 0.38s ease, transform 0.38s cubic-bezier(0.34,1.3,0.64,1);
+}
+.mph-card.mph-visible { opacity: 1; transform: scale(1); }
+.mph-grid.mph-single-col .mph-card { margin-bottom: 20px; }
+
+/* Thumbnail */
+.mph-thumb {
+  position: relative;
+  overflow: hidden;
+  border-radius: 4px;
+  background: #111;
+  width: 100%;
+}
+.mph-thumb-sizer {
+  width: 100%;
+  display: block;
+  height: auto;
+  visibility: hidden;
+  pointer-events: none;
+}
+.mph-thumb video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.mph-grid.mph-single-col .mph-thumb { border-radius: 6px; }
+.mph-grid.mph-single-col .mph-thumb video { object-fit: contain; }
+
+/* Play icon */
+.mph-play-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  width: 30px;
+  height: 30px;
+  background: rgba(255,255,255,0.88);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  color: #000;
+  pointer-events: none;
+  z-index: 2;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+  transition: opacity 0.2s;
+}
+.mph-grid.mph-single-col .mph-play-btn { width: 48px; height: 48px; font-size: 16px; }
+.mph-card.mph-playing .mph-play-btn { opacity: 0; }
+
+/* Expand button */
+.mph-fs-btn {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 26px;
+  height: 26px;
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 3;
+  opacity: 0;
+  transition: opacity 0.2s;
+  pointer-events: none;
+}
+.mph-card.mph-playing .mph-fs-btn { opacity: 1; pointer-events: all; }
+.mph-grid.mph-single-col .mph-fs-btn {
+  opacity: 1; pointer-events: all;
+  width: 36px; height: 36px; font-size: 14px; top: 10px; right: 10px;
+}
+
+/* Info area (title + tags) */
+.mph-info { padding: 5px 2px 5px; }
+.mph-grid.mph-single-col .mph-info { padding: 12px 2px 10px; }
+.mph-tags { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 3px; }
+.mph-grid.mph-single-col .mph-tags { gap: 8px; margin-bottom: 7px; }
+.mph-tag {
+  font-family: "Outfit", sans-serif;
+  font-size: 6.5px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: rgb(255,152,0);
+  line-height: 1;
+}
+.mph-tag:nth-child(even) { color: rgba(0,0,0,0.38); }
+.mph-grid.mph-single-col .mph-tag { font-size: 9px; letter-spacing: 1.5px; }
+.mph-title {
+  font-family: "Outfit", sans-serif;
+  font-size: 8px;
+  font-weight: 600;
+  color: rgba(0,0,0,0.8);
+  line-height: 1.3;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.mph-grid.mph-single-col .mph-title {
+  font-size: 14px; font-weight: 600;
+  -webkit-line-clamp: unset; overflow: visible;
+}
+
+/* Dark mode */
+#vid-theme-wrap.mil-dark-bg .mph-title { color: rgba(255,255,255,0.88); }
+#vid-theme-wrap.mil-dark-bg .mph-tag:nth-child(even) { color: rgba(255,255,255,0.42); }
+
+/* Fullscreen overlay */
+#milPhoneFsOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: #000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  opacity: 0;
+  transform: scale(0.97) translateY(18px);
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.4,0,0.2,1);
+  -webkit-tap-highlight-color: transparent;
+}
+#milPhoneFsOverlay.mph-fs-open {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+  pointer-events: all;
+}
+.mph-fs-track {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  will-change: transform;
+}
+#milPhoneFsVideo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  max-height: 100dvh;
+  display: block;
+}
+.mph-fs-info {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 80px 20px calc(env(safe-area-inset-bottom,0px) + 32px);
+  background: linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.28) 65%, transparent 100%);
+  z-index: 10;
+  pointer-events: none;
+}
+.mph-fs-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 8px; }
+.mph-fs-tag {
+  font-family: "Outfit", sans-serif;
+  font-size: 8px; font-weight: 700; letter-spacing: 1.2px;
+  text-transform: uppercase; color: rgb(255,152,0);
+}
+.mph-fs-tag:nth-child(even) { color: rgba(255,255,255,0.55); }
+.mph-fs-title {
+  color: #fff;
+  font-family: "Outfit", sans-serif;
+  font-size: 16px; font-weight: 600; margin: 0;
+  letter-spacing: 0.3px;
+  text-shadow: 0 1px 8px rgba(0,0,0,0.6);
+}
+.mph-fs-close {
+  position: absolute;
+  top: calc(env(safe-area-inset-top,0px) + 14px);
+  right: 16px; z-index: 11;
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: none; color: #fff; font-size: 16px;
+  width: 38px; height: 38px; border-radius: 50%;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+}
+.mph-fs-counter {
+  position: absolute;
+  top: calc(env(safe-area-inset-top,0px) + 22px);
+  left: 50%; transform: translateX(-50%);
+  color: rgba(255,255,255,0.5);
+  font-family: "Outfit", sans-serif;
+  font-size: 11px; letter-spacing: 1px;
+  z-index: 11; pointer-events: none; white-space: nowrap;
+}
+.mph-fs-hint {
+  position: absolute; left: 50%; transform: translateX(-50%);
+  color: rgba(255,255,255,0.32); font-size: 20px;
+  z-index: 11; pointer-events: none; transition: opacity 0.3s;
+}
+.mph-fs-hint-up   { top: calc(env(safe-area-inset-top,0px) + 68px); animation: mphHintUp 2s ease-in-out infinite; }
+.mph-fs-hint-down { bottom: calc(env(safe-area-inset-bottom,0px) + 115px); animation: mphHintDown 2s ease-in-out infinite; }
+@keyframes mphHintUp {
+  0%,100% { transform: translateX(-50%) translateY(0); opacity:0.32; }
+  50%     { transform: translateX(-50%) translateY(-8px); opacity:0.7; }
+}
+@keyframes mphHintDown {
+  0%,100% { transform: translateX(-50%) translateY(0); opacity:0.32; }
+  50%     { transform: translateX(-50%) translateY(8px); opacity:0.7; }
+}
+.mph-fs-hint.mph-hint-hidden { opacity:0 !important; animation:none !important; }
+
+/* ── Grid mode: sharp edges, no info, no expand button ── */
+.mph-grid:not(.mph-single-col) .mph-fs-btn { display: none !important; }
+.mph-grid:not(.mph-single-col) .mph-info   { display: none !important; }
+.mph-grid:not(.mph-single-col) .mph-thumb  { border-radius: 0 !important; }
+/* ── Play button: black ── */
+.mph-play-btn { background: rgba(0,0,0,0.75) !important; color: #fff !important; box-shadow: 0 2px 10px rgba(0,0,0,0.5) !important; }
+/* ── Mil-lines inside phone gallery ── */
+#milPhoneGallery { position: relative; overflow: visible; }
+#milPhoneGallery .mph-grid,
+#milPhoneGallery #milPhoneBackBtn { position: relative; z-index: 1; }
+#milPhoneGallery .mil-lines-phone-tile {
+  position: absolute !important;
+  inset: auto !important;
+  top: var(--t, 0) !important;
+  left: 0 !important; right: 0 !important; bottom: auto !important;
+  height: 1200px;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
 </style>
 
                 <!-- theme wrap (banner + portfolio) -->
@@ -1606,73 +1755,368 @@
         mobIcon.className = isDark ? 'fas fa-moon' : 'fas fa-sun';
     }
 
-    // Phone grid: inject title overlays into each card thumb
-    function initCardTitleOverlays() {
-        document.querySelectorAll('#videoGrid .mil-video-card').forEach(function(card) {
-            if (card.querySelector('.mil-card-title-bar')) return;
-            var h6 = card.querySelector('.mil-video-info h6');
-            if (!h6) return;
-            var bar = document.createElement('div');
-            bar.className = 'mil-card-title-bar';
-            bar.textContent = h6.textContent.trim();
-            var thumb = card.querySelector('.mil-video-thumb');
-            if (thumb) thumb.appendChild(bar);
-        });
-    }
-
-    // Phone grid: scroll entrance animation
-    function initCardScrollAnim() {
+        // ── Phone Gallery (phone-only, ≤575 px) ─────────────────────────────────
+    (function () {
         if (window.innerWidth >= 576) return;
-        var cards = Array.from(document.querySelectorAll('#videoGrid .mil-video-card'));
-        if (!cards.length) return;
-        var observer = new IntersectionObserver(function(entries) {
-            entries.forEach(function(entry) {
+
+        function esc(s) {
+            return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;')
+                            .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+        }
+
+        // Extract leading number from filename for sort order
+        function extractNum(src) {
+            var fn = (src || '').split('/').pop();
+            var m  = fn.match(/^(\d+)/);
+            return m ? parseInt(m[1], 10) : 99999;
+        }
+
+        // Pull video data from the desktop grid HTML
+        var videoData = [];
+        document.querySelectorAll('#videoGrid .mil-video-card').forEach(function (card) {
+            var vid     = card.querySelector('video');
+            var titleEl = card.querySelector('.mil-video-info h6');
+            var tagEls  = card.querySelectorAll('.mil-video-tag');
+            if (!vid) return;
+            var src      = vid.getAttribute('src') || '';
+            var poster   = vid.getAttribute('poster') || '';
+            var title    = titleEl ? titleEl.textContent.trim() : '';
+            var tags     = Array.from(tagEls).map(function (t) { return t.textContent.trim(); });
+            var category = card.getAttribute('data-category') || '';
+            videoData.push({ src: src, poster: poster, title: title,
+                             tags: tags, category: category, num: extractNum(src) });
+        });
+        videoData.sort(function (a, b) { return a.num - b.num; });
+
+        // ── Build gallery DOM ──────────────────────────────────────────────
+        var gallery = document.createElement('div');
+        gallery.id = 'milPhoneGallery';
+
+        // ── Inject mil-lines background tiles ─────────────────────────────
+        (function () {
+            var svg = document.querySelector('.mil-hidden-elements .mil-lines');
+            if (!svg) return;
+            [0, 1170, 2340, 3510, 4680, 5850].forEach(function (t) {
+                var tile = document.createElement('div');
+                tile.className = 'mil-lines-place mil-light mil-lines-phone-tile';
+                tile.style.cssText = '--t:' + t + 'px';
+                tile.appendChild(svg.cloneNode(true));
+                gallery.appendChild(tile);
+            });
+        })();
+
+
+        var backBtn = document.createElement('button');
+        backBtn.id = 'milPhoneBackBtn';
+        backBtn.innerHTML = '<i class="fas fa-chevron-left"></i><span>Back to grid</span>';
+        gallery.appendChild(backBtn);
+
+        var grid = document.createElement('div');
+        grid.className = 'mph-grid';
+        gallery.appendChild(grid);
+
+        var gridWrap = document.querySelector('.mil-video-grid-wrap');
+        if (gridWrap) gridWrap.parentNode.insertBefore(gallery, gridWrap.nextSibling);
+
+        // ── Render cards ───────────────────────────────────────────────────
+        var cardEls = [];
+        videoData.forEach(function (data, i) {
+            var card = document.createElement('div');
+            card.className = 'mph-card';
+            card.dataset.idx = i;
+            card.innerHTML =
+                '<div class="mph-thumb">' +
+                    '<img class="mph-thumb-sizer" src="' + esc(data.poster) + '" alt="" aria-hidden="true">' +
+                    '<video src="' + esc(data.src) + '" poster="' + esc(data.poster) +
+                        '" preload="metadata" playsinline muted></video>' +
+                    '<div class="mph-play-btn"><i class="fas fa-play"></i></div>' +
+                    '<button class="mph-fs-btn" aria-label="Full screen"><i class="fas fa-expand"></i></button>' +
+                '</div>' +
+                '<div class="mph-info">' +
+                    '<div class="mph-tags">' +
+                        data.tags.map(function (t) { return '<span class="mph-tag">' + esc(t) + '</span>'; }).join('') +
+                    '</div>' +
+                    '<p class="mph-title">' + esc(data.title) + '</p>' +
+                '</div>';
+            grid.appendChild(card);
+            cardEls.push(card);
+        });
+
+        // ── Scroll entrance animation ──────────────────────────────────────
+        var io = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
                 if (!entry.isIntersecting) return;
                 var card = entry.target;
-                var col = cards.indexOf(card) % 3;
-                setTimeout(function() { card.classList.add('mil-card-visible'); }, col * 70);
-                observer.unobserve(card);
+                var col  = Array.from(grid.children).indexOf(card) % 3;
+                setTimeout(function () { card.classList.add('mph-visible'); }, col * 55);
+                io.unobserve(card);
             });
-        }, { threshold: 0.06, rootMargin: '0px 0px -12px 0px' });
-        cards.forEach(function(c) { observer.observe(c); });
-    }
+        }, { threshold: 0.05, rootMargin: '0px 0px -12px 0px' });
+        cardEls.forEach(function (c) { io.observe(c); });
 
-    (function() {
-        function setup() {
-            if (!document.getElementById('videoGrid')) return;
-            initCardTitleOverlays();
-            initCardScrollAnim();
-        }
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', setup);
-        } else {
-            setup();
-        }
-    })();
+        // ── Portrait / reel autoplay (muted, grid mode only) ─────────────
+        cardEls.forEach(function (card) {
+            var sizer = card.querySelector('.mph-thumb-sizer');
+            var video  = card.querySelector('video');
+            if (!sizer || !video) return;
 
-    // "TAKE A CLOSER LOOK" → switch to feed mode and scroll to grid
-    (function() {
-        var btn = document.getElementById('milCloserLookBtn');
-        if (!btn) return;
-        btn.addEventListener('click', function(e) {
-            e.preventDefault();
-            var grid = document.getElementById('videoGrid');
-            if (!grid) return;
-            grid.classList.add('mil-feed-mode');
-            // Mark all cards visible so animation state doesn't hide them
-            grid.querySelectorAll('.mil-video-card').forEach(function(c) {
-                c.classList.add('mil-card-visible');
-            });
-            var backBtn = document.getElementById('milFeedBackBtn');
-            if (backBtn) backBtn.classList.add('mil-visible');
-            var wrap = document.getElementById('milCloserLookWrap');
-            if (wrap) wrap.style.display = 'none';
-            setTimeout(function() {
-                var target = document.getElementById('milMichelinCard') || grid.querySelector('.mil-video-card');
-                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }, 150);
+            function setupAp() {
+                if (sizer.naturalHeight <= sizer.naturalWidth) return; // skip landscape
+                card.dataset.portrait = '1';
+                var apObs = new IntersectionObserver(function (entries) {
+                    entries.forEach(function (e) {
+                        if (grid.classList.contains('mph-single-col')) return;
+                        if (e.isIntersecting) {
+                            if (playingCard) return; // user has explicit control
+                            if (video.paused) {
+                                video.muted = true; video.loop = true;
+                                video.play().catch(function () {});
+                                card.classList.add('mph-playing');
+                            }
+                        } else {
+                            if (playingCard !== card) {
+                                video.pause(); video.currentTime = 0;
+                                card.classList.remove('mph-playing');
+                            }
+                        }
+                    });
+                }, { threshold: 0.5 });
+                apObs.observe(card);
+            }
+
+            if (sizer.complete && sizer.naturalWidth > 0) { setupAp(); }
+            else { sizer.addEventListener('load', setupAp, { once: true }); }
         });
-    })();
+
+
+        // ── Tap to play / pause ────────────────────────────────────────────
+        var playingCard = null;
+
+        function stopCard(card) {
+            if (!card) return;
+            var v = card.querySelector('video');
+            if (v) { v.pause(); v.currentTime = 0; }
+            card.classList.remove('mph-playing');
+            playingCard = null;
+        }
+
+        function playCard(card) {
+            // Stop every other video (user or autoplay)
+            cardEls.forEach(function (c) {
+                if (c === card) return;
+                var cv = c.querySelector('video');
+                if (cv && !cv.paused) { cv.pause(); cv.currentTime = 0; }
+                c.classList.remove('mph-playing');
+            });
+            playingCard = null;
+            var v = card.querySelector('video');
+            if (!v) return;
+            v.muted = false; v.loop = false;
+            v.play().catch(function () { v.muted = true; v.play(); });
+            card.classList.add('mph-playing');
+            playingCard = card;
+            v.addEventListener('ended', function () { card.classList.remove('mph-playing'); if (playingCard === card) playingCard = null; }, { once: true });
+            v.addEventListener('pause', function () { if (!v.ended && playingCard === card) { card.classList.remove('mph-playing'); playingCard = null; } }, { once: true });
+        }
+
+        cardEls.forEach(function (card) {
+            var thumb = card.querySelector('.mph-thumb');
+            var fsBtn = card.querySelector('.mph-fs-btn');
+
+            thumb.addEventListener('click', function (e) {
+                if (e.target.closest('.mph-fs-btn')) return;
+                var v = card.querySelector('video');
+                if (!v) return;
+                if (v.paused) {
+                    playCard(card);
+                } else if (v.muted) {
+                    // Was autoplaying muted — take over with sound
+                    cardEls.forEach(function (c) {
+                        if (c === card) return;
+                        var cv = c.querySelector('video');
+                        if (cv && !cv.paused) { cv.pause(); cv.currentTime = 0; }
+                        c.classList.remove('mph-playing');
+                    });
+                    v.muted = false; v.loop = false;
+                    card.classList.add('mph-playing');
+                    playingCard = card;
+                } else {
+                    stopCard(card);
+                }
+            });
+
+            fsBtn.addEventListener('click', function (e) {
+                e.stopPropagation();
+                openFs(parseInt(card.dataset.idx, 10));
+            });
+        });
+
+        // ── Filter bar ────────────────────────────────────────────────────
+        document.querySelectorAll('.mil-filter-btn').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                var f = btn.dataset.filter;
+                cardEls.forEach(function (card, i) {
+                    var d = videoData[i];
+                    card.style.display = (f === 'all' || d.category.indexOf(f) >= 0) ? '' : 'none';
+                });
+            });
+        });
+
+        // ── "Have a Closer Look" → single col ─────────────────────────────
+        var closerBtn = document.getElementById('milCloserLookBtn');
+        var closerWrap = document.getElementById('milCloserLookWrap');
+        if (closerBtn) {
+            closerBtn.addEventListener('click', function (e) {
+                e.preventDefault();
+                grid.classList.add('mph-single-col');
+                backBtn.classList.add('mph-visible-btn');
+                if (closerWrap) closerWrap.style.display = 'none';
+                cardEls.forEach(function (c) { c.classList.add('mph-visible'); });
+                setTimeout(function () {
+                    gallery.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 80);
+            });
+        }
+        backBtn.addEventListener('click', function () {
+            grid.classList.remove('mph-single-col');
+            backBtn.classList.remove('mph-visible-btn');
+            if (closerWrap) closerWrap.style.display = '';
+        });
+
+        // ── Fullscreen overlay ────────────────────────────────────────────
+        var fsOverlay = document.createElement('div');
+        fsOverlay.id = 'milPhoneFsOverlay';
+        fsOverlay.innerHTML =
+            '<div class="mph-fs-track"><video id="milPhoneFsVideo" playsinline></video></div>' +
+            '<div class="mph-fs-info">' +
+                '<div class="mph-fs-tags" id="milPhoneFsTags"></div>' +
+                '<h6 class="mph-fs-title" id="milPhoneFsTitle"></h6>' +
+            '</div>' +
+            '<div class="mph-fs-counter" id="milPhoneFsCounter"></div>' +
+            '<button class="mph-fs-close" aria-label="Close"><i class="fas fa-times"></i></button>' +
+            '<div class="mph-fs-hint mph-fs-hint-up">&#8593;</div>' +
+            '<div class="mph-fs-hint mph-fs-hint-down">&#8595;</div>';
+        document.body.appendChild(fsOverlay);
+
+        var fsVideo   = document.getElementById('milPhoneFsVideo');
+        var fsTitle   = document.getElementById('milPhoneFsTitle');
+        var fsTags    = document.getElementById('milPhoneFsTags');
+        var fsCounter = document.getElementById('milPhoneFsCounter');
+        var fsTrack   = fsOverlay.querySelector('.mph-fs-track');
+        var fsClose   = fsOverlay.querySelector('.mph-fs-close');
+        var fsHintUp  = fsOverlay.querySelector('.mph-fs-hint-up');
+        var fsHintDn  = fsOverlay.querySelector('.mph-fs-hint-down');
+        var fsIdx = 0;
+        var visData   = [];
+
+        function getVisData() {
+            return videoData.filter(function (d, i) {
+                return cardEls[i] && cardEls[i].style.display !== 'none';
+            });
+        }
+
+        function loadFsItem(idx) {
+            var d = visData[idx];
+            if (!d) return;
+            fsVideo.pause();
+            fsVideo.removeAttribute('src');
+            fsVideo.load();
+            fsVideo.src    = d.src;
+            fsVideo.poster = d.poster;
+            fsVideo.muted  = false;
+            fsVideo.load();
+            fsVideo.play().catch(function () { fsVideo.muted = true; fsVideo.play().catch(function () {}); });
+            fsTitle.textContent = d.title;
+            fsTags.innerHTML = d.tags.map(function (t) {
+                return '<span class="mph-fs-tag">' + esc(t) + '</span>';
+            }).join('');
+            fsCounter.textContent = (idx + 1) + ' / ' + visData.length;
+            fsHintUp.classList.toggle('mph-hint-hidden', idx === 0);
+            fsHintDn.classList.toggle('mph-hint-hidden', idx >= visData.length - 1);
+        }
+
+        function goFsTo(newIdx, dir) {
+            if (newIdx < 0 || newIdx >= visData.length) return;
+            var outY = dir === 'up' ? '-100%' : '100%';
+            var inY  = dir === 'up' ? '100%'  : '-100%';
+            fsTrack.style.transition = 'transform 0.38s cubic-bezier(0.4,0,0.2,1), opacity 0.32s ease';
+            fsTrack.style.transform  = 'translateY(' + outY + ')';
+            fsTrack.style.opacity    = '0';
+            setTimeout(function () {
+                fsIdx = newIdx;
+                loadFsItem(fsIdx);
+                fsTrack.style.transition = 'none';
+                fsTrack.style.transform  = 'translateY(' + inY + ')';
+                fsTrack.style.opacity    = '0';
+                requestAnimationFrame(function () {
+                    requestAnimationFrame(function () {
+                        fsTrack.style.transition = 'transform 0.38s cubic-bezier(0.4,0,0.2,1), opacity 0.28s ease';
+                        fsTrack.style.transform  = 'translateY(0)';
+                        fsTrack.style.opacity    = '1';
+                    });
+                });
+            }, 370);
+        }
+
+        function openFs(dataIdx) {
+            stopCard(playingCard);
+            visData = getVisData();
+            var src = videoData[dataIdx] ? videoData[dataIdx].src : '';
+            fsIdx = 0;
+            for (var i = 0; i < visData.length; i++) {
+                if (visData[i].src === src) { fsIdx = i; break; }
+            }
+            fsTrack.style.transition = '';
+            fsTrack.style.transform  = '';
+            fsTrack.style.opacity    = '1';
+            loadFsItem(fsIdx);
+            document.body.style.overflow = 'hidden';
+            fsOverlay.classList.add('mph-fs-open');
+        }
+
+        function closeFs() {
+            fsVideo.pause(); fsVideo.src = '';
+            fsOverlay.classList.remove('mph-fs-open');
+            document.body.style.overflow = '';
+        }
+
+        fsClose.addEventListener('click', closeFs);
+        document.addEventListener('keydown', function (e) {
+            if (!fsOverlay.classList.contains('mph-fs-open')) return;
+            if (e.key === 'Escape') closeFs();
+            if (e.key === 'ArrowUp'   && fsIdx < visData.length - 1) goFsTo(fsIdx + 1, 'up');
+            if (e.key === 'ArrowDown' && fsIdx > 0)                   goFsTo(fsIdx - 1, 'down');
+        });
+
+        // Touch swipe
+        var tsY = 0, tsX = 0, dragging = false, dY = 0;
+        fsOverlay.addEventListener('touchstart', function (e) {
+            tsY = e.touches[0].clientY; tsX = e.touches[0].clientX;
+            dragging = false; dY = 0;
+        }, { passive: true });
+        fsOverlay.addEventListener('touchmove', function (e) {
+            var dy = e.touches[0].clientY - tsY;
+            var dx = e.touches[0].clientX - tsX;
+            if (!dragging && Math.abs(dy) > 10 && Math.abs(dy) > Math.abs(dx)) dragging = true;
+            if (dragging) {
+                dY = dy;
+                fsTrack.style.transition = 'none';
+                fsTrack.style.transform  = 'translateY(' + (dY * 0.3) + 'px)';
+            }
+        }, { passive: true });
+        fsOverlay.addEventListener('touchend', function () {
+            if (!dragging) { dY = 0; return; }
+            var snap = 70;
+            if      (dY < -snap && fsIdx < visData.length - 1) goFsTo(fsIdx + 1, 'up');
+            else if (dY >  snap && fsIdx > 0)                   goFsTo(fsIdx - 1, 'down');
+            else {
+                fsTrack.style.transition = 'transform 0.25s cubic-bezier(0.34,1.3,0.64,1)';
+                fsTrack.style.transform  = 'translateY(0)';
+            }
+            dragging = false; dY = 0;
+        });
+
+    })(); // end phone gallery IIFE
 
     // Flip animation for mobile toggle
     (function() {
