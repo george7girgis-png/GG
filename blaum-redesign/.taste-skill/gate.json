@@ -1,0 +1,465 @@
+{
+ "start": "2026-11-12T18:47:12.039Z",
+ "round": 2,
+ "idle": 0,
+ "errors": 0,
+ "status": "pass",
+ "history": [
+  {
+   "at": "2026-11-12T19:27:04.381Z",
+   "mode": "manual",
+   "status": "fail",
+   "fails": 2,
+   "round": 1,
+   "reused": false,
+   "stopHookActive": false
+  },
+  {
+   "at": "2026-11-12T19:29:20.759Z",
+   "mode": "manual",
+   "status": "fail",
+   "fails": 1,
+   "round": 2,
+   "reused": false,
+   "stopHookActive": false
+  },
+  {
+   "at": "2026-11-12T19:31:34.328Z",
+   "mode": "manual",
+   "status": "pass",
+   "fails": 0,
+   "round": 2,
+   "reused": false,
+   "stopHookActive": false
+  }
+ ],
+ "max": 3,
+ "marker": {
+  "page": "index.html",
+  "dir": "/home/user/GG/blaum-redesign",
+  "kind": "service",
+  "start": "2026-11-12T18:47:12.039Z",
+  "by": "start.mjs",
+  "url": null
+ },
+ "manual": true,
+ "roundKey": "089e632a59782922:76f06ce6",
+ "roundFree": false,
+ "idleFree": false,
+ "blockKey": null,
+ "fp": "6f0328c6770606bf",
+ "page": "index.html",
+ "found": {
+  "fails": [
+   {
+    "check": "copy-headings",
+    "where": "h2#ablauf-h \"So läuft ein Auftrag ab\"",
+    "msg": "\"So läuft ein Auftrag ab\" names no product, part, place or section (3 headings like it; at most one brand line per page) (and 2 more like it: \"Reinigung für Wohnhäuser\", \"Anfrage für Ihr Objekt\")",
+    "fix": "name the thing in every heading: the product, a part, the place or a section noun",
+    "widths": [
+     1440
+    ],
+    "from": "consistency",
+    "ids": [
+     "copy-headings"
+    ],
+    "wheres": [
+     "h2#ablauf-h \"So läuft ein Auftrag ab\""
+    ]
+   },
+   {
+    "check": "phone-number",
+    "where": "div.wrap.grid > div.span-6.stack-5 > div.section-head > p \"0173 2831352\"",
+    "msg": "a phone number with its area code: \"0173 2831352\"; a visitor can dial it and reach a stranger",
+    "fix": "drop the number and its tel: link (a \"Request a call\" form may stand in), unless the brief gives the number",
+    "widths": [
+     1440
+    ],
+    "from": "consistency",
+    "ids": [
+     "phone-number"
+    ],
+    "wheres": [
+     "div.wrap.grid > div.span-6.stack-5 > div.section-head > p \"0173 2831352\""
+    ]
+   },
+   {
+    "check": "phone-number",
+    "where": "div.span-6.stack-5 > div.section-head > p > a \"tel:+491732831352\"",
+    "msg": "a tel: link calls a number in a real dialable format: \"tel:+491732831352\"; a visitor can dial it and reach a stranger",
+    "fix": "drop the number and its tel: link (a \"Request a call\" form may stand in), unless the brief gives the number",
+    "widths": [
+     1440
+    ],
+    "from": "consistency",
+    "ids": [
+     "phone-number"
+    ],
+    "wheres": [
+     "div.span-6.stack-5 > div.section-head > p > a \"tel:+491732831352\""
+    ]
+   },
+   {
+    "check": "hero-lines",
+    "where": "section.hero h1",
+    "msg": "the check fills the h1 to 45 characters (this hero's maxChars in heroes.json), not the page's own: it takes 4 lines at 1440, 3 at most",
+    "fix": "the check fills the h1 to this hero's maxChars, not your own: take the next type pairing the deal printed (start.mjs); when the h1 is final and fits, waive it (target: section.hero h1)",
+    "widths": [
+     1440,
+     390
+    ],
+    "from": "layout",
+    "ids": [
+     "hero-lines"
+    ],
+    "wheres": [
+     "section.hero h1"
+    ]
+   }
+  ],
+  "warns": [
+   {
+    "check": "scroll-reveal",
+    "where": "section#ablauf \"So läuft ein Auftrag ab Vom ersten Anruf\"",
+    "msg": "starts \"opacity\" (0.4 s) the moment it is scrolled into view (an IntersectionObserver) on div.mo-ph__words (inside a dealt moment's section, [data-moment]: an enter moment is expected on every kind; its still is judged under reduced motion)",
+    "fix": "show it at rest: no fade, rise or unmask when it is scrolled into view",
+    "widths": [
+     1440,
+     390
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "pinned",
+    "where": "section#ablauf > div.wrap.mo-ph \"So läuft ein Auftrag ab Vom ersten Anruf\"",
+    "msg": "held on screen for 2 screens of scroll (position: sticky) while the page moves on (inside a dealt moment's section, [data-moment]: expected on every kind, two moments at most, house rule; its still is judged under reduced motion)",
+    "fix": "let the section scroll with the page",
+    "widths": [
+     1440,
+     390
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "cta",
+    "where": "section#ablauf \"So läuft ein Auftrag ab\"",
+    "msg": "a section over 1.5 screens long with no link or button in it",
+    "fix": "add the action: a button in the hero, one on every priced item, one in the closing section",
+    "widths": [
+     1440,
+     390
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "copy-buttons",
+    "where": "header.nav.nav--centre > div.wrap.nav__bar > div.nav__actions > a.btn.btn--primary \"Angebot anfragen\"",
+    "msg": "\"Angebot anfragen\" does not start with a verb (book, buy, try, start, get, see...)",
+    "fix": "label buttons with a verb and what the visitor gets (\"Book a room\", \"Start free trial\")",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "section-gaps",
+    "where": "section#betrieb / section#anfrage",
+    "msg": "257px between these sections, +40% against the median 184px of gaps at a change of ground",
+    "fix": "use one gap between sections (all within 25% of each other)",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "section-gaps",
+    "where": "section#anfrage / footer#contact",
+    "msg": "279px between these sections, +59% against the median 176px",
+    "fix": "use one gap between sections (all within 25% of each other)",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "photo-set",
+    "where": "div.wrap > div.hero-text.grid > div.hero__media.span-6 > img \"hero.webp\"",
+    "msg": "8 photographs in more than one look: saturation from 0.14 to 0.50; the odd one out is hero.webp",
+    "fix": "grade the photographs to one look (light, colour, warmth), or replace the odd one out",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "nav-labels",
+    "where": "header.nav.nav--centre > div.wrap.nav__bar > a.nav__logo \"Blaum\"",
+    "msg": "\"Blaum\" opens a section headed \"Gebäudereinigung in Köln und Umgebung\"",
+    "fix": "name each nav link after the heading of the section it opens",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "nav-labels",
+    "where": "div.nav__menu > div.wrap.grid > div.menu-col.span-3:nth-of-type(1) > a:nth-of-type(1) \"UnterhaltsreinigungTäglich, wöchentlich \"",
+    "msg": "\"UnterhaltsreinigungTäglich, wöchentlich \" opens a section headed \"Reinigung für Firmen und Praxen\"",
+    "fix": "name each nav link after the heading of the section it opens",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "nav-labels",
+    "where": "div.nav__menu > div.wrap.grid > div.menu-col.span-3:nth-of-type(1) > a:nth-of-type(2) \"PraxisreinigungNach hygienischen Richtli\"",
+    "msg": "\"PraxisreinigungNach hygienischen Richtli\" opens a section headed \"Reinigung für Firmen und Praxen\"",
+    "fix": "name each nav link after the heading of the section it opens",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "nav-labels",
+    "where": "div.nav__menu > div.wrap.grid > div.menu-col.span-3:nth-of-type(2) > a:nth-of-type(1) \"GlasreinigungFenster, Schaufenster, Fass\"",
+    "msg": "\"GlasreinigungFenster, Schaufenster, Fass\" opens a section headed \"Reinigung für Firmen und Praxen\"",
+    "fix": "name each nav link after the heading of the section it opens",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "nav-labels",
+    "where": "div.nav__menu > div.wrap.grid > div.menu-col.span-3:nth-of-type(2) > a:nth-of-type(2) \"GrundreinigungNach Auszug oder Umbau\"",
+    "msg": "\"GrundreinigungNach Auszug oder Umbau\" opens a section headed \"Reinigung für Firmen und Praxen\"",
+    "fix": "name each nav link after the heading of the section it opens",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "nav-labels",
+    "where": "div.nav__menu > div.wrap.grid > div.menu-col.span-3:nth-of-type(1) > a:nth-of-type(2) \"HausmeisterserviceKontrollgänge und Repa\"",
+    "msg": "\"HausmeisterserviceKontrollgänge und Repa\" opens a section headed \"Reinigung für Wohnhäuser\"",
+    "fix": "name each nav link after the heading of the section it opens",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "nav-labels",
+    "where": "div.nav__menu > div.wrap.grid > div.menu-col.span-3:nth-of-type(2) > a:nth-of-type(1) \"BaureinigungBis zur Schlüsselübergabe\"",
+    "msg": "\"BaureinigungBis zur Schlüsselübergabe\" opens a section headed \"Reinigung für Wohnhäuser\"",
+    "fix": "name each nav link after the heading of the section it opens",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "nav-labels",
+    "where": "div.nav__menu > div.wrap.grid > div.menu-col.span-3:nth-of-type(2) > a:nth-of-type(2) \"AirBnB-ServiceZwischen zwei Gästen\"",
+    "msg": "\"AirBnB-ServiceZwischen zwei Gästen\" opens a section headed \"Reinigung für Wohnhäuser\"",
+    "fix": "name each nav link after the heading of the section it opens",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "nav-labels",
+    "where": "div.wrap.nav__bar > nav.nav__links > div.nav__item:nth-of-type(3) > a.nav__link \"Ablauf\"",
+    "msg": "\"Ablauf\" opens a section headed \"So läuft ein Auftrag ab\"",
+    "fix": "name each nav link after the heading of the section it opens",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "nav-labels",
+    "where": "div.nav__menu > div.wrap.grid > div.menu-col.span-3:nth-of-type(1) > a:nth-of-type(1) \"UnterhaltsreinigungTäglich, wö\"",
+    "msg": "4 entries of one menu go to the same place (#firmen): \"UnterhaltsreinigungTäglich, wö\", \"PraxisreinigungNach hygienisch\", \"GlasreinigungFenster, Schaufen\", \"GrundreinigungNach Auszug oder\"",
+    "fix": "give each menu entry its own target (its section, its tab, its page), or show fewer entries",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "nav-labels",
+    "where": "div.nav__menu > div.wrap.grid > div.menu-col.span-3:nth-of-type(1) > a:nth-of-type(1) \"TreppenhausreinigungNach feste\"",
+    "msg": "4 entries of one menu go to the same place (#wohnhaus): \"TreppenhausreinigungNach feste\", \"HausmeisterserviceKontrollgäng\", \"BaureinigungBis zur Schlüsselü\", \"AirBnB-ServiceZwischen zwei Gä\"",
+    "fix": "give each menu entry its own target (its section, its tab, its page), or show fewer entries",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "label-centre",
+    "where": "header.nav.nav--centre > div.wrap.nav__bar > div.nav__actions > a.btn.btn--primary \"Angebot anfragen\"",
+    "msg": "its label sits 18px off-centre (25px of room at the left, 43px at the right) (and 1 more like it: \"Angebot anfragen\")",
+    "fix": "centre the label in its button, or fill the empty side with an icon",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "nav-current",
+    "where": "header.nav.nav--centre",
+    "msg": "the nav stays on screen with 4 links to the page's sections, but never marks the one you are in (no link changes as the page scrolls)",
+    "fix": "mark the link of the section on screen (a colour, a weight or a line under it) as the visitor scrolls",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "action-repeat",
+    "where": "header.nav.nav--centre > div.wrap.nav__bar > div.nav__actions > a.btn.btn--primary \"angebot anfragen\"",
+    "msg": "\"angebot anfragen\" shows 2 times on the first screen at 1440px (nav, hero): the nav's button and the hero's; nothing else on the screen may repeat it",
+    "fix": "show the action once a screen besides the nav's button: the hero's, the close's or the phone bar's, never all at once",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "cta",
+    "where": "section#firmen \"Reinigung für Firmen und Praxen\"",
+    "msg": "a section over 1.5 screens long with no link or button in it",
+    "fix": "add the action: a button in the hero, one on every priced item, one in the closing section",
+    "widths": [
+     390
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "cta",
+    "where": "section#wohnhaus \"Reinigung für Wohnhäuser\"",
+    "msg": "a section over 1.5 screens long with no link or button in it",
+    "fix": "add the action: a button in the hero, one on every priced item, one in the closing section",
+    "widths": [
+     390
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "cta",
+    "where": "section#betrieb \"Ein Kölner Betrieb mit festem Ansprechpa\"",
+    "msg": "a section over 1.5 screens long with no link or button in it",
+    "fix": "add the action: a button in the hero, one on every priced item, one in the closing section",
+    "widths": [
+     390
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "section-gaps",
+    "where": "main#top > section.hero.hero--split / section#firmen",
+    "msg": "118px between these sections, -39% against the median 194px",
+    "fix": "use one gap between sections (all within 25% of each other)",
+    "widths": [
+     390
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "photo-set",
+    "where": "div.wrap > div.closing__cta.close--photo > div.close__media > img \"close.webp\"",
+    "msg": "6 photographs in more than one look: warm and cool photographs mixed (b* -6 to +15); the odd one out is close.webp",
+    "fix": "grade the photographs to one look (light, colour, warmth), or replace the odd one out",
+    "widths": [
+     390
+    ],
+    "from": "consistency"
+   }
+  ],
+  "crashed": [],
+  "seconds": {
+   "consistency": 116,
+   "layout": 3
+  }
+ },
+ "open": [],
+ "waived": [
+  {
+   "check": "copy-headings",
+   "where": "h2#ablauf-h \"So läuft ein Auftrag ab\"",
+   "msg": "\"So läuft ein Auftrag ab\" names no product, part, place or section (3 headings like it; at most one brand line per page) (and 2 more like it: \"Reinigung für Wohnhäuser\", \"Anfrage für Ihr Objekt\")",
+   "fix": "name the thing in every heading: the product, a part, the place or a section noun",
+   "widths": [
+    1440
+   ],
+   "from": "consistency",
+   "ids": [
+    "copy-headings"
+   ],
+   "wheres": [
+    "h2#ablauf-h \"So läuft ein Auftrag ab\""
+   ],
+   "reason": "German page: the headings name Auftrag, Wohnhäuser and Objekt, but the noun list is English only"
+  },
+  {
+   "check": "phone-number",
+   "where": "div.wrap.grid > div.span-6.stack-5 > div.section-head > p \"0173 2831352\"",
+   "msg": "a phone number with its area code: \"0173 2831352\"; a visitor can dial it and reach a stranger",
+   "fix": "drop the number and its tel: link (a \"Request a call\" form may stand in), unless the brief gives the number",
+   "widths": [
+    1440
+   ],
+   "from": "consistency",
+   "ids": [
+    "phone-number"
+   ],
+   "wheres": [
+    "div.wrap.grid > div.span-6.stack-5 > div.section-head > p \"0173 2831352\""
+   ],
+   "reason": "the client's real business phone from their live site; the rule is for invented demo businesses"
+  },
+  {
+   "check": "phone-number",
+   "where": "div.span-6.stack-5 > div.section-head > p > a \"tel:+491732831352\"",
+   "msg": "a tel: link calls a number in a real dialable format: \"tel:+491732831352\"; a visitor can dial it and reach a stranger",
+   "fix": "drop the number and its tel: link (a \"Request a call\" form may stand in), unless the brief gives the number",
+   "widths": [
+    1440
+   ],
+   "from": "consistency",
+   "ids": [
+    "phone-number"
+   ],
+   "wheres": [
+    "div.span-6.stack-5 > div.section-head > p > a \"tel:+491732831352\""
+   ],
+   "reason": "the tel: link of the client's real business phone from their live site, printed once"
+  },
+  {
+   "check": "hero-lines",
+   "where": "section.hero h1",
+   "msg": "the check fills the h1 to 45 characters (this hero's maxChars in heroes.json), not the page's own: it takes 4 lines at 1440, 3 at most",
+   "fix": "the check fills the h1 to this hero's maxChars, not your own: take the next type pairing the deal printed (start.mjs); when the h1 is final and fits, waive it (target: section.hero h1)",
+   "widths": [
+    1440,
+    390
+   ],
+   "from": "layout",
+   "ids": [
+    "hero-lines"
+   ],
+   "wheres": [
+    "section.hero h1"
+   ],
+   "reason": "German page: the stress test fills the h1 with a German compound to 45 characters; the real h1 (37 characters) sets on 2 lines and both dealt pairings fail the same way"
+  }
+ ],
+ "warnCount": 26,
+ "at": "2026-11-12T19:31:34.328Z"
+}
